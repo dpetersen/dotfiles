@@ -1,0 +1,10 @@
+setopt prompt_subst
+autoload colors
+colors
+
+RPROMPT="%{${fg[green]}%}<%{${fg[red]}%}%~%{${fg[green]}%}>"
+
+git_b='$(get_git_prompt_info '%b')'
+git_s='$(get_git_prompt_info '%s')'
+
+PROMPT="$git_b$git_s%{${fg[red]}%}» "

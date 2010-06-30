@@ -1,0 +1,2 @@
+alias viewgem='ruby ~/.zsh.d/scripts/viewgem.rb'
+alias gist='~/.zsh.d/scripts/gist'
