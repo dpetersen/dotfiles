@@ -1,0 +1,13 @@
+--ignore-dir=cache
+--ignore-dir=tmp
+--ignore-dir=gems
+--type-add=ruby=.ru
+--type-add=ruby=.rake
+--type-add=ruby=.haml
+--type-add=ruby=.gemspec
+--type-add=html=.json
+--type-add=html=.coffee
+--type-add=css=.sass
+--type-add=css=.scss
+--sort-files
+--color
