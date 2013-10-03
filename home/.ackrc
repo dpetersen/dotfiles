@@ -9,5 +9,6 @@
 --type-add=html=.coffee
 --type-add=css=.sass
 --type-add=css=.scss
+--type-add=js=.hbs
 --sort-files
 --color
