@@ -9,3 +9,6 @@ export RBENV_ROOT="/opt/rbenv"
 export PATH=$RBENV_ROOT/bin:$PATH
 source $RBENV_ROOT/completions/rbenv.zsh
 eval "$(rbenv init -)"
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
