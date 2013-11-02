@@ -40,8 +40,29 @@ ZSH_THEME="robbyrussell"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git)
+plugins=(git rbenv)
 
 source $ZSH/oh-my-zsh.sh
 
-# Customize to your needs...
+#Added by Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
+
+export VISUAL="vim"
+export EDITOR="vim"
+
+# Some of these aren't even valid for Ruby 1.9+, but whatever.
+export RUBY_HEAP_MIN_SLOTS=800000
+export RUBY_HEAP_FREE_MIN=100000
+export RUBY_HEAP_SLOTS_INCREMENT=300000
+export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
+export RUBY_GC_MALLOC_LIMIT=79000000
+
+# Vi mode
+bindkey -v
+
+alias ls='ls -lhG --color=always'
+alias gs='git status'
+alias ga='git add'
+alias gcv='git commit -v'
+alias gc='git checkout'
+alias be='bundle exec'
