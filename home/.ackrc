@@ -7,8 +7,11 @@
 --type-add=ruby=.gemspec
 --type-add=html=.json
 --type-add=html=.coffee
+--type-add=html=.hbs
+--type-add=html=.handlebars
 --type-add=css=.sass
 --type-add=css=.scss
+--type-add=css=.less
 --type-add=js=.hbs
 --sort-files
 --color
