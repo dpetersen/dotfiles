@@ -51,7 +51,7 @@ export VISUAL="vim"
 export EDITOR="vim"
 
 # Some of these aren't even valid for Ruby 1.9+, but whatever.
-export RUBY_HEAP_MIN_SLOTS=800000
+export RUBY_GC_HEAP_INIT_SLOTS=800000
 export RUBY_HEAP_FREE_MIN=100000
 export RUBY_HEAP_SLOTS_INCREMENT=300000
 export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
