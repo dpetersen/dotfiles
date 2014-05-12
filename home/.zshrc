@@ -60,7 +60,7 @@ export RUBY_GC_MALLOC_LIMIT=79000000
 # Vi mode
 bindkey -v
 
-alias ls='ls -lhG --color=always'
+alias ls='ls -lhG'
 alias gs='git status'
 alias ga='git add'
 alias gcv='git commit -v'
