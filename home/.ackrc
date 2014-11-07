@@ -1,6 +1,8 @@
 --ignore-dir=cache
 --ignore-dir=tmp
 --ignore-dir=gems
+--ignore-dir=log
+--ignore-dir=coverage
 --type-add=ruby=.ru
 --type-add=ruby=.rake
 --type-add=ruby=.haml
