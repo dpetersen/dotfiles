@@ -1,4 +1,5 @@
 --ignore-dir=cache
+--ignore-dir=Godeps
 --ignore-dir=tmp
 --ignore-dir=gems
 --ignore-dir=log
