@@ -67,3 +67,5 @@ alias gcv='git commit -v'
 alias gc='git checkout'
 alias gfp='git fetch origin && git pull origin master'
 alias be='bundle exec'
+
+eval "$(direnv hook zsh)"
