@@ -3,3 +3,5 @@
 	email = don@donpetersen.net
 [core]
 	excludesfile = ~/.gitignore_global
+[push]
+	default = simple
