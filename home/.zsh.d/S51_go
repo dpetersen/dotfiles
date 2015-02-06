@@ -1,2 +1,0 @@
-export GOPATH="/Users/dpetersen/development/gopath"
-export PATH=$PATH:$GOPATH/bin
