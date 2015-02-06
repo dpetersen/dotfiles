@@ -44,28 +44,20 @@ plugins=(git rbenv)
 
 source $ZSH/oh-my-zsh.sh
 
+# load every file in ~/.zsh.d formatted as "SXX_some_task", XX being a number for script ordering              
+for zshrc_snipplet in ~/.zsh.d/S[0-9][0-9]*[^~] ; do           
+        source $zshrc_snipplet         
+done
+
 #Added by Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:~/bin/:$PATH"
 
 export VISUAL="vim"
 export EDITOR="vim"
 
-# Some of these aren't even valid for Ruby 1.9+, but whatever.
-export RUBY_GC_HEAP_INIT_SLOTS=800000
-export RUBY_HEAP_FREE_MIN=100000
-export RUBY_HEAP_SLOTS_INCREMENT=300000
-export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
-export RUBY_GC_MALLOC_LIMIT=79000000
-
 # Vi mode
 bindkey -v
 
 alias ls='ls -lhG'
-alias gs='git status'
-alias ga='git add'
-alias gcv='git commit -v'
-alias gc='git checkout'
-alias gfp='git fetch origin && git pull origin master'
-alias be='bundle exec'
 
 eval "$(direnv hook zsh)"
