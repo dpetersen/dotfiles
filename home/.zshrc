@@ -58,6 +58,10 @@ export EDITOR="vim"
 # Vi mode
 bindkey -v
 
+# Disable shared history, the bane of my existence in tmux windows. Ratio of
+# accidental vs. intended commands run: 50-1.
+setopt no_share_history
+
 # Something to do with getting C-s mappable in Vim, and maybe stopping it from
 # halting things altogether like this is the 1970s.
 # source: http://stackoverflow.com/questions/3446320/in-vim-how-to-map-save-to-ctrl-s
