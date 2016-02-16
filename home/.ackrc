@@ -6,6 +6,8 @@
 --ignore-dir=coverage
 --ignore-dir=node_modules
 --ignore-dir=bower_components
+--ignore-dir=vendor
+--ignore-file=match:coverage.html
 --type-add=ruby=.ru
 --type-add=ruby=.rake
 --type-add=ruby=.haml
