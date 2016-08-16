@@ -5,3 +5,5 @@
 	excludesfile = ~/.gitignore_global
 [push]
 	default = simple
+[rebase]
+	instructionFormat = (%an <%ae>) %s
