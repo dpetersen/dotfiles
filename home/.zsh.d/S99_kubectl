@@ -1,2 +1,1 @@
 alias k=kubectl
-source ~/.zsh.d/kubectl/zsh/kubectl
