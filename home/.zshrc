@@ -49,8 +49,10 @@ for zshrc_snipplet in ~/.zsh.d/S[0-9][0-9]*[^~] ; do
         source $zshrc_snipplet         
 done
 
-#Added by Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:~/bin/:$PATH"
+if [[ -z $TMUX ]]; then
+        #Added by Heroku Toolbelt
+        export PATH="/usr/local/heroku/bin:$PATH"
+fi
 
 export VISUAL="vim"
 export EDITOR="vim"
