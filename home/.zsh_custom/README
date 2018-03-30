@@ -1,0 +1,1 @@
+This directly holds oh-my-zsh custom plugins. I can't use .homesick_subdir because the default oh-my-zsh custom location (~/.oh-my-zsh/custom) is already a submodule and so can't hold more submodules.
