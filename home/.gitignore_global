@@ -2,3 +2,4 @@
 *.swp
 .envrc
 dump.rdb
+runit.sh

@@ -54,11 +54,14 @@ done
 
 if [[ -z $TMUX ]]; then
         #Added by Heroku Toolbelt
-        export PATH="/usr/local/heroku/bin:$PATH"
+        export PATH="/usr/local/heroku/bin:~/bin:$PATH"
 fi
 
-export VISUAL="vim"
-export EDITOR="vim"
+export VISUAL="nvim"
+export EDITOR="nvim"
+
+# for kops wrapper
+export KOPS_MFA_ARN="arn:aws:iam::459931222334:mfa/dpetersen"
 
 # Vi mode
 bindkey -v
@@ -73,5 +76,9 @@ setopt no_share_history
 stty -ixon
 
 alias ls='ls -lhG'
-
 eval "$(direnv hook zsh)"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# changes from rustup, for Rust dev
+export PATH="$HOME/.cargo/bin:$PATH"
