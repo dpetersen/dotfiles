@@ -1,0 +1,8 @@
+if type "exa" > /dev/null; then
+  alias ls="exa --long --git"
+else
+  alias ls="ls -lhG"
+fi
+
+alias vim="nvim"
+alias vi="nvim"

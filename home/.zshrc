@@ -65,6 +65,10 @@ export KOPS_MFA_ARN="arn:aws:iam::459931222334:mfa/dpetersen"
 
 # Vi mode
 bindkey -v
+# Enable Ctrl-v v to edit current command in vim mode
+bindkey -M vicmd "^V" edit-command-line
+# Don't wait half a second to get out of insert mode
+export KEYTIMEOUT=1
 
 # Disable shared history, the bane of my existence in tmux windows. Ratio of
 # accidental vs. intended commands run: 50-1.
@@ -75,10 +79,6 @@ setopt no_share_history
 # source: http://stackoverflow.com/questions/3446320/in-vim-how-to-map-save-to-ctrl-s
 stty -ixon
 
-alias ls='ls -lhG'
 eval "$(direnv hook zsh)"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# changes from rustup, for Rust dev
-export PATH="$HOME/.cargo/bin:$PATH"
