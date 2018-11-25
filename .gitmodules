@@ -1,6 +1,3 @@
-[submodule "home/.oh-my-zsh"]
-	path = home/.oh-my-zsh
-	url = https://github.com/robbyrussell/oh-my-zsh.git
 [submodule "home/.tmux/plugins/tmux-sensible"]
 	path = home/.tmux/plugins/tmux-sensible
 	url = https://github.com/tmux-plugins/tmux-sensible.git
@@ -10,9 +7,3 @@
 [submodule "home/.tmux/plugins/tmux-plugin-manager"]
 	path = home/.tmux/plugins/tmux-plugin-manager
 	url = https://github.com/tmux-plugins/tpm.git
-[submodule "home/.zsh_custom/plugins/zsh-syntax-highlighting"]
-	path = home/.zsh_custom/plugins/zsh-syntax-highlighting
-	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
-[submodule "home/.zsh_custom/plugins/zsh-autosuggestions"]
-	path = home/.zsh_custom/plugins/zsh-autosuggestions
-	url = https://github.com/zsh-users/zsh-autosuggestions.git
