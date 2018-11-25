@@ -1,1 +1,2 @@
-home/.zsh.d/*_unversioned
+/home/.config/fish/fishd.*
+/home/.config/fish/fundle/*
