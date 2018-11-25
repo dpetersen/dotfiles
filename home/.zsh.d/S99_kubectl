@@ -1,7 +1,0 @@
-alias k=kubectl
-
-# multi-pod kubernetes log tailing:
-# https://github.com/wercker/stern
-if [ $commands[stern] ]; then
-  source <(stern --completion=zsh)
-fi

@@ -1,1 +1,0 @@
-alias runjet='jet steps --key-path=ci/codeship.aes --debug --ci-branch=v-jet-test --ci-commit-id=$(git rev-parse HEAD) --ci-committer-username=`whoami` --ci-repo-name=${PWD##*/} -e CI_NAME=codeship'
