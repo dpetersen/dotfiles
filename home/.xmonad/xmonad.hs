@@ -1,16 +1,28 @@
 import XMonad
+import XMonad.Config.Desktop
 import XMonad.Hooks.ManageDocks
 import XMonad.Util.SpawnOnce
+import XMonad.Util.EZConfig
+import XMonad.Hooks.EwmhDesktops
+
+myTerminal = "alacritty"
+myLocker = "slock"
+myLauncher = "$(yeganesh -x -- -fn 'monospace-8' -nb '#000000' -nf '#FFFFFF' -sb '#7C7C7C' -sf '#CEFFAC')"
 
 myStartupHook = do
-  --spawnOnce "$XDG_CONFIG_HOME/polybar/launch.sh"
-  spawnOnce "/home/dpetersen/polybar/launch.sh"
+  spawnOnce "$HOME/.config/polybar/launch.sh"
+  spawnOnce "nitrogen --restore"
 
 main=do
-  xmonad $ defaultConfig
+  xmonad $ desktopConfig
     {
-    terminal = "alacritty",
-    layoutHook=avoidStruts $ layoutHook defaultConfig,
-    manageHook=manageHook defaultConfig <+> manageDocks,
-    startupHook = myStartupHook
+    terminal = myTerminal,
+    startupHook = do
+      startupHook desktopConfig
+      myStartupHook
     }
+    `additionalKeysP`
+    [
+      ("xK_p", spawn myLauncher),
+      ("xK_b", spawn myLocker)
+    ]
