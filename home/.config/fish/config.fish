@@ -62,7 +62,7 @@ export BAT_THEME="zenburn"
 alias cat=bat
 
 if type "exa" > /dev/null
-  alias ls="exa --long --git"
+  alias ls="exa --long --git --group-directories-first"
 else
   alias ls="ls -lhG"
 end
