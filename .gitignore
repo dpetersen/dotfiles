@@ -1,2 +1,3 @@
 /home/.config/fish/fishd.*
 /home/.config/fish/fundle/*
+home/.config/nvim/autoload/plug.vim.old
