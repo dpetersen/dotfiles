@@ -47,7 +47,7 @@ Plug 'vim-ruby/vim-ruby', { 'for': 'rb' }
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'tpope/vim-haml', { 'for': 'haml' }
 Plug 'pangloss/vim-javascript', { 'for': 'js' }
-Plug 'rust-lang/rust.vim', { 'for': 'rs' }
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'rhysd/vim-go-impl', { 'for': 'go' }
@@ -56,10 +56,9 @@ Plug 'Quramy/tsuquyomi', { 'for': 'ts' }
 Plug 'jason0x43/vim-js-indent', { 'for': 'js' }
 Plug 'tpope/vim-jdaddy', { 'for': 'json' }
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'janko-m/vim-test'
+Plug 'towolf/vim-helm'
 
 call plug#end()
 
@@ -192,6 +191,21 @@ au BufNewFile,BufRead *.dockerfile set filetype=dockerfile
 " For the terraform plugin and to consistently format Terraform files.
 let g:terraform_fmt_on_save = 1
 
+" Use ripgrep for search if available
+if executable('rg')
+  let g:ackprg = 'rg --vimgrep'
+endif
+
+" https://vim.fandom.com/wiki/Diff_current_buffer_and_the_original_file
+function! s:DiffWithSaved()
+  let filetype=&ft
+  diffthis
+  vnew | r # | normal! 1Gdd
+  diffthis
+  exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+endfunction
+com! DiffSaved call s:DiffWithSaved()
+
 " Unite mappings {{{
 map <leader>ar :UniteResume<CR>
 map <leader>ab :Unite -no-split -start-insert buffer<CR>
@@ -199,7 +213,7 @@ map <leader>ay :Unite -start-insert history/yank<CR>
 map <leader>af :Unite -no-split -start-insert file_rec/neovim<CR>
 map <leader>ag :Unite grep:.<CR>
 
-let g:unite_source_grep_command = 'ack-grep'
+let g:unite_source_grep_command = 'rg'
 let g:unite_source_grep_default_opts = '-i --no-heading --no-color -k -H'
 let g:unite_source_grep_recursive_opt = ''
 
@@ -379,22 +393,7 @@ augroup rustlangstyle
   autocmd!
   autocmd BufRead,BufNewFile Cargo.toml,Cargo.lock,*.rs compiler cargo
   autocmd BufRead,BufNewFile Cargo.toml,Cargo.lock,*.rs let b:dispatch = 'cargo run'
-  
-  autocmd FileType rust setlocal omnifunc=LanguageClient#complete
-  
-  " As stolen from the LanguageClient plugin's README. These are applicable to
-  " more than Rust, but lets see them actually work for a minute before we get
-  " too crazy:
-  " https://github.com/autozimu/LanguageClient-neovim
-  autocmd FileType rust nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-  autocmd FileType rust nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-  autocmd FileType rust nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-  autocmd FileType rust nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 augroup END
-
-let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rustup', 'run', 'stable', 'rls'],
-    \ }
 
 " part of rust-lang/rust.vim
 let g:rustfmt_autosave = 1
