@@ -1,9 +1,9 @@
 # Increase backlight
-"xbacklight -inc 20"
-   XF86MonBrightnessUp
-# Decrease backlight
-"xbacklight -dec 20"
-   XF86MonBrightnessDown
+#"xbacklight -inc 20"
+#   XF86MonBrightnessUp
+## Decrease backlight
+#"xbacklight -dec 20"
+#   XF86MonBrightnessDown
 
 ## Increase volume
 #"pactl set-sink-volume @DEFAULT_SINK@ +1000"

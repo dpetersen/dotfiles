@@ -53,11 +53,17 @@ module-margin-right = 2
 
 font-0 = fixed:pixelsize=10;1
 font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
-font-2 = "Wuncon Siji:pixelsize=10;1"
+font-2 = Siji:pixelsize=10;1
 
 modules-left = ewmh
-modules-center = xwindow
-modules-right = filesystem xbacklight xkeyboard memory cpu eth wlan battery temperature date powermenu
+modules-center = spotify pulseaudio system-bluetooth-bluetoothctl
+modules-right = cpu memory filesystem eth wlan battery temperature updates-arch-combined date
+
+; other modules:
+;   - xwindow - title bar of the current focused window
+;   - xbacklight - backlight level
+;   - xkeyboard - keyboard layout
+;   - powermenu - menu for shutting down
 
 tray-position = right
 tray-padding = 2
@@ -71,7 +77,7 @@ cursor-scroll = ns-resize
 
 [module/xwindow]
 type = internal/xwindow
-label = %title:0:30:...%
+label = %title:0:60:...%
 
 [module/xkeyboard]
 type = internal/xkeyboard
@@ -92,9 +98,7 @@ label-indicator-underline = ${colors.secondary}
 [module/filesystem]
 type = internal/fs
 interval = 25
-
 mount-0 = /
-
 label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.foreground-alt}
@@ -177,10 +181,6 @@ format-connected-underline = #9f78e1
 label-connected = %ifname% %upspeed% %downspeed%
 
 format-disconnected =
-;format-disconnected = <label-disconnected>
-;format-disconnected-underline = ${self.format-connected-underline}
-;label-disconnected = %ifname% disconnected
-;label-disconnected-foreground = ${colors.foreground-alt}
 
 [module/wlan]
 type = internal/network
@@ -192,10 +192,6 @@ format-connected-underline = #9f78e1
 label-connected = %essid% %upspeed% %downspeed%
 
 format-disconnected =
-;format-disconnected = <label-disconnected>
-;format-disconnected-underline = ${self.format-connected-underline}
-;label-disconnected = %ifname% disconnected
-;label-disconnected-foreground = ${colors.foreground-alt}
 
 ramp-signal-0 = 
 ramp-signal-1 = 
@@ -211,7 +207,7 @@ interval = 5
 date =
 date-alt = " %Y-%m-%d"
 
-time = %H:%M
+time = %a %b %d %I:%M%p
 time-alt = %H:%M:%S
 
 format-prefix = 
@@ -318,8 +314,8 @@ format-underline = #f50a4d
 format-warn = <ramp> <label-warn>
 format-warn-underline = ${self.format-underline}
 
-label = %temperature-c%
-label-warn = %temperature-c%
+label = %temperature-f%
+label-warn = %temperature-f%
 label-warn-foreground = ${colors.secondary}
 
 ramp-0 = 
@@ -355,6 +351,25 @@ menu-2-0 = power off
 menu-2-0-exec = sudo poweroff
 menu-2-1 = cancel
 menu-2-1-exec = menu-open-0
+
+[module/system-bluetooth-bluetoothctl]
+type = custom/script
+exec = /usr/share/polybar/scripts/system-bluetooth-bluetoothctl.sh
+tail = true
+click-left = /usr/share/polybar/scripts/system-bluetooth-bluetoothctl.sh --toggle
+
+[module/updates-arch-combined]
+type = custom/script
+exec = /usr/share/polybar/scripts/updates-arch-combined.sh
+interval = 600
+
+[module/spotify]
+type = custom/script
+interval = 3
+format-prefix = " "
+format = <label>
+exec = python ~/.config/polybar/polybar-spotify/spotify_status.py -f '{play_pause} {artist}: {song}'
+format-underline = #1db954
 
 [settings]
 screenchange-reload = true

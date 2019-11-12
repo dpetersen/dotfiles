@@ -8,6 +8,7 @@ import XMonad.Hooks.EwmhDesktops
 myTerminal = "alacritty"
 myLocker = "slock"
 myLauncher = "$(yeganesh -x -- -fn 'monospace-8' -nb '#000000' -nf '#FFFFFF' -sb '#7C7C7C' -sf '#CEFFAC')"
+myBrowser = "google-chrome-stable"
 
 myStartupHook = do
   spawnOnce "$HOME/.config/polybar/launch.sh"
@@ -24,5 +25,6 @@ main=do
     `additionalKeysP`
     [
       ("xK_p", spawn myLauncher),
+      ("xK_g", spawn myBrowser),
       ("xK_b", spawn myLocker)
     ]

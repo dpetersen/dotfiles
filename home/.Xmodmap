@@ -2,3 +2,11 @@ clear lock
 clear control
 keycode 66 = Control_L
 add control = Control_L Control_R
+
+! Home Machine Code Keyboard:
+! state 0x8, keycode 64 (keysym 0xffe9, Alt_L), same_screen YES,
+! state 0x0, keycode 133 (keysym 0xffeb, Super_L), same_screen YES,
+! remove Mod1 = Alt_L
+! remove Mod4 = Super_L
+! add Mod1 = Super_L
+! add Mod4 = Alt_L
