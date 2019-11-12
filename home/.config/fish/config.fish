@@ -7,10 +7,9 @@ fundle plugin 'edc/bass'
 # gcloud + gsutil completion. Google has path script support for fish, but not
 # completion
 fundle plugin 'aliz-ai/google-cloud-sdk-fish-completion'
-# There are many options for this, but this seems like a decent one. There is a
-# project you found to use cobra to generate man pages, but that won't help you
-# complete resource names
-fundle plugin 'danhper/fish-kubectl'
+# I started using 'danhper/fish-kubectl', which was pretty rough. This needs to
+# be addressed in cobra and then kubectl, but it's not
+fundle plugin 'evanlucas/fish-kubectl-completions'
 
 fundle init
 
@@ -30,6 +29,10 @@ switch (uname)
     case '*'
         [ -f /home/dpetersen/.homesick/repos/homeshick/homeshick.fish ]; and source /home/dpetersen/.homesick/repos/homeshick/homeshick.fish
         [ -f /home/dpetersen/.homesick/repos/homeshick/completions/homeshick.fish ]; and source /home/dpetersen/.homesick/repos/homeshick/completions/homeshick.fish
+        [ -f /usr/share/autojump/autojump.fish ]; and source /usr/share/autojump/autojump.fish
+        # Ctrl-j for autojump into fzf
+        bind \cj "(cat ~/.local/share/autojump/autojump.txt | sort -nr | awk -F '\t' '{print \$NF}' | fzf +s)"
+        alias fj="cd (cat ~/.local/share/autojump/autojump.txt | sort -nr | awk -F '\t' '{print \$NF}' | fzf +s)"
 end
 
 # Cargo
@@ -40,6 +43,10 @@ switch (uname)
         set PATH $PATH /home/dpetersen/.cargo/bin
 end
 
+set PATH $PATH /home/dpetersen/go/bin
+# https://arslan.io/2019/08/02/why-you-should-use-a-go-module-proxy/
+export GOPROXY="https://proxy.golang.org"
+
 # The next line updates PATH for the Google Cloud SDK.
 [ -f '/home/dpetersen/google-cloud-sdk/path.fish.inc' ]; and source '/home/dpetersen/google-cloud-sdk/path.fish.inc'
 ## The next line enables shell command completion for gcloud.
@@ -49,17 +56,28 @@ export TERM="xterm-256color"
 export EDITOR="nvim"
 export VISUAL="nvim"
 
-alias k="kubectl"
+alias startx="ssh-agent startx"
+
+abbr -a t="terraform"
+
+abbr -a k "kubectl"
+abbr -a ko "kubectl18"
+abbr -a kc "kubectx"
+abbr -a kn "kubens"
+
+set PATH $PATH /home/dpetersen/.krew/bin
+abbr -a sterne "stern -Eistio -eokcomputer"
 alias gs="git status"
 alias gc="git checkout"
 alias gcv='git commit -v'
 alias gfp='git fetch origin; and git pull origin master'
 
-alias be='bundle exec'
-alias bes='bundle exec spring'
+abbr -a be 'bundle exec'
+abbr -a bes 'bundle exec spring'
 
 export BAT_THEME="zenburn"
-alias cat=bat
+alias cat="bat -p"
+alias by="bat -p -lyaml"
 
 if type "exa" > /dev/null
   alias ls="exa --long --git --group-directories-first"
@@ -69,6 +87,9 @@ end
 
 alias vim="nvim"
 alias vi="nvim"
+
+alias pbcopy='xclip -selection clipboard'
+alias pbpaste='xclip -selection clipboard -o'
 
 eval (direnv hook fish)
 
@@ -94,10 +115,10 @@ function fish_prompt --description 'Write out the prompt'
   echo -n -s "$USER" ' ' (set_color $color_cwd) (prompt_pwd) (set_color normal) "$git_branch" "$suffix "
 end
 
-# TODO fzf
-
 # TODO evaluate this
 # Something to do with getting C-s mappable in Vim, and maybe stopping it from
 # halting things altogether like this is the 1970s.
 # source: http://stackoverflow.com/questions/3446320/in-vim-how-to-map-save-to-ctrl-s
 #stty -ixon
+
+eval (starship init fish)
