@@ -58,7 +58,7 @@ export VISUAL="nvim"
 
 alias startx="ssh-agent startx"
 
-abbr -a t="terraform"
+abbr -a t "terraform"
 
 abbr -a k "kubectl"
 abbr -a ko "kubectl18"
