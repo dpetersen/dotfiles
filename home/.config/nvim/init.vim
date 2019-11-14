@@ -397,6 +397,11 @@ augroup END
 
 " part of rust-lang/rust.vim
 let g:rustfmt_autosave = 1
+" It should figure this out dynamically. It can with a rustfmt.toml, but like
+" I want to have to specify the edition in every project I create. Once this
+" is merged you can ditch this:
+" https://github.com/rust-lang/rust.vim/pull/369
+let g:rustfmt_options = '--edition=2018'
 " }}}
 
 " Coffee specific options {{{
