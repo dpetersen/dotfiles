@@ -4,6 +4,3 @@
 [submodule "home/.tmux/plugins/tmux-pain-control"]
 	path = home/.tmux/plugins/tmux-pain-control
 	url = https://github.com/tmux-plugins/tmux-pain-control.git
-[submodule "home/.tmux/plugins/tmux-plugin-manager"]
-	path = home/.tmux/plugins/tmux-plugin-manager
-	url = https://github.com/tmux-plugins/tpm.git
