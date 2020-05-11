@@ -50,3 +50,9 @@ UI
 ELB
 DNSimple
 Istio
+CloudSQL
+JSON
+ConfigMaps
+IAM
+ServiceAccount
+namespaces
