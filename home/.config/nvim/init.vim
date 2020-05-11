@@ -401,6 +401,11 @@ augroup rustlangstyle
   autocmd!
   autocmd BufRead,BufNewFile Cargo.toml,Cargo.lock,*.rs compiler cargo
   autocmd BufRead,BufNewFile Cargo.toml,Cargo.lock,*.rs let b:dispatch = 'cargo run'
+
+  nmap <silent> gd <Plug>(coc-definition)
+  nmap <silent> gy <Plug>(coc-type-definition)
+  nmap <silent> gi <Plug>(coc-implementation)
+  nmap <silent> gr <Plug>(coc-references)
 augroup END
 
 " part of rust-lang/rust.vim
