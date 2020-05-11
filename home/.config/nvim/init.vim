@@ -76,6 +76,10 @@ set novisualbell
 " Use filetype appropriate indent
 filetype plugin indent on
 
+" As recommended by coc.nvim. Milliseconds until swap is written, but also
+" used for CursorHold event that is essentially the "hover" event, I think.
+set updatetime=300
+
 " Automatically indent
 set autoindent
 set smartindent
@@ -205,6 +209,10 @@ function! s:DiffWithSaved()
   exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
 endfunction
 com! DiffSaved call s:DiffWithSaved()
+
+" it's incredibly flakey and often folds mid-edit, sometimes making editing
+" impossible
+let g:vim_markdown_folding_disabled = 1
 
 " Unite mappings {{{
 map <leader>ar :UniteResume<CR>
@@ -416,4 +424,13 @@ autocmd BufNewFile,BufReadPost *.hbs setl shiftwidth=2 expandtab
 " CSS specific options {{{
 autocmd BufNewFile,BufReadPost *.css setl shiftwidth=2 expandtab
 autocmd BufNewFile,BufReadPost *.scss setl shiftwidth=2 expandtab
+" }}}
+
+" JSON specific options {{{
+
+augroup jsonindentstyle
+  autocmd!
+  autocmd FileType json set autoindent shiftwidth=2 softtabstop=2 expandtab
+augroup END
+
 " }}}
