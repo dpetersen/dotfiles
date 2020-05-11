@@ -70,7 +70,8 @@ abbr -a sterne "stern -Eistio -eokcomputer"
 alias gs="git status"
 alias gc="git checkout"
 alias gcv='git commit -v'
-alias gfp='git fetch origin; and git pull origin master'
+alias gfp='git fetch origin; and git pull'
+alias gfpt='git fetch origin; and git pull; and git trim'
 
 abbr -a be 'bundle exec'
 abbr -a bes 'bundle exec spring'
