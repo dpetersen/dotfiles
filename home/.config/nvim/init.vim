@@ -41,6 +41,7 @@ Plug 'Shougo/neoyank.vim'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'w0rp/ale'
 Plug 'tpope/vim-rails'
+Plug 'tpope/vim-rhubarb'
 Plug 'plasticboy/vim-markdown', { 'for': [ 'md', 'markdown' ] }
 Plug 'hashivim/vim-terraform', { 'for': 'tf' }
 Plug 'vim-ruby/vim-ruby', { 'for': 'rb' }
@@ -57,6 +58,8 @@ Plug 'jason0x43/vim-js-indent', { 'for': 'js' }
 Plug 'tpope/vim-jdaddy', { 'for': 'json' }
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
+"Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile', 'for': 'yaml'} 
 Plug 'janko-m/vim-test'
 Plug 'towolf/vim-helm'
 
@@ -213,6 +216,23 @@ com! DiffSaved call s:DiffWithSaved()
 " it's incredibly flakey and often folds mid-edit, sometimes making editing
 " impossible
 let g:vim_markdown_folding_disabled = 1
+
+" CoC stuff options {{{
+
+" I'm going to wait a minute before I just globally remap a bunch of stuff for
+" CoC, but I will put some of it here and then in specific languages probably
+" copy-paste a few things before I completely switch to this plugin.
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+
+" }}}
 
 " Unite mappings {{{
 map <leader>ar :UniteResume<CR>
@@ -402,19 +422,29 @@ augroup rustlangstyle
   autocmd BufRead,BufNewFile Cargo.toml,Cargo.lock,*.rs compiler cargo
   autocmd BufRead,BufNewFile Cargo.toml,Cargo.lock,*.rs let b:dispatch = 'cargo run'
 
-  nmap <silent> gd <Plug>(coc-definition)
+  " Use `[g` and `]g` to navigate diagnostics
+  nmap <silent> [g <Plug>(coc-diagnostic-prev)
+  nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+  nmap <silent> cgd <Plug>(coc-definition)
   nmap <silent> gy <Plug>(coc-type-definition)
   nmap <silent> gi <Plug>(coc-implementation)
   nmap <silent> gr <Plug>(coc-references)
+
+  " Use K to show documentation in preview window.
+  nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+  " Symbol renaming.
+  nmap <leader>gr <Plug>(coc-rename)
+
+  " Applying codeAction to the selected region.
+  " Example: `<leader>aap` for current paragraph
+  xmap <leader>ga <Plug>(coc-codeaction-selected)
+  nmap <leader>ga <Plug>(coc-codeaction-selected)
 augroup END
 
 " part of rust-lang/rust.vim
 let g:rustfmt_autosave = 1
-" It should figure this out dynamically. It can with a rustfmt.toml, but like
-" I want to have to specify the edition in every project I create. Once this
-" is merged you can ditch this:
-" https://github.com/rust-lang/rust.vim/pull/369
-let g:rustfmt_options = '--edition=2018'
 " }}}
 
 " Coffee specific options {{{
