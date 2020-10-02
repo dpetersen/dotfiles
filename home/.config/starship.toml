@@ -16,5 +16,8 @@ disabled = true
 [package]
 disabled = true
 
+[gcloud]
+disabled = true
+
 [[battery.display]]
 threshold = 50
