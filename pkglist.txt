@@ -44,7 +44,7 @@ git
 git-absorb
 git-delta-bin
 git-trim
-github-cli-bin
+github-cli
 google-chrome
 goreleaser-bin
 graphviz
