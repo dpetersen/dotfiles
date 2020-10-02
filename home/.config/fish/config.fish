@@ -31,7 +31,7 @@ switch (uname)
         [ -f /home/dpetersen/.homesick/repos/homeshick/completions/homeshick.fish ]; and source /home/dpetersen/.homesick/repos/homeshick/completions/homeshick.fish
         [ -f /usr/share/autojump/autojump.fish ]; and source /usr/share/autojump/autojump.fish
         # Ctrl-j for autojump into fzf
-        bind \cj "(cat ~/.local/share/autojump/autojump.txt | sort -nr | awk -F '\t' '{print \$NF}' | fzf +s)"
+        bind \cj "cd (cat ~/.local/share/autojump/autojump.txt | sort -nr | awk -F '\t' '{print \$NF}' | fzf +s)"
         alias fj="cd (cat ~/.local/share/autojump/autojump.txt | sort -nr | awk -F '\t' '{print \$NF}' | fzf +s)"
 end
 
@@ -65,8 +65,15 @@ abbr -a ko "kubectl18"
 abbr -a kc "kubectx"
 abbr -a kn "kubens"
 
+abbr -a g "gcloud"
+
+# How often do I switch contexts and namespace? Welp, often enough for Ctrl-k/n
+# to be a hotkey.
+bind \ck "kubectx"
+bind \cn "kubens"
+
 set PATH $PATH /home/dpetersen/.krew/bin
-abbr -a sterne "stern -Eistio -eokcomputer"
+abbr -a sterne "stern -Eistio\|pgbouncer -eokcomputer"
 alias gs="git status"
 alias gc="git checkout"
 alias gcv='git commit -v'
@@ -121,5 +128,18 @@ end
 # halting things altogether like this is the 1970s.
 # source: http://stackoverflow.com/questions/3446320/in-vim-how-to-map-save-to-ctrl-s
 #stty -ixon
+
+# This is used by coc-yaml in Neovim. This is far from perfect but generally
+# keep this up-to-date with the K8s version you use most frequently, I guess.
+export KUBERNETES_SCHEMA_URL="https://raw.githubusercontent.com/garethr/kubernetes-json-schema/master/v1.14.0-standalone-strict/all.json"
+
+# Tells bspwm's keyboard shortcut thing to not use fish, which can have issues
+set -U SXHKD_SHELL /usr/bin/bash
+
+set fish_greeting
+
+eval (gh completion fish)
+
+source /opt/asdf-vm/asdf.fish
 
 eval (starship init fish)
