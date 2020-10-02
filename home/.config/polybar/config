@@ -16,25 +16,22 @@
 ;
 ;==========================================================
 
+
 [colors]
-;background = ${xrdb:color0:#222}
-background = #222
-background-alt = #444
-;foreground = ${xrdb:color7:#222}
-foreground = #dfdfdf
-foreground-alt = #555
-primary = #ffb52a
+background = #333333
+foreground = #dcdccc
+foreground-alt = #00ff00
 secondary = #e60053
-alert = #bd2c40
 
 [bar/main]
+dpi = 140
 monitor = ${env:MONITOR:eDP1}
-width = 100%
-height = 27
-;offset-x = 1%
-;offset-y = 1%
-;radius = 6.0
-fixed-center = false
+width = 60%
+height = 48
+offset-x = 20%
+offset-y = 0.3%
+radius = 6.0
+fixed-center = true
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -57,7 +54,7 @@ font-2 = Siji:pixelsize=10;1
 
 modules-left = ewmh
 modules-center = spotify pulseaudio system-bluetooth-bluetoothctl
-modules-right = cpu memory filesystem eth usb-eth wlan battery temperature updates-arch-combined date
+modules-right = desktop-eth eth usb-eth wlan cpu memory filesystem battery updates-arch-combined date
 
 ; other modules:
 ;   - xwindow - title bar of the current focused window
@@ -66,8 +63,7 @@ modules-right = cpu memory filesystem eth usb-eth wlan battery temperature updat
 ;   - powermenu - menu for shutting down
 
 tray-position = right
-tray-padding = 2
-;tray-transparent = true
+tray-padding = 10
 ;tray-background = #0063ff
 
 ;override-redirect = true
@@ -170,6 +166,17 @@ format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #4bffdc
 label = %percentage_used%%
+
+[module/desktop-eth]
+type = internal/network
+interface = enp4s0
+interval = 3.0
+
+format-connected = <label-connected>
+format-connected-underline = #9f78e1
+label-connected = %ifname% %upspeed% %downspeed%
+
+format-disconnected =
 
 [module/eth]
 type = internal/network
@@ -371,7 +378,7 @@ click-left = /usr/share/polybar/scripts/system-bluetooth-bluetoothctl.sh --toggl
 
 [module/updates-arch-combined]
 type = custom/script
-exec = /usr/share/polybar/scripts/updates-arch-combined.sh
+exec = /usr/share/polybar/scripts/updates-pacman-aurhelper.sh
 interval = 600
 
 [module/spotify]
