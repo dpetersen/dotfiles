@@ -36,7 +36,6 @@ exa
 fakeroot
 fd
 fish
-fisher
 fontforge
 fzf
 gimp
@@ -48,6 +47,7 @@ github-cli
 google-chrome
 goreleaser-bin
 graphviz
+grpcurl-bin
 grub
 heroku-cli
 httpie
@@ -60,6 +60,7 @@ links
 linux
 linux-firmware
 logrotate
+luit
 lvm2
 make
 man-pages
@@ -70,6 +71,7 @@ netctl
 nitrogen
 noto-fonts-emoji
 npm
+nushell-bin
 nvidia
 openssh
 operator-sdk
@@ -111,6 +113,7 @@ terraform-docs-bin
 time
 tmux
 topgrade
+transcribe
 ttf-dejavu
 ttf-fira-code
 ttf-ms-fonts
@@ -125,8 +128,6 @@ xbindkeys
 xclip
 xf86-video-vesa
 xfsprogs
-xmonad
-xmonad-contrib
 xorg-bdftopcf
 xorg-docs
 xorg-font-util
@@ -134,7 +135,6 @@ xorg-fonts-100dpi
 xorg-fonts-75dpi
 xorg-fonts-encodings
 xorg-iceauth
-xorg-luit
 xorg-mkfontscale
 xorg-server-devel
 xorg-server-xephyr
