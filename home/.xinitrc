@@ -12,6 +12,8 @@
 xbindkeys
 redshift &
 blueman-applet &
+dropbox &
+copyq &
 ~/.config/polybar/launch.sh &
 mkdir -p .logs
 
