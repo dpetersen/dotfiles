@@ -99,7 +99,7 @@ alias vi="nvim"
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
 
-eval (direnv hook fish)
+direnv hook fish | source
 
 function fish_prompt --description 'Write out the prompt'
   set -l color_cwd
