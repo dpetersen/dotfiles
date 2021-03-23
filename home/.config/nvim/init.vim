@@ -48,7 +48,7 @@ Plug 'vim-ruby/vim-ruby', { 'for': 'rb' }
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'tpope/vim-haml', { 'for': 'haml' }
 Plug 'pangloss/vim-javascript', { 'for': 'js' }
-Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+Plug 'rust-lang/rust.vim'
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'rhysd/vim-go-impl', { 'for': 'go' }
@@ -62,6 +62,7 @@ Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
 "Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile', 'for': 'yaml'} 
 Plug 'janko-m/vim-test'
 Plug 'towolf/vim-helm'
+Plug 'justinmk/vim-sneak'
 
 call plug#end()
 
@@ -217,6 +218,12 @@ com! DiffSaved call s:DiffWithSaved()
 " impossible
 let g:vim_markdown_folding_disabled = 1
 
+let g:sneak#label = 1
+" This requires a terminal setting or it might just freeze
+" your display and nothing else, which is rad. See:
+" http://stackoverflow.com/questions/3446320/in-vim-how-to-map-save-to-ctrl-s
+nmap <C-s> <Plug>Sneak_s
+
 " CoC stuff options {{{
 
 " I'm going to wait a minute before I just globally remap a bunch of stuff for
@@ -263,13 +270,8 @@ inoremap <esc> <nop>
 nnoremap <leader>ev :split $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
-" C-j in insert mode escapes normal mode and writes the file. With shift,
-" write and quit. This requires a terminal setting or it might just freeze
-" your display and nothing else, which is rad. See:
-" http://stackoverflow.com/questions/3446320/in-vim-how-to-map-save-to-ctrl-s
+" C-j in insert mode escapes normal mode and writes the file.
 inoremap <C-j> <Esc>:w<Enter>
-inoremap <C-s> <Esc>:w<Enter>
-nnoremap <C-s> :w<Enter>
 
 " '<leader>dp/s/v' brings up an :e/sp/vsp prompt in the context of the current file's directory
 noremap <leader>dp :e <C-R>=expand("%:p:h") . "/" <CR>
