@@ -5,7 +5,10 @@
 #]
 
 # Disable specific steps - same options as the command line flag
-disable = ["go"]
+#
+# cargo - I believe this only updates things that were `cargo install`ed, which
+# I don't do.
+disable = ["cargo"]
 
 # Run specific steps - same options as the command line flag
 #only = ["system", "emacs"]
