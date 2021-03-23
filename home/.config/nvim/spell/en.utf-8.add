@@ -63,3 +63,6 @@ kubectl
 #nneccessary
 CIDR
 programmatically
+updatable
+Auth0
+CRD
