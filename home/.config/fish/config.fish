@@ -18,6 +18,7 @@ fundle init
 # going to use Alt-v, which edits the command in $EDITOR. However, having that
 # mode on conflicts with vim mode in weird ways, so the answer is to disable
 # vim mode altogether. Just get used to Alt-v.
+# 2020 Update: still not very good. Breaks Ctrl-e and all kinds of stuff.
 # fish_vi_key_bindings
 
 switch (uname)
@@ -69,8 +70,8 @@ abbr -a g "gcloud"
 
 # How often do I switch contexts and namespace? Welp, often enough for Ctrl-k/n
 # to be a hotkey.
-bind \ck "kubectx"
-bind \cn "kubens"
+bind \ck "kubectx; commandline --function repaint"
+bind \cn "kubens; commandline --function repaint"
 
 set PATH $PATH /home/dpetersen/.krew/bin
 abbr -a sterne "stern -Eistio\|pgbouncer -eokcomputer"
