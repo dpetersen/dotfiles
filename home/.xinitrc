@@ -2,13 +2,6 @@
 
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 
-# xbindkeys
-# redshift &
-# blueman-applet &
-# mkdir -p .logs
-# xmonad 2> .logs/xmonad.err > .logs/xmonad.log
-
-
 xbindkeys
 redshift &
 blueman-applet &
