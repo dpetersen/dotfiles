@@ -48,7 +48,6 @@ Plug 'vim-ruby/vim-ruby', { 'for': 'rb' }
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'tpope/vim-haml', { 'for': 'haml' }
 Plug 'pangloss/vim-javascript', { 'for': 'js' }
-Plug 'rust-lang/rust.vim'
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'rhysd/vim-go-impl', { 'for': 'go' }
@@ -57,14 +56,78 @@ Plug 'Quramy/tsuquyomi', { 'for': 'ts' }
 Plug 'jason0x43/vim-js-indent', { 'for': 'js' }
 Plug 'tpope/vim-jdaddy', { 'for': 'json' }
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
-"Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile', 'for': 'yaml'} 
 Plug 'janko-m/vim-test'
 Plug 'towolf/vim-helm'
 Plug 'justinmk/vim-sneak'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+" Stolen from:
+" https://sharksforarms.dev/posts/neovim-rust/
+Plug 'rust-lang/rust.vim'
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/lsp_extensions.nvim'
+Plug 'nvim-lua/completion-nvim'
 
 call plug#end()
+
+lua <<EOF
+require('nvim-treesitter.configs').setup {
+  ensure_installed = "maintained",
+  highlight = {
+    enable = true,
+  },
+}
+EOF
+
+lua <<EOF
+-- nvim_lsp object
+local nvim_lsp = require'lspconfig'
+
+-- function to attach completion when setting up lsp
+local on_attach = function(client)
+    require'completion'.on_attach(client)
+end
+
+-- Enable rust_analyzer
+nvim_lsp.rust_analyzer.setup({ on_attach=on_attach })
+
+-- Enable diagnostics
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+    virtual_text = true,
+    signs = true,
+    update_in_insert = true,
+  }
+)
+EOF
+
+" menuone: popup even when there's only one match
+" noinsert: Do not insert text until a selection is made
+" noselect: Do not select, force user to select one from the menu
+set completeopt=menuone,noinsert,noselect
+
+" Code navigation shortcuts
+nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> ga    <cmd>lua vim.lsp.buf.code_action()<CR>
+nnoremap <silent> gR    <cmd>lua vim.lsp.buf.rename()<CR>
+"nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+"nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+"nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+"nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+"nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+"nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+"nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+
+" Set updatetime for CursorHold
+" 300ms of no cursor movement to trigger CursorHold
+set updatetime=300
+" Show diagnostic popup on cursor hold
+autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
+
+" Goto previous/next diagnostic warning/error
+nnoremap <silent> g[ <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+nnoremap <silent> g] <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
 
 let mapleader=","
 let maplocalleader=","
@@ -79,10 +142,6 @@ set novisualbell
 
 " Use filetype appropriate indent
 filetype plugin indent on
-
-" As recommended by coc.nvim. Milliseconds until swap is written, but also
-" used for CursorHold event that is essentially the "hover" event, I think.
-set updatetime=300
 
 " Automatically indent
 set autoindent
@@ -223,23 +282,6 @@ let g:sneak#label = 1
 " your display and nothing else, which is rad. See:
 " http://stackoverflow.com/questions/3446320/in-vim-how-to-map-save-to-ctrl-s
 nmap <C-s> <Plug>Sneak_s
-
-" CoC stuff options {{{
-
-" I'm going to wait a minute before I just globally remap a bunch of stuff for
-" CoC, but I will put some of it here and then in specific languages probably
-" copy-paste a few things before I completely switch to this plugin.
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-
-" }}}
 
 " Unite mappings {{{
 map <leader>ar :UniteResume<CR>
@@ -423,27 +465,81 @@ augroup rustlangstyle
   autocmd!
   autocmd BufRead,BufNewFile Cargo.toml,Cargo.lock,*.rs compiler cargo
   autocmd BufRead,BufNewFile Cargo.toml,Cargo.lock,*.rs let b:dispatch = 'cargo run'
-
-  " Use `[g` and `]g` to navigate diagnostics
-  nmap <silent> [g <Plug>(coc-diagnostic-prev)
-  nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-  nmap <silent> cgd <Plug>(coc-definition)
-  nmap <silent> gy <Plug>(coc-type-definition)
-  nmap <silent> gi <Plug>(coc-implementation)
-  nmap <silent> gr <Plug>(coc-references)
-
-  " Use K to show documentation in preview window.
-  nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-  " Symbol renaming.
-  nmap <leader>gr <Plug>(coc-rename)
-
-  " Applying codeAction to the selected region.
-  " Example: `<leader>aap` for current paragraph
-  xmap <leader>ga <Plug>(coc-codeaction-selected)
-  nmap <leader>ga <Plug>(coc-codeaction-selected)
 augroup END
+
+lua << EOF
+  -- local opts = {
+  --   tools = { -- rust-tools options
+  --       -- automatically set inlay hints (type hints)
+  --       -- There is an issue due to which the hints are not applied on the first
+  --       -- opened file. For now, write to the file to trigger a reapplication of
+  --       -- the hints or just run :RustSetInlayHints.
+  --       -- default: true
+  --       autoSetHints = true,
+
+  --       -- whether to show hover actions inside the hover window
+  --       -- this overrides the default hover handler
+  --       -- default: true
+  --       hover_with_actions = true,
+
+  --       runnables = {
+  --           -- whether to use telescope for selection menu or not
+  --           -- default: true
+  --           use_telescope = true
+
+  --           -- rest of the opts are forwarded to telescope
+  --       },
+
+  --       inlay_hints = {
+  --           -- wheter to show parameter hints with the inlay hints or not
+  --           -- default: true
+  --           show_parameter_hints = true,
+
+  --           -- prefix for parameter hints
+  --           -- default: "<-"
+  --           parameter_hints_prefix = "<-",
+
+  --           -- prefix for all the other hints (type, chaining)
+  --           -- default: "=>"
+  --           other_hints_prefix  = "=>",
+
+  --           -- whether to align to the lenght of the longest line in the file
+  --           max_len_align = false,
+
+  --           -- padding from the left if max_len_align is true
+  --           max_len_align_padding = 1,
+
+  --           -- whether to align to the extreme right or not
+  --           right_align = false,
+
+  --           -- padding from the right if right_align is true
+  --           right_align_padding = 7,
+  --       },
+
+  --       hover_actions = {
+  --           -- the border that is used for the hover window
+  --           -- see vim.api.nvim_open_win()
+  --           border = {
+  --             {"╭", "FloatBorder"},
+  --             {"─", "FloatBorder"},
+  --             {"╮", "FloatBorder"},
+  --             {"│", "FloatBorder"},
+  --             {"╯", "FloatBorder"},
+  --             {"─", "FloatBorder"},
+  --             {"╰", "FloatBorder"},
+  --             {"│", "FloatBorder"}
+  --           },
+  --       }
+  --   },
+
+  --   -- all the opts to send to nvim-lspconfig
+  --   -- these override the defaults set by rust-tools.nvim
+  --   -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
+  --   server = {}, -- rust-analyer options
+  -- }
+
+  -- require('rust-tools').setup(opts)
+EOF
 
 " part of rust-lang/rust.vim
 let g:rustfmt_autosave = 1
