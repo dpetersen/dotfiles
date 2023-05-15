@@ -1,3 +1,6 @@
+# This functionality is (currently? forever?) broken on Linux, so disable.
+skip_notify = true
+
 # Additional git repositories to pull
 #git_repos = [
 #    "~/src/*/",
@@ -8,7 +11,7 @@
 #
 # cargo - I believe this only updates things that were `cargo install`ed, which
 # I don't do.
-disable = ["cargo"]
+disable = ["cargo", "asdf"]
 
 # Run specific steps - same options as the command line flag
 #only = ["system", "emacs"]

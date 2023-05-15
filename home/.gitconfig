@@ -3,7 +3,7 @@
         email = don@donpetersen.net
 [core]
 	excludesfile = ~/.gitignore_global
-	pager = delta --theme=zenburn
+	pager = delta --syntax-theme=zenburn
 [pull]
         ff = only
 [push]
