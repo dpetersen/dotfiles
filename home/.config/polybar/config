@@ -53,7 +53,7 @@ font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-2 = Siji:pixelsize=10;1
 
 modules-left = ewmh
-modules-center = spotify pulseaudio system-bluetooth-bluetoothctl
+; modules-center = spotify pulseaudio system-bluetooth-bluetoothctl
 modules-right = desktop-eth eth usb-eth wlan cpu memory filesystem battery updates-arch-combined date
 
 ; other modules:
