@@ -11,6 +11,8 @@ fundle plugin 'aliz-ai/google-cloud-sdk-fish-completion'
 # be addressed in cobra and then kubectl, but it's not
 fundle plugin 'evanlucas/fish-kubectl-completions'
 
+fundle plugin 'rbenv/fish-rbenv'
+
 fundle init
 
 # This is vim mode. HOWEVER, the Vim mode is lacking compared to bash and
