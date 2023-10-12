@@ -20,8 +20,6 @@ Plug 'tpope/vim-endwise'
 Plug 'vim-scripts/argtextobj.vim'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'nathanaelkane/vim-indent-guides'
-Plug 'tpope/vim-bundler'
-Plug 'kien/ctrlp.vim'
 Plug 'vim-scripts/matchit.zip'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-repeat'
@@ -36,69 +34,60 @@ Plug 'majutsushi/tagbar'
 Plug 'tpope/vim-dispatch'
 Plug 'bling/vim-airline'
 Plug 'edkolev/tmuxline.vim'
-Plug 'Shougo/unite.vim'
 Plug 'Shougo/neoyank.vim'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'w0rp/ale'
-Plug 'tpope/vim-rails'
-Plug 'tpope/vim-rhubarb'
-Plug 'plasticboy/vim-markdown', { 'for': [ 'md', 'markdown' ] }
-Plug 'hashivim/vim-terraform', { 'for': 'tf' }
-Plug 'vim-ruby/vim-ruby', { 'for': 'rb' }
-Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
-Plug 'tpope/vim-haml', { 'for': 'haml' }
-Plug 'pangloss/vim-javascript', { 'for': 'js' }
-Plug 'cespare/vim-toml', { 'for': 'toml' }
-Plug 'fatih/vim-go', { 'for': 'go' }
-Plug 'rhysd/vim-go-impl', { 'for': 'go' }
-Plug 'leafgarland/typescript-vim', { 'for': 'ts' }
-Plug 'Quramy/tsuquyomi', { 'for': 'ts' }
-Plug 'jason0x43/vim-js-indent', { 'for': 'js' }
-Plug 'tpope/vim-jdaddy', { 'for': 'json' }
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'janko-m/vim-test'
-Plug 'towolf/vim-helm'
-Plug 'justinmk/vim-sneak'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
-" Stolen from:
-" https://sharksforarms.dev/posts/neovim-rust/
-Plug 'rust-lang/rust.vim'
+" The Wide World of Modern LSP Support
+" A package manager for language servers
+Plug 'williamboman/mason.nvim', { 'do': ':MasonUpdate' }
+" Bridges the gap between Mason and LSPConfig
+Plug 'williamboman/mason-lspconfig.nvim'
+" Official plugin with prebuilt configurations for languages
 Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/lsp_extensions.nvim'
-Plug 'nvim-lua/completion-nvim'
+
+" Languages
+Plug 'rust-lang/rust.vim'
+Plug 'plasticboy/vim-markdown', { 'for': [ 'md', 'markdown' ] }
+Plug 'hashivim/vim-terraform', { 'for': 'tf' }
+Plug 'cespare/vim-toml', { 'for': 'toml' }
+Plug 'towolf/vim-helm'
+" Javascript-ish
+Plug 'pangloss/vim-javascript', { 'for': 'js' }
+Plug 'jason0x43/vim-js-indent', { 'for': 'js' }
+Plug 'tpope/vim-jdaddy', { 'for': 'json' }
+" Ruby-ish
+Plug 'vim-ruby/vim-ruby', { 'for': 'rb' }
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-rhubarb'
+Plug 'tpope/vim-bundler'
 
 call plug#end()
 
 lua <<EOF
+require("mason").setup()
+require("mason-lspconfig").setup {
+        -- List of allowed values:
+        -- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/server-mapping.md
+        ensure_installed = {
+                "lua_ls",
+                "rust_analyzer",
+                "gopls",
+        },
+}
+
+local lspconfig = require("lspconfig")
+lspconfig.gopls.setup {}
+lspconfig.rust_analyzer.setup {}
+
 require('nvim-treesitter.configs').setup {
   ensure_installed = "all",
   highlight = {
     enable = true,
   },
 }
-EOF
-
-lua <<EOF
--- nvim_lsp object
-local nvim_lsp = require'lspconfig'
-
--- function to attach completion when setting up lsp
-local on_attach = function(client)
-    require'completion'.on_attach(client)
-end
-
--- Enable rust_analyzer
-nvim_lsp.rust_analyzer.setup({ on_attach=on_attach })
-
--- Enable diagnostics
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = true,
-    signs = true,
-    update_in_insert = true,
-  }
-)
 EOF
 
 " menuone: popup even when there's only one match
@@ -110,7 +99,7 @@ set completeopt=menuone,noinsert,noselect
 nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> ga    <cmd>lua vim.lsp.buf.code_action()<CR>
-nnoremap <silent> gR    <cmd>lua vim.lsp.buf.rename()<CR>
+"nnoremap <silent> gR    <cmd>lua vim.lsp.buf.rename()<CR>
 "nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
 "nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
 "nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
@@ -127,8 +116,8 @@ set updatetime=300
 " autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
 
 " Goto previous/next diagnostic warning/error
-nnoremap <silent> g[ <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
-nnoremap <silent> g] <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+"nnoremap <silent> g[ <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+"nnoremap <silent> g] <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
 
 let mapleader=","
 let maplocalleader=","
@@ -204,11 +193,6 @@ noremap <leader>gc :Gcommit <CR>
 noremap <leader>gd :Gdiff <CR>
 noremap <leader>gb :Gblame <CR>
 
-" Use slim highlighting for emblem templates
-augroup emblem_as_slim_augroup
-  autocmd BufNewFile,BufRead *.emblem set filetype=slim
-augroup END
-
 " Make Y behave to EOL like most capitolized normal-mode commands.
 noremap Y y$
 
@@ -229,10 +213,6 @@ nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 " Toggle paste mode on and off.
 " source: http://amix.dk/vim/vimrc.html
 map <leader>pp :setlocal paste!<cr>
-
-" Ale linter options
-let g:ale_linters = {'go': ['gofmt', 'go build']}
-let g:airline#extensions#ale#enabled = 1
 
 " Fix for UTF-8 annoyances in vagrant ubuntu
 let g:NERDTreeDirArrows=0
@@ -277,30 +257,6 @@ com! DiffSaved call s:DiffWithSaved()
 " it's incredibly flakey and often folds mid-edit, sometimes making editing
 " impossible
 let g:vim_markdown_folding_disabled = 1
-
-let g:sneak#label = 1
-" This requires a terminal setting or it might just freeze
-" your display and nothing else, which is rad. See:
-" http://stackoverflow.com/questions/3446320/in-vim-how-to-map-save-to-ctrl-s
-nmap <C-s> <Plug>Sneak_s
-
-" Unite mappings {{{
-map <leader>ar :UniteResume<CR>
-map <leader>ab :Unite -no-split -start-insert buffer<CR>
-map <leader>ay :Unite -start-insert history/yank<CR>
-map <leader>af :Unite -no-split -start-insert file_rec/neovim<CR>
-map <leader>ag :Unite grep:.<CR>
-
-let g:unite_source_grep_command = 'rg'
-let g:unite_source_grep_default_opts = '-i --no-heading --no-color -k -H'
-let g:unite_source_grep_recursive_opt = ''
-
-autocmd FileType unite call s:unite_my_settings()
-function! s:unite_my_settings()
-        inoremap <silent><buffer><expr> <C-x> unite#do_action('split')
-        inoremap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
-endfunction
-" }}}
 
 " My custom normal/insert mode mappings {{{
 
@@ -420,44 +376,44 @@ augroup END
 " }}}
 
 " GoLang options {{{
-augroup golangstyle
-  autocmd!
-  autocmd FileType go set tabstop=2 shiftwidth=2 noexpandtab
-  autocmd FileType go noremap <leader>gt :GoTest <CR>
-  autocmd FileType go noremap <leader>gT :GoTestFunc <CR>
-  autocmd FileType go noremap <leader>gi :GoInfo <CR>
+"augroup golangstyle
+"  autocmd!
+"  autocmd FileType go set tabstop=2 shiftwidth=2 noexpandtab
+"  autocmd FileType go noremap <leader>gt :GoTest <CR>
+"  autocmd FileType go noremap <leader>gT :GoTestFunc <CR>
+"  autocmd FileType go noremap <leader>gi :GoInfo <CR>
 
-	" rails.vim-inspired switch commands, stolen from vim-go docs
-	autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
-	autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
-	autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
-augroup END
+"  " rails.vim-inspired switch commands, stolen from vim-go docs
+"  autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+"  autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+"  autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+"augroup END
 
-if has('nvim')
-  function! GoStatusLine()
-    return exists('*go#jobcontrol#Statusline') ? go#jobcontrol#Statusline() : ''
-  endfunction
+"if has('nvim')
+"  function! GoStatusLine()
+"    return exists('*go#jobcontrol#Statusline') ? go#jobcontrol#Statusline() : ''
+"  endfunction
 
-  function! AirlineInit()
-          let g:airline_section_c = get(g:, 'airline_section_c', g:airline_section_c)
-          let g:airline_section_c .= g:airline_left_sep . ' %{GoStatusLine()}'
-  endfunction
-  autocmd User AirlineAfterInit call AirlineInit()
-endif
+"  function! AirlineInit()
+"          let g:airline_section_c = get(g:, 'airline_section_c', g:airline_section_c)
+"          let g:airline_section_c .= g:airline_left_sep . ' %{GoStatusLine()}'
+"  endfunction
+"  autocmd User AirlineAfterInit call AirlineInit()
+"endif
 
-" Use vim-dispatch for appropriate commands. Currently only build, but maybe
-" some day test as well: https://github.com/fatih/vim-go/pull/402
-let g:go_dispatch_enabled = 1
+"" Use vim-dispatch for appropriate commands. Currently only build, but maybe
+"" some day test as well: https://github.com/fatih/vim-go/pull/402
+"let g:go_dispatch_enabled = 1
 
-" This is a hacky fix for :GoTest breaking when you use testify. It's parsing
-" the errors and expecting things to look very specific, even though testify
-" isn't doing anything that the standard testing library doesn't support. This
-" stops it from opening a nonexistant file because it's incorrectly parsing
-" the error message.
-let g:go_jump_to_error=0
+"" This is a hacky fix for :GoTest breaking when you use testify. It's parsing
+"" the errors and expecting things to look very specific, even though testify
+"" isn't doing anything that the standard testing library doesn't support. This
+"" stops it from opening a nonexistant file because it's incorrectly parsing
+"" the error message.
+"let g:go_jump_to_error=0
 
-" Just autoimport for me, OK?
-let g:go_fmt_command = "goimports"
+"" Just autoimport for me, OK?
+"let g:go_fmt_command = "goimports"
 
 " }}}
 
@@ -468,86 +424,8 @@ augroup rustlangstyle
   autocmd BufRead,BufNewFile Cargo.toml,Cargo.lock,*.rs let b:dispatch = 'cargo run'
 augroup END
 
-lua << EOF
-  -- local opts = {
-  --   tools = { -- rust-tools options
-  --       -- automatically set inlay hints (type hints)
-  --       -- There is an issue due to which the hints are not applied on the first
-  --       -- opened file. For now, write to the file to trigger a reapplication of
-  --       -- the hints or just run :RustSetInlayHints.
-  --       -- default: true
-  --       autoSetHints = true,
-
-  --       -- whether to show hover actions inside the hover window
-  --       -- this overrides the default hover handler
-  --       -- default: true
-  --       hover_with_actions = true,
-
-  --       runnables = {
-  --           -- whether to use telescope for selection menu or not
-  --           -- default: true
-  --           use_telescope = true
-
-  --           -- rest of the opts are forwarded to telescope
-  --       },
-
-  --       inlay_hints = {
-  --           -- wheter to show parameter hints with the inlay hints or not
-  --           -- default: true
-  --           show_parameter_hints = true,
-
-  --           -- prefix for parameter hints
-  --           -- default: "<-"
-  --           parameter_hints_prefix = "<-",
-
-  --           -- prefix for all the other hints (type, chaining)
-  --           -- default: "=>"
-  --           other_hints_prefix  = "=>",
-
-  --           -- whether to align to the lenght of the longest line in the file
-  --           max_len_align = false,
-
-  --           -- padding from the left if max_len_align is true
-  --           max_len_align_padding = 1,
-
-  --           -- whether to align to the extreme right or not
-  --           right_align = false,
-
-  --           -- padding from the right if right_align is true
-  --           right_align_padding = 7,
-  --       },
-
-  --       hover_actions = {
-  --           -- the border that is used for the hover window
-  --           -- see vim.api.nvim_open_win()
-  --           border = {
-  --             {"╭", "FloatBorder"},
-  --             {"─", "FloatBorder"},
-  --             {"╮", "FloatBorder"},
-  --             {"│", "FloatBorder"},
-  --             {"╯", "FloatBorder"},
-  --             {"─", "FloatBorder"},
-  --             {"╰", "FloatBorder"},
-  --             {"│", "FloatBorder"}
-  --           },
-  --       }
-  --   },
-
-  --   -- all the opts to send to nvim-lspconfig
-  --   -- these override the defaults set by rust-tools.nvim
-  --   -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
-  --   server = {}, -- rust-analyer options
-  -- }
-
-  -- require('rust-tools').setup(opts)
-EOF
-
 " part of rust-lang/rust.vim
 let g:rustfmt_autosave = 1
-" }}}
-
-" Coffee specific options {{{
-autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
 " }}}
 
 " Javascript specific options {{{

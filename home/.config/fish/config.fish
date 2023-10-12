@@ -143,4 +143,16 @@ eval (gh completion fish)
 
 source /opt/asdf-vm/asdf.fish
 
+if status --is-interactive
+  atuin init fish | source
+end
+
 eval (starship init fish)
+
+if status --is-interactive
+and not set -q TMUX
+and set -q DISPLAY
+  exec tmux
+end
+
+set PATH $PATH /home/dpetersen/Downloads/idea-IU-231.9161.38/bin/
