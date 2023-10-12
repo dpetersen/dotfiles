@@ -7,13 +7,13 @@ set encoding=utf-8
 
 call plug#begin('~/.config/nvim/plugged')
 
+Plug 'folke/neodev.nvim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-git'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-Plug 'spiiph/vim-space'
 Plug 'mileszs/ack.vim'
 Plug 'vim-scripts/camelcasemotion'
 Plug 'tpope/vim-endwise'
@@ -32,8 +32,7 @@ Plug 'tpope/vim-eunuch'
 Plug 'mhinz/vim-startify'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'vim-scripts/tcd.vim'
-Plug 'majutsushi/tagbar'
-Plug 'tpope/vim-dispatch'
+Plug 'preservim/tagbar'
 Plug 'bling/vim-airline'
 Plug 'edkolev/tmuxline.vim'
 Plug 'Shougo/unite.vim'
@@ -56,19 +55,28 @@ Plug 'Quramy/tsuquyomi', { 'for': 'ts' }
 Plug 'jason0x43/vim-js-indent', { 'for': 'js' }
 Plug 'tpope/vim-jdaddy', { 'for': 'json' }
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-Plug 'janko-m/vim-test'
 Plug 'towolf/vim-helm'
 Plug 'justinmk/vim-sneak'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-neotest/neotest'
+Plug 'olimorris/neotest-rspec'
+Plug 'mfussenegger/nvim-dap'
+Plug 'suketa/nvim-dap-ruby'
 
 " Stolen from:
 " https://sharksforarms.dev/posts/neovim-rust/
 Plug 'rust-lang/rust.vim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/lsp_extensions.nvim'
+" This is abandoned, need to find a replacement.
 Plug 'nvim-lua/completion-nvim'
 
 call plug#end()
+
+lua <<EOF
+require('dap-ruby').setup()
+EOF
 
 lua <<EOF
 require('nvim-treesitter.configs').setup {
@@ -199,10 +207,10 @@ augroup END
 set laststatus=2
 
 " Custom Fugitive shortcuts
-noremap <leader>gs :Gstatus <CR>
-noremap <leader>gc :Gcommit <CR>
-noremap <leader>gd :Gdiff <CR>
-noremap <leader>gb :Gblame <CR>
+noremap <leader>gs :Git <CR>
+noremap <leader>gc :Git commit <CR>
+noremap <leader>gd :Gitdiffsplit <CR>
+noremap <leader>gb :Git blame <CR>
 
 " Use slim highlighting for emblem templates
 augroup emblem_as_slim_augroup
@@ -279,10 +287,8 @@ com! DiffSaved call s:DiffWithSaved()
 let g:vim_markdown_folding_disabled = 1
 
 let g:sneak#label = 1
-" This requires a terminal setting or it might just freeze
-" your display and nothing else, which is rad. See:
-" http://stackoverflow.com/questions/3446320/in-vim-how-to-map-save-to-ctrl-s
-nmap <C-s> <Plug>Sneak_s
+nnoremap <leader>s <Plug>Sneak_s
+nnoremap <leader>S <Plug>Sneak_S
 
 " Unite mappings {{{
 map <leader>ar :UniteResume<CR>
@@ -334,10 +340,7 @@ nnoremap <C-l> <C-W>l
 nnoremap <C-h> <C-W>h
 
 " Toggle TagBar. I don't use it a lot, but it's helpful.
-nnoremap <leader>t :TagbarToggle<CR>
-
-" It's 'm' for make. Even though it's not running make. Deal with it.
-nnoremap <leader>m :Dispatch<CR>
+nnoremap <leader>T :TagbarToggle<CR>
 
 " Close/open quickfix/preview windows from anywhere. Why has it taken me so
 " long to map this?
@@ -445,10 +448,6 @@ if has('nvim')
   autocmd User AirlineAfterInit call AirlineInit()
 endif
 
-" Use vim-dispatch for appropriate commands. Currently only build, but maybe
-" some day test as well: https://github.com/fatih/vim-go/pull/402
-let g:go_dispatch_enabled = 1
-
 " This is a hacky fix for :GoTest breaking when you use testify. It's parsing
 " the errors and expecting things to look very specific, even though testify
 " isn't doing anything that the standard testing library doesn't support. This
@@ -465,7 +464,6 @@ let g:go_fmt_command = "goimports"
 augroup rustlangstyle
   autocmd!
   autocmd BufRead,BufNewFile Cargo.toml,Cargo.lock,*.rs compiler cargo
-  autocmd BufRead,BufNewFile Cargo.toml,Cargo.lock,*.rs let b:dispatch = 'cargo run'
 augroup END
 
 lua << EOF
@@ -560,11 +558,56 @@ autocmd BufNewFile,BufReadPost *.css setl shiftwidth=2 expandtab
 autocmd BufNewFile,BufReadPost *.scss setl shiftwidth=2 expandtab
 " }}}
 
-" JSON specific options {{{
+" Neotest specific options {{{
 
 augroup jsonindentstyle
   autocmd!
   autocmd FileType json set autoindent shiftwidth=2 softtabstop=2 expandtab
 augroup END
 
+" }}}
+
+
+" Neotest Configuration {{{
+lua <<EOF
+require("neotest").setup({
+  adapters = {
+    require("neotest-rspec")({
+      rspec_cmd = function()
+        return vim.tbl_flatten({
+          "bundle",
+          "exec",
+          "spring",
+          "rspec"
+        })
+      end
+    })
+  },
+  icons = {
+    child_indent = "│",
+    child_prefix = "├",
+    collapsed = "─",
+    expanded = "╮",
+    failed = "❌",
+    final_child_indent = " ",
+    final_child_prefix = "╰",
+    non_collapsible = "─",
+    passed = "✅",
+    running = "r",
+    running_animated = { "/", "|", "\\", "-", "/", "|", "\\", "-" },
+    skipped = "s",
+    unknown = "u",
+    watching = "w"
+  },
+})
+EOF
+
+nnoremap <silent> <leader>tn  <cmd>lua require("neotest").run.run()<CR>
+nnoremap <silent> <leader>tN  <cmd>lua require("neotest").run.run({strategy = "dap"})<CR>
+nnoremap <silent> <leader>tf  <cmd>lua require("neotest").run.run(vim.fn.expand("%"))<CR>
+nnoremap <silent> <leader>tt  <cmd>lua require("neotest").run.run_last()<CR>
+nnoremap <silent> <leader>tT  <cmd>lua require("neotest").run.run_last({strategy = "dap"})<CR>
+nnoremap <silent> <leader>ts  <cmd>lua require("neotest").summary.toggle()<CR>
+nnoremap <silent> <leader>tm  <cmd>lua require("neotest").summary.run_marked()<CR>
+nnoremap <silent> <leader>to  <cmd>lua require("neotest").output_panel.toggle()<CR>
 " }}}

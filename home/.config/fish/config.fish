@@ -11,6 +11,8 @@ fundle plugin 'aliz-ai/google-cloud-sdk-fish-completion'
 # be addressed in cobra and then kubectl, but it's not
 fundle plugin 'evanlucas/fish-kubectl-completions'
 
+fundle plugin 'rbenv/fish-rbenv'
+
 fundle init
 
 # This is vim mode. HOWEVER, the Vim mode is lacking compared to bash and
@@ -75,14 +77,15 @@ bind \cn "kubens; commandline --function repaint"
 
 set PATH $PATH /home/dpetersen/.krew/bin
 abbr -a sterne "stern -Eistio\|pgbouncer -eokcomputer"
-alias gs="git status"
-alias gc="git checkout"
-alias gcv='git commit -v'
-alias gfp='git fetch origin; and git pull'
-alias gfpt='git fetch origin; and git pull; and git trim'
+abbr -a gs "git status"
+abbr -a gc "git checkout"
+abbr -a gcv 'git commit -v'
+abbr -a gfp 'git fetch origin; and git pull'
+abbr -a gfpt 'git fetch origin; and git pull; and git trim'
 
 abbr -a be 'bundle exec'
 abbr -a bes 'bundle exec spring'
+abbr -a besr 'bundle exec spring rspec'
 
 export BAT_THEME="zenburn"
 alias cat="bat -p"

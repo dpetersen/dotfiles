@@ -1,3 +1,4 @@
+[misc]
 # This functionality is (currently? forever?) broken on Linux, so disable.
 skip_notify = true
 
