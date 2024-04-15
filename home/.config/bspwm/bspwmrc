@@ -1,13 +1,13 @@
 #! /bin/sh
 
 # sets up xrandr. Probably shouldn't hardcode this, but here we go.
-xrandr --output DP-0 --primary --mode 3840x2160 --pos 0x905 --rotate normal \
-        --output DP-4 --mode 3840x2160 --pos 3840x0 --rotate left \
-        --output DP-1 --off --output DP-2 --off --output DP-3 --off --output DP-5 --off \
-        --output HDMI-0 --off 
+# xrandr --output DP-0 --primary --mode 3840x2160 --pos 0x905 --rotate normal \
+#         --output DP-4 --mode 3840x2160 --pos 3840x0 --rotate left \
+#         --output DP-1 --off --output DP-2 --off --output DP-3 --off --output DP-5 --off \
+#         --output HDMI-0 --off 
 
 # Single screen mode
-#xrandr --output DP-0 --mode 3840x2160 --pos 0x0 --rotate normal
+xrandr --output DP-0 --mode 3840x2160 --pos 0x0 --rotate normal
 
 sxhkd &
 
@@ -28,6 +28,7 @@ bspc rule -a Chromium desktop='^2'
 bspc rule -a mplayer2 state=floating
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
+bspc rule -a java state=floating
 
 # This is an attempt to have fullscreen video stay in the node's sizing, but it
 # gets the horizontal totally wrong. Looks like I can keep the default setting

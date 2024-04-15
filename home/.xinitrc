@@ -10,13 +10,20 @@
 
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 
+# Old stuff I ran previously
+# blueman-applet &
+#dropbox &
+
+# Stuff I think I can run in any Window Manager
 xbindkeys
 redshift &
-#blueman-applet &
-#dropbox &
 copyq &
-~/.config/polybar/launch.sh &
-mkdir -p .logs
 
+# Stuff that I think only applies to bspwm
+~/.config/polybar/launch.sh &
+picom --config $HOME/.config/picom.confg &
+mkdir -p .logs
 exec bspwm
-#exec twm
+
+# exec twm
+# exec startxfce4

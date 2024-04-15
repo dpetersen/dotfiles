@@ -41,6 +41,11 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-neotest/neotest'
 Plug 'mfussenegger/nvim-dap'
+Plug 'andythigpen/nvim-coverage'
+Plug 'github/copilot.vim'
+Plug 'nvim-tree/nvim-web-devicons'
+Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
+Plug 'ZeroKnight/vim-signjump'
 
 " The Wide World of Modern LSP Support
 " A package manager for language servers
@@ -50,6 +55,7 @@ Plug 'williamboman/mason-lspconfig.nvim'
 " Official plugin with prebuilt configurations for languages
 Plug 'neovim/nvim-lspconfig'
 Plug 'mfussenegger/nvim-lint'
+Plug 'rshkarin/mason-nvim-lint'
 
 " Languages
 Plug 'rust-lang/rust.vim'
@@ -83,6 +89,7 @@ require("mason-lspconfig").setup {
                 "gopls",
                 "ruby_ls",
                 "rubocop",
+                "tsserver"
         },
 }
 
@@ -92,6 +99,48 @@ lspconfig.gopls.setup {}
 lspconfig.rust_analyzer.setup {}
 lspconfig.ruby_ls.setup {}
 lspconfig.rubocop.setup {}
+lspconfig.tsserver.setup {}
+
+-- Do safe Rubocop fixes on save
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.rb",
+  callback = function()
+    vim.lsp.buf.format()
+  end,
+})
+
+-- Use LspAttach autocommand to only map the following keys
+-- after the language server attaches to the current buffer
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+  callback = function(ev)
+    -- Enable completion triggered by <c-x><c-o>
+    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+
+    -- Buffer local mappings.
+    -- See `:help vim.lsp.*` for documentation on any of the below functions
+    local opts = { buffer = ev.buf }
+    -- vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', '<c-]>', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+    -- vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+    -- vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+    -- vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
+    -- vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+    -- vim.keymap.set('n', '<space>wl', function()
+    --   print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    -- end, opts)
+    -- vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
+    -- vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
+    -- vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
+    -- vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+    -- vim.keymap.set('n', '<space>f', function()
+    --   vim.lsp.buf.format { async = true }
+    -- end, opts)
+  end,
+})
+
 
 -- DAP
 require('dap-ruby').setup()
@@ -106,32 +155,29 @@ require('nvim-treesitter.configs').setup {
 
 -- Linting
 require('lint').linters_by_ft = {
-  markdown = {'vale',}
+  -- go = {'golangci-lint'}
 }
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   callback = function()
     require("lint").try_lint()
   end,
 })
+
+-- Can get this list from:
+-- https://mason-registry.dev/registry/list
+require('mason-nvim-lint').setup({
+	-- ensure_installed = {'golangci-lint'},
+	automatic_installation = true,
+})
+
+-- nvim-coverage
+require("coverage").setup()
 EOF
 
 " menuone: popup even when there's only one match
 " noinsert: Do not insert text until a selection is made
 " noselect: Do not select, force user to select one from the menu
 set completeopt=menuone,noinsert,noselect
-
-" Code navigation shortcuts
-nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> ga    <cmd>lua vim.lsp.buf.code_action()<CR>
-"nnoremap <silent> gR    <cmd>lua vim.lsp.buf.rename()<CR>
-"nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-"nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-"nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
-"nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-"nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-"nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-"nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
 
 " Set updatetime for CursorHold
 " 300ms of no cursor movement to trigger CursorHold
@@ -215,7 +261,7 @@ set laststatus=2
 " Custom Fugitive shortcuts
 noremap <leader>gs :Git <CR>
 noremap <leader>gc :Git commit <CR>
-noremap <leader>gd :Gitdiffsplit <CR>
+noremap <leader>gd :Gdiffsplit <CR>
 noremap <leader>gb :Git blame <CR>
 
 " Make Y behave to EOL like most capitolized normal-mode commands.
@@ -263,6 +309,9 @@ autocmd User Startified setlocal buftype=
 let g:tmuxline_powerline_separators = 0
 
 au BufNewFile,BufRead *.dockerfile set filetype=dockerfile
+
+" Avro Schemas
+au BufNewFile,BufRead *.avsc set filetype=json
 
 " For the terraform plugin and to consistently format Terraform files.
 let g:terraform_fmt_on_save = 1
@@ -323,6 +372,16 @@ nnoremap <C-h> <C-W>h
 
 " Toggle TagBar. I don't use it a lot, but it's helpful.
 nnoremap <leader>T :TagbarToggle<CR>
+
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <Leader>ft :lua require'telescope.builtin'.treesitter{}<cr>
+nnoremap <Leader>fs :lua require'telescope.builtin'.lsp_document_symbols{}<cr>
+nnoremap <Leader>fS :lua require'telescope.builtin'.lsp_dynamic_workspace_symbols{}<cr>
+
 
 " Close/open quickfix/preview windows from anywhere. Why has it taken me so
 " long to map this?
@@ -405,9 +464,36 @@ augroup END
 " }}}
 
 " GoLang options {{{
-"augroup golangstyle
-"  autocmd!
-"  autocmd FileType go set tabstop=2 shiftwidth=2 noexpandtab
+augroup golangstyle
+ autocmd!
+ autocmd FileType go set tabstop=2 shiftwidth=2 noexpandtab
+
+lua <<EOF
+-- Ripped from https://github.com/golang/tools/blob/master/gopls/doc/vim.md#neovim-imports
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.go",
+  callback = function()
+    local params = vim.lsp.util.make_range_params()
+    params.context = {only = {"source.organizeImports"}}
+    -- buf_request_sync defaults to a 1000ms timeout. Depending on your
+    -- machine and codebase, you may want longer. Add an additional
+    -- argument after params if you find that you have to write the file
+    -- twice for changes to be saved.
+    -- E.g., vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, 3000)
+    local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params)
+    for cid, res in pairs(result or {}) do
+      for _, r in pairs(res.result or {}) do
+        if r.edit then
+          local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding or "utf-16"
+          vim.lsp.util.apply_workspace_edit(r.edit, enc)
+        end
+      end
+    end
+    vim.lsp.buf.format({async = false})
+  end
+})
+EOF
+
 "  autocmd FileType go noremap <leader>gt :GoTest <CR>
 "  autocmd FileType go noremap <leader>gT :GoTestFunc <CR>
 "  autocmd FileType go noremap <leader>gi :GoInfo <CR>
@@ -416,7 +502,7 @@ augroup END
 "  autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
 "  autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
 "  autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
-"augroup END
+augroup END
 
 "if has('nvim')
 "  function! GoStatusLine()
@@ -507,4 +593,5 @@ nnoremap <silent> <leader>tT  <cmd>lua require("neotest").run.run_last({strategy
 nnoremap <silent> <leader>ts  <cmd>lua require("neotest").summary.toggle()<CR>
 nnoremap <silent> <leader>tm  <cmd>lua require("neotest").summary.run_marked()<CR>
 nnoremap <silent> <leader>to  <cmd>lua require("neotest").output_panel.toggle()<CR>
+nnoremap <silent> <leader>tS  <cmd>lua require("neotest").run.stop()<CR>
 " }}}

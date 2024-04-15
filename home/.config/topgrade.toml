@@ -12,7 +12,7 @@ skip_notify = true
 #
 # cargo - I believe this only updates things that were `cargo install`ed, which
 # I don't do.
-disable = ["cargo", "asdf"]
+disable = ["cargo", "asdf", "containers"]
 
 # Run specific steps - same options as the command line flag
 #only = ["system", "emacs"]

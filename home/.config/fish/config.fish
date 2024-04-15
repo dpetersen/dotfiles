@@ -13,6 +13,10 @@ fundle plugin 'evanlucas/fish-kubectl-completions'
 
 fundle plugin 'rbenv/fish-rbenv'
 
+# Note: THIS ISN'T NVM! It's a from-scratch-in-fish version that seems to work
+# similarly. I'm not sure if it's better or worse, but it's not NVM.
+fundle plugin 'jorgebucaran/nvm.fish'
+
 fundle init
 
 # This is vim mode. HOWEVER, the Vim mode is lacking compared to bash and
@@ -60,6 +64,9 @@ export EDITOR="nvim"
 export VISUAL="nvim"
 
 alias startx="ssh-agent startx"
+
+abbr -a n "nvim"
+abbr -a v "nvim"
 
 abbr -a t "terraform"
 
