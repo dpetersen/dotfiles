@@ -1,3 +1,5 @@
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # Install fundle if it doesn't exist:
 # https://github.com/danhper/fundle
 if not functions -q fundle; eval (curl -sfL https://git.io/fundle-install); end
@@ -29,14 +31,17 @@ fundle init
 
 switch (uname)
     case Darwin
-        export HOMESHICK_DIR=/usr/local/opt/homeshick
-        source /usr/local/share/fish/vendor_functions.d/homeshick.fish
+        export HOMESHICK_DIR=$HOME/.homesick/repos/homeshick
+        source $HOMESHICK_DIR/homeshick.fish
+        source $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.fish
 
         [ -f /usr/local/share/autojump/autojump.fish ]; and source /usr/local/share/autojump/autojump.fish
+        [ -f $HOMEBREW_PREFIX/opt/autojump/share/autojump/autojump.fish ]; and source $HOMEBREW_PREFIX/opt/autojump/share/autojump/autojump.fish
     case '*'
         [ -f /home/dpetersen/.homesick/repos/homeshick/homeshick.fish ]; and source /home/dpetersen/.homesick/repos/homeshick/homeshick.fish
         [ -f /home/dpetersen/.homesick/repos/homeshick/completions/homeshick.fish ]; and source /home/dpetersen/.homesick/repos/homeshick/completions/homeshick.fish
         [ -f /usr/share/autojump/autojump.fish ]; and source /usr/share/autojump/autojump.fish
+        [ -f /opt/asdf-vm/asdf.fish ]; and source /opt/asdf-vm/asdf.fish
         # Ctrl-j for autojump into fzf
         bind \cj "cd (cat ~/.local/share/autojump/autojump.txt | sort -nr | awk -F '\t' '{print \$NF}' | fzf +s)"
         alias fj="cd (cat ~/.local/share/autojump/autojump.txt | sort -nr | awk -F '\t' '{print \$NF}' | fzf +s)"
@@ -59,7 +64,8 @@ export GOPROXY="https://proxy.golang.org"
 ## The next line enables shell command completion for gcloud.
 #[ -f '/home/dpetersen/google-cloud-sdk/completion.fish.inc' ]; and source '/home/dpetersen/google-cloud-sdk/completion.fish.inc'
 
-export TERM="xterm-256color"
+# I don't think this is necessary anymore in the year of our lord 2024?
+# export TERM="xterm-256color"
 export EDITOR="nvim"
 export VISUAL="nvim"
 
@@ -91,6 +97,7 @@ abbr -a gfp 'git fetch origin; and git pull'
 abbr -a gfpt 'git fetch origin; and git pull; and git trim'
 
 abbr -a be 'bundle exec'
+abbr -a ber 'bundle exec rspec'
 abbr -a bes 'bundle exec spring'
 abbr -a besr 'bundle exec spring rspec'
 
@@ -98,8 +105,8 @@ export BAT_THEME="zenburn"
 alias cat="bat -p"
 alias by="bat -p -lyaml"
 
-if type "exa" > /dev/null
-  alias ls="exa --long --git --group-directories-first"
+if type "eza" > /dev/null
+  alias ls="eza --long --git --group-directories-first"
 else
   alias ls="ls -lhG"
 end
@@ -107,8 +114,8 @@ end
 alias vim="nvim"
 alias vi="nvim"
 
-alias pbcopy='xclip -selection clipboard'
-alias pbpaste='xclip -selection clipboard -o'
+# alias pbcopy='xclip -selection clipboard'
+# alias pbpaste='xclip -selection clipboard -o'
 
 direnv hook fish | source
 
@@ -151,8 +158,6 @@ set fish_greeting
 
 eval (gh completion fish)
 
-source /opt/asdf-vm/asdf.fish
-
 if status --is-interactive
   atuin init fish | source
 end
@@ -165,4 +170,7 @@ and set -q DISPLAY
   exec tmux
 end
 
+export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
+
 set PATH $PATH /home/dpetersen/Downloads/idea-IU-231.9161.38/bin/
+set PATH $PATH /Users/dpetersen/.docker/cli-plugins/

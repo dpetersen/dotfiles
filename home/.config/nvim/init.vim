@@ -40,6 +40,7 @@ Plug 'justinmk/vim-sneak'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-neotest/neotest'
+Plug 'nvim-neotest/nvim-nio'
 Plug 'mfussenegger/nvim-dap'
 Plug 'andythigpen/nvim-coverage'
 Plug 'github/copilot.vim'
@@ -56,6 +57,9 @@ Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'mfussenegger/nvim-lint'
 Plug 'rshkarin/mason-nvim-lint'
+" Allows more configuration of formatters than the default LSP. I installed
+" this to configure prettier instead of ts_ls for formatting Typescript.
+Plug 'stevearc/conform.nvim'
 
 " Languages
 Plug 'rust-lang/rust.vim'
@@ -87,9 +91,9 @@ require("mason-lspconfig").setup {
                 "lua_ls",
                 "rust_analyzer",
                 "gopls",
-                "ruby_ls",
+                "ruby_lsp",
                 "rubocop",
-                "tsserver"
+                "ts_ls"
         },
 }
 
@@ -97,17 +101,9 @@ require("mason-lspconfig").setup {
 local lspconfig = require("lspconfig")
 lspconfig.gopls.setup {}
 lspconfig.rust_analyzer.setup {}
-lspconfig.ruby_ls.setup {}
+lspconfig.ruby_lsp.setup {}
 lspconfig.rubocop.setup {}
-lspconfig.tsserver.setup {}
-
--- Do safe Rubocop fixes on save
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*.rb",
-  callback = function()
-    vim.lsp.buf.format()
-  end,
-})
+lspconfig.ts_ls.setup {}
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
@@ -172,6 +168,19 @@ require('mason-nvim-lint').setup({
 
 -- nvim-coverage
 require("coverage").setup()
+
+-- conform
+require("conform").setup({
+  formatters_by_ft = {
+    lua = { "stylua" },
+    typescript = { "prettierd" },
+    typescriptreact = { "prettierd" },
+  },
+  format_on_save = {
+    timeout_ms = 500,
+    lsp_format = "fallback",
+  },
+})
 EOF
 
 " menuone: popup even when there's only one match
@@ -182,13 +191,14 @@ set completeopt=menuone,noinsert,noselect
 " Set updatetime for CursorHold
 " 300ms of no cursor movement to trigger CursorHold
 set updatetime=300
+
 " Show diagnostic popup on cursor hold
-" Commented out to fix constant error messages as I navigate
 " autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
+autocmd CursorHold * lua vim.diagnostic.open_float({scope="line"})
 
 " Goto previous/next diagnostic warning/error
-"nnoremap <silent> g[ <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
-"nnoremap <silent> g] <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+nnoremap <silent> g[ <cmd>lua vim.diagnostic.goto_prev()<CR>
+nnoremap <silent> g] <cmd>lua vim.diagnostic.goto_next()<CR>
 
 let mapleader=","
 let maplocalleader=","
@@ -456,10 +466,7 @@ augroup END
 augroup typescriptindentstyle
   autocmd!
 
-  " don't use indent from the leafgarland/typescript-vim
-  let g:typescript_indent_disable = 1
-
-  autocmd FileType typescript set autoindent shiftwidth=2 softtabstop=2 expandtab
+  autocmd FileType typescript,typescriptreact set autoindent shiftwidth=2 softtabstop=2 expandtab
 augroup END
 " }}}
 
@@ -541,7 +548,7 @@ autocmd BufNewFile,BufReadPost *.css setl shiftwidth=2 expandtab
 autocmd BufNewFile,BufReadPost *.scss setl shiftwidth=2 expandtab
 " }}}
 
-" Neotest specific options {{{
+" JSON specific options {{{
 
 augroup jsonindentstyle
   autocmd!
@@ -549,7 +556,6 @@ augroup jsonindentstyle
 augroup END
 
 " }}}
-
 
 " Neotest Configuration {{{
 lua <<EOF
@@ -560,7 +566,6 @@ require("neotest").setup({
         return vim.tbl_flatten({
           "bundle",
           "exec",
-          "spring",
           "rspec"
         })
       end
