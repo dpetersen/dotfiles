@@ -1,16 +1,16 @@
 #!/bin/bash
 
-cd ~
-
 sudo apt-get update
 
 # Get all my dotfiles installed and linked
 git clone https://github.com/andsens/homeshick.git $HOME/.homesick/repos/homeshick
 source "$HOME/.homesick/repos/homeshick/homeshick.sh"
-homeshick clone dpetersen/dotfiles
+homeshick clone dpetersen/dotfiles --batch
 homeshick cd dotfiles
 git checkout -t origin/ic-work
 homeshick link dotfiles --force
+
+cd ~
 
 # neovim in apt (at this time) is ancient. Because locally this is running on
 # ARM64 (on modern Macs, anyway) and there are (currently) no free options for
@@ -24,7 +24,7 @@ cd neovim-0.10.3
 make CMAKE_BUILD_TYPE=Release
 sudo make install
 cd ../
-rm -rf neovim-0.10.3
+sudo rm -rf neovim-0.10.3
 
 nvim --headless +PlugInstall +qall
 nvim --headless +TSUpdateSync +qall

@@ -32,10 +32,10 @@ fundle init
 # 2020 Update: still not very good. Breaks Ctrl-e and all kinds of stuff.
 # fish_vi_key_bindings
 
+source $HOME/.homesick/repos/homeshick/homeshick.fish
+
 switch (uname)
     case Darwin
-        export HOMESHICK_DIR=$HOME/.homesick/repos/homeshick
-        source $HOMESHICK_DIR/homeshick.fish
         source $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.fish
 
         [ -f /usr/local/share/autojump/autojump.fish ]; and source /usr/local/share/autojump/autojump.fish
