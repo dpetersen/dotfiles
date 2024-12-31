@@ -24,6 +24,13 @@ fundle plugin 'jorgebucaran/nvm.fish'
 
 fundle init
 
+# I install this in environments where RVM is used, so if it exists this
+# triggers the autoloading of the function that will make rvm auto-switching
+# work properly when I move around in directories.
+if test -f ~/.config/fish/functions/rvm.fish
+    rvm default
+end
+
 # This is vim mode. HOWEVER, the Vim mode is lacking compared to bash and
 # zsh's. For instance `df-` won't work, and others. No visual mode. I am just
 # going to use Alt-v, which edits the command in $EDITOR. However, having that
