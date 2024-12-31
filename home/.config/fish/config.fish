@@ -26,9 +26,16 @@ fundle init
 
 # I install this in environments where RVM is used, so if it exists this
 # triggers the autoloading of the function that will make rvm auto-switching
-# work properly when I move around in directories.
+# work properly when I move around in directories. The inner test here is
+# because sometimes tmux opens a new window directly in a directory that has a
+# .ruby-version and it was causing it to not use the correct verison.
 if test -f ~/.config/fish/functions/rvm.fish
-    rvm default
+    # If a .ruby-version exists, ensure RVM respects it
+    if test -f .ruby-version
+            rvm use
+    else
+            rvm default
+    end
 end
 
 # This is vim mode. HOWEVER, the Vim mode is lacking compared to bash and
