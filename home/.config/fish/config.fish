@@ -1,4 +1,7 @@
-eval "$(/opt/homebrew/bin/brew shellenv)"
+switch (uname)
+    case Darwin
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+end
 
 # Install fundle if it doesn't exist:
 # https://github.com/danhper/fundle
@@ -14,10 +17,6 @@ fundle plugin 'aliz-ai/google-cloud-sdk-fish-completion'
 fundle plugin 'evanlucas/fish-kubectl-completions'
 
 fundle plugin 'rbenv/fish-rbenv'
-
-if type -q "rvm"
-        rvm default
-end
 
 # Note: THIS ISN'T NVM! It's a from-scratch-in-fish version that seems to work
 # similarly. I'm not sure if it's better or worse, but it's not NVM.
