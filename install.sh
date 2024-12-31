@@ -32,6 +32,7 @@ nvim --headless +TSUpdateSync +qall
 ## Shell
 sudo apt-get install -y fish
 fish -c "fundle install"
+sudo chsh -s /usr/bin/fish ${USER}
 
 wget "https://github.com/starship/starship/releases/download/v1.21.1/starship-aarch64-unknown-linux-musl.tar.gz"
 tar -zxvf starship-aarch64-unknown-linux-musl.tar.gz
