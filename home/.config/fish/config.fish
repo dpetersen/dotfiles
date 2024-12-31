@@ -15,6 +15,10 @@ fundle plugin 'evanlucas/fish-kubectl-completions'
 
 fundle plugin 'rbenv/fish-rbenv'
 
+if type -q "rvm"
+        rvm default
+end
+
 # Note: THIS ISN'T NVM! It's a from-scratch-in-fish version that seems to work
 # similarly. I'm not sure if it's better or worse, but it's not NVM.
 fundle plugin 'jorgebucaran/nvm.fish'
@@ -106,7 +110,9 @@ alias cat="bat -p"
 alias by="bat -p -lyaml"
 
 if type "eza" > /dev/null
-  alias ls="eza --long --git --group-directories-first"
+  # I'm a fan of the `--git` flag, but it's not available the deb version of
+  # eza.
+  alias ls="eza --long --group-directories-first"
 else
   alias ls="ls -lhG"
 end

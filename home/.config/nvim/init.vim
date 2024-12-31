@@ -33,6 +33,7 @@ Plug 'vim-scripts/tcd.vim'
 Plug 'preservim/tagbar'
 Plug 'bling/vim-airline'
 Plug 'edkolev/tmuxline.vim'
+" I think this is out of date, since it requires Unite?
 Plug 'Shougo/neoyank.vim'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
