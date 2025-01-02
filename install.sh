@@ -1,6 +1,13 @@
 #!/bin/bash
 
+# The version of tmux currently on bookworm is 3.2a (2022) and I'm having a
+# hell of a time getting 256 color support working there in a way that's also
+# compatible with current tmux versions. Backports has a modern version, so
+# replace it.
+sudo apt-get remove tmux
+echo "deb http://deb.debian.org/debian bookworm-backports main" | sudo tee /etc/apt/sources.list.d/bookworm-backports.list
 sudo apt-get update
+sudo apt-get install -t bookworm-backports -y tmux
 
 # Get all my dotfiles installed and linked
 git clone https://github.com/andsens/homeshick.git $HOME/.homesick/repos/homeshick
