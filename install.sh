@@ -58,9 +58,9 @@ sudo chmod 644 /etc/apt/keyrings/gierens.gpg /etc/apt/sources.list.d/gierens.lis
 sudo apt update
 sudo apt install -y eza
 
-sudo apt-get install -y fd-find fzf ripgrep jq jid
+sudo apt-get install -y fzf ripgrep jq jid
 
-# There is a bat in debian but it doesn't seem to be the one I'm expecting? At
+# There is a bat in Debian but it doesn't seem to be the one I'm expecting? At
 # least not in the Debian version we're currently using.
 wget "https://github.com/sharkdp/bat/releases/download/v0.24.0/bat-v0.24.0-aarch64-unknown-linux-gnu.tar.gz"
 tar -zxvf bat-v0.24.0-aarch64-unknown-linux-gnu.tar.gz
@@ -71,6 +71,13 @@ wget "https://github.com/dandavison/delta/releases/download/0.18.2/delta-0.18.2-
 tar -zxvf delta-0.18.2-aarch64-unknown-linux-gnu.tar.gz
 sudo mv delta-0.18.2-aarch64-unknown-linux-gnu/delta /usr/local/bin/
 rm -rf delta-0.18.2-aarch64-unknown-linux-gnu*
+
+# There is an fd-find in Debian but when I install fd it's not found in the
+# path?
+wget "https://github.com/sharkdp/fd/releases/download/v10.2.0/fd-v10.2.0-aarch64-unknown-linux-gnu.tar.gz"
+tar -zxvf fd-v10.2.0-aarch64-unknown-linux-gnu.tar.gz
+sudo mv fd-v10.2.0-aarch64-unknown-linux-gnu/fd /usr/local/bin
+rm -rf fd-v10.2.0-aarch64-unknown-linux-gnu*
 
 npm install --global git-trim
 
