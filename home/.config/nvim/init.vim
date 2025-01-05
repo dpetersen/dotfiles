@@ -7,13 +7,23 @@ set encoding=utf-8
 
 call plug#begin('~/.config/nvim/plugged')
 
+" Might look at mini.nvim, which has a bunch of neat stuff like this thing
+" that provides helpers for your next keypress:
+" https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-clue.md#features
+
+" Lua language help for working with nvim. This is archived and is replaced
+" with: https://github.com/folke/lazydev.nvim
 Plug 'folke/neodev.nvim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-git'
 Plug 'scrooloose/nerdtree'
+" This is built-in now, so learn about:
+" https://github.com/neovim/neovim/pull/28176
 Plug 'preservim/nerdcommenter'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
+" Probably don't need this anymore since Telescope can Ctrl-q things into
+" quickfix for me
 Plug 'mileszs/ack.vim'
 Plug 'vim-scripts/camelcasemotion'
 Plug 'tpope/vim-endwise'
@@ -47,6 +57,7 @@ Plug 'andythigpen/nvim-coverage'
 Plug 'github/copilot.vim'
 Plug 'nvim-tree/nvim-web-devicons'
 Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
+" Might not need this if you just keep your diagnostic movement mappings
 Plug 'ZeroKnight/vim-signjump'
 
 " The Wide World of Modern LSP Support
@@ -58,8 +69,9 @@ Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'mfussenegger/nvim-lint'
 Plug 'rshkarin/mason-nvim-lint'
-" Allows more configuration of formatters than the default LSP. I installed
-" this to configure prettier instead of ts_ls for formatting Typescript.
+" Allows more configuration of formatters than the default LSP (fallbacks,
+" multiple ordered, etc). I installed this to configure prettier instead of
+" ts_ls for formatting Typescript.
 Plug 'stevearc/conform.nvim'
 
 " Languages
