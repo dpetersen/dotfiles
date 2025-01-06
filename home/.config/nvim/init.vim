@@ -579,6 +579,7 @@ require("neotest").setup({
         return vim.tbl_flatten({
           "bundle",
           "exec",
+          "spring",
           "rspec"
         })
       end
