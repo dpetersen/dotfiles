@@ -2,34 +2,19 @@
 " that provides helpers for your next keypress:
 " https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-clue.md#features
 
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-git'
+" Evaluate
 Plug 'scrooloose/nerdtree'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-unimpaired'
-Plug 'vim-scripts/camelcasemotion'
+" This isn't always working nowadays, so maybe look at replacing
 Plug 'tpope/vim-endwise'
+" Maybe look at a replacement for this, it doesn't always work great
 Plug 'vim-scripts/argtextobj.vim'
-Plug 'michaeljsmith/vim-indent-object'
+" There are fancier, prettier ones for this that you might look at
 Plug 'nathanaelkane/vim-indent-guides'
-Plug 'vim-scripts/matchit.zip'
-Plug 'tpope/vim-abolish'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-ragtag'
-Plug 'tpope/vim-obsession'
-Plug 'noprompt/vim-yardoc'
-Plug 'tpope/vim-eunuch'
 Plug 'mhinz/vim-startify'
+" This plugin has been a bit flakey and might be ready for replacement
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'vim-scripts/tcd.vim'
 Plug 'preservim/tagbar'
-Plug 'bling/vim-airline'
-Plug 'edkolev/tmuxline.vim'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-Plug 'justinmk/vim-sneak'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-neotest/neotest'
 Plug 'nvim-neotest/nvim-nio'
 Plug 'mfussenegger/nvim-dap'
@@ -52,10 +37,6 @@ Plug 'pangloss/vim-javascript', { 'for': 'js' }
 Plug 'jason0x43/vim-js-indent', { 'for': 'js' }
 Plug 'tpope/vim-jdaddy', { 'for': 'json' }
 " Ruby-ish
-Plug 'vim-ruby/vim-ruby', { 'for': 'rb' }
-Plug 'tpope/vim-rails'
-Plug 'tpope/vim-rhubarb'
-Plug 'tpope/vim-bundler'
 Plug 'olimorris/neotest-rspec'
 Plug 'suketa/nvim-dap-ruby'
 
@@ -146,12 +127,6 @@ augroup indentguidesaugroup
   autocmd VimEnter,Colorscheme * hi IndentGuidesEven ctermbg=240
 augroup END
 
-" Custom Fugitive shortcuts
-noremap <leader>gs :Git <CR>
-noremap <leader>gc :Git commit <CR>
-noremap <leader>gd :Gdiffsplit <CR>
-noremap <leader>gb :Git blame <CR>
-
 " Close omnicompletion preview window when you are finished inserting.
 " source:
 " http://stackoverflow.com/questions/3105307/how-do-you-automatically-remove-the-preview-window-after-autocompletion-in-vim
@@ -203,30 +178,14 @@ com! DiffSaved call s:DiffWithSaved()
 " impossible
 let g:vim_markdown_folding_disabled = 1
 
-let g:sneak#label = 1
-nnoremap <leader>s <Plug>Sneak_s
-nnoremap <leader>S <Plug>Sneak_S
-
 " My custom normal/insert mode mappings {{{
 
 " Quick editing and reloading of .vimrc
 nnoremap <leader>ev :split $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
-" Create directional shortcuts for moving among between splits
-nnoremap <C-j> <C-W>j
-nnoremap <C-k> <C-W>k
-nnoremap <C-l> <C-W>l
-nnoremap <C-h> <C-W>h
-
 " Toggle TagBar. I don't use it a lot, but it's helpful.
 nnoremap <leader>T :TagbarToggle<CR>
-
-" Close/open quickfix/preview windows from anywhere. Why has it taken me so
-" long to map this?
-nnoremap <leader>qq :cclose<CR>
-nnoremap <leader>qp :pclose<CR>
-nnoremap <leader>qo :copen<CR>
 
 " C-Enter in insert mode starts a new indented line below. I know this doesn't
 " *look* like Ctrl-Enter, but that seems to be how it's sent in iterm2.
@@ -252,23 +211,6 @@ if has("unix")
   vnoremap <leader>ksd :'<,'>normal $vT <leader>64d<cr>
   vnoremap <leader>kse :'<,'>normal $vT <leader>64e<cr>
 endif
-
-" }}}
-
-" Search Related options {{{
-
-" Highlight searched terms
-set hlsearch
-
-" bind \ to clear highlighting, though search term remains and 'n' works
-noremap <silent> \ :silent nohlsearch<CR>
-
-" Use incremental search
-set incsearch
-
-" Searches are case insensitive, unless upper case letters are used
-set ignorecase
-set smartcase
 
 " }}}
 

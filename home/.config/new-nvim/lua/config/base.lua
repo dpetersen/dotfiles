@@ -28,7 +28,10 @@ vim.opt.winminheight = 0
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 
-
 -- Always show diffs vertically regardless of the space available. Horizontal
 -- diffs are unreadable to me.
 vim.opt.diffopt = "vertical"
+
+-- Searches are case insensitive, unless upper case letters are used
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
