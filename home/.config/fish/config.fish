@@ -39,7 +39,7 @@ if test -f ~/.config/fish/functions/rvm.fish
 end
 
 if test -d ~/.tmux/plugins/tmuxifier/bin
-        set PATH $PATH /Users/dpetersen/.tmux/plugins/tmuxifier/bin
+        set PATH $PATH ~/.tmux/plugins/tmuxifier/bin
         eval (tmuxifier init - fish)
 end
 
