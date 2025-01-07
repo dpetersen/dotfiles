@@ -191,5 +191,12 @@ end
 
 export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
 
+# Some environments I'm using are setting PAGER to something dumb, like `less`
+# with no arguments so it's launching less for things that are 2 lines long.
+if set -q PAGER
+  set -e PAGER
+end
+
+
 set PATH $PATH /home/dpetersen/Downloads/idea-IU-231.9161.38/bin/
 set PATH $PATH /Users/dpetersen/.docker/cli-plugins/
