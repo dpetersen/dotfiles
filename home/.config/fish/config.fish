@@ -86,15 +86,7 @@ export GOPROXY="https://proxy.golang.org"
 ## The next line enables shell command completion for gcloud.
 #[ -f '/home/dpetersen/google-cloud-sdk/completion.fish.inc' ]; and source '/home/dpetersen/google-cloud-sdk/completion.fish.inc'
 
-# I don't think this is necessary anymore in the year of our lord 2024?
-# export TERM="xterm-256color"
-export EDITOR="nvim"
-export VISUAL="nvim"
-
 alias startx="ssh-agent startx"
-
-abbr -a n "nvim"
-abbr -a v "nvim"
 
 abbr -a t "terraform"
 
@@ -135,8 +127,11 @@ else
   alias ls="ls -lhG"
 end
 
+export EDITOR="nvim"
+export VISUAL="nvim"
 alias vim="nvim"
 alias vi="nvim"
+alias n="nvim"
 
 # alias pbcopy='xclip -selection clipboard'
 # alias pbpaste='xclip -selection clipboard -o'
