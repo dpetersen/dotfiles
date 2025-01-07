@@ -38,6 +38,11 @@ if test -f ~/.config/fish/functions/rvm.fish
     end
 end
 
+if test -d ~/.tmux/plugins/tmuxifier/bin
+        set PATH $PATH /Users/dpetersen/.tmux/plugins/tmuxifier/bin
+        eval (tmuxifier init - fish)
+end
+
 # This is vim mode. HOWEVER, the Vim mode is lacking compared to bash and
 # zsh's. For instance `df-` won't work, and others. No visual mode. I am just
 # going to use Alt-v, which edits the command in $EDITOR. However, having that
