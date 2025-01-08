@@ -1,6 +1,7 @@
 return {
+	-- An updated splitjoin plugin that works via treesitter. Works on
+	-- stuff that splitjoin ignored.
 	"Wansmer/treesj",
-	-- Recommended lazy loading config from their readme
 	keys = { "gJ", "gS" },
 	dependencies = { "nvim-treesitter/nvim-treesitter" },
 	opts = {
