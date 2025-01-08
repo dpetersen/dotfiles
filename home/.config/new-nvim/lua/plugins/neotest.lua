@@ -2,6 +2,7 @@ return {
     {
         -- Run specs from inside Neovim
         "nvim-neotest/neotest",
+        keys = { "<leader>t" },
         dependencies = {
             -- Their documented dependencies
             "nvim-neotest/nvim-nio",
