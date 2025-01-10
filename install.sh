@@ -33,9 +33,6 @@ sudo make install
 cd ../
 sudo rm -rf neovim-0.10.3
 
-nvim --headless +PlugInstall +qall
-nvim --headless +TSUpdateSync +qall
-
 ## Shell
 sudo apt-get install -y fish
 fish -c "fundle install"
