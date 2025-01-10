@@ -21,7 +21,12 @@ return {
 			---@diagnostic disable-next-line: missing-fields
 			neotest.setup({
 				adapters = {
-					require("neotest-rspec"),
+					require("neotest-rspec")({
+						rspec_cmd = function()
+							-- TODO: Would be great to have this be dynamic. Based on the existence of bin/spring and switch to the binstub?
+							return { "bundle", "exec", "spring", "rspec" }
+						end,
+					}),
 				},
 			})
 
@@ -42,7 +47,7 @@ return {
 				neotest.run.run(vim.fn.expand("%"))
 			end, nrs)
 			-- Stop running
-			vim.keymap.set("n", "<leader>ts", neotest.run.stop, nrs)
+			vim.keymap.set("n", "<leader>tS", neotest.run.stop, nrs)
 		end,
 	},
 }

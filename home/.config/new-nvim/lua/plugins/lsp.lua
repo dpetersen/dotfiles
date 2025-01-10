@@ -14,15 +14,15 @@ return {
 			-- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/server-mapping.md
 			ensure_installed = {
 				"lua_ls",
-				-- I want to install this lua formatter, and it exists in Mason's list, but it can't be referenced by this name?
-				-- "stylua",
 				"rust_analyzer",
 				"gopls",
 				"ruby_lsp",
 				"rubocop",
 				"ts_ls",
 				-- Formatters like this don't seem to be available even if Mason knows about them???
+				-- "stylua",
 				-- "prettierd",
+				-- "standardrb",
 			},
 		},
 	},
@@ -32,7 +32,9 @@ return {
 		dependencies = { "saghen/blink.cmp" },
 		config = function()
 			local capabilities = require("blink.cmp").get_lsp_capabilities()
-			require("lspconfig").lua_ls.setup({ capabilities = capabilities })
+			local lspconfig = require("lspconfig")
+			lspconfig.lua_ls.setup({ capabilities = capabilities })
+			lspconfig.ruby_lsp.setup({ capabilities = capabilities })
 		end,
 	},
 	-- lazydev.nvim is a plugin that properly configures LuaLS for editing
@@ -72,11 +74,11 @@ return {
 		opts = {
 			formatters_by_ft = {
 				lua = { "stylua" },
-				-- typescript = { "prettierd" },
-				-- typescriptreact = { "prettierd" },
+				ruby = { "standardrb", timeout_ms = 5000 },
+				typescript = { "prettierd" },
+				typescriptreact = { "prettierd" },
 			},
 			format_on_save = {
-				timeout_ms = 500,
 				lsp_format = "fallback",
 			},
 		},
