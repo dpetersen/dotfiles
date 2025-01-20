@@ -4,7 +4,7 @@
 
 # terminal emulator
 super + Return
-	alacritty
+	ghostty
 
 # Browser, using different profiles. Don't like this at all, it's very specific
 # to this machine, but I'm getting sick of having to pick a profile each time.
