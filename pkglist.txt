@@ -32,9 +32,9 @@ exo
 eza
 fd
 fish
-flatpak
 fzf
 garcon
+ghostty
 git
 git-absorb
 git-delta
@@ -47,6 +47,7 @@ intel-ucode
 inter-font
 jid-bin
 jq
+jujutsu
 kind
 kubectl
 kubectx
@@ -56,7 +57,6 @@ linux-firmware
 man-db
 minikube
 neovim
-ngrok
 nitrogen
 noto-fonts-emoji
 nushell
@@ -77,13 +77,13 @@ pulseaudio-alsa
 pulseaudio-bluetooth
 pulsemixer
 python-pdfplumber
+rankmirrors
 rbenv
 redshift
 reflector
 ripgrep
 rsync
 ruby-build
-rubymine
 rustup
 scrot
 siji-git
@@ -106,7 +106,6 @@ tumbler
 unzip
 visual-studio-code-bin
 vlc
-webstorm
 wget
 which
 whois
