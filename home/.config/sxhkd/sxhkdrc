@@ -9,12 +9,12 @@ super + Return
 # Browser, using different profiles. Don't like this at all, it's very specific
 # to this machine, but I'm getting sick of having to pick a profile each time.
 #
-# This is my Initial Capacity profile
-super + apostrophe
-        google-chrome-stable --profile-directory="Profile 2"
 # This is my personal profile
-super + shift + apostrophe
+super + apostrophe
         google-chrome-stable --profile-directory="Profile 1"
+# This is my Initial Capacity profile
+super + shift + apostrophe
+        google-chrome-stable --profile-directory="Profile 2"
 
 # program launcher
 super + @space
