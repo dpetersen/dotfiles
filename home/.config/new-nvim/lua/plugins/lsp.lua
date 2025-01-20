@@ -12,6 +12,9 @@ return {
 		opts = {
 			-- List of allowed values:
 			-- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/server-mapping.md
+			--
+			-- Linters and other tools that you can't find in that list are probably installable
+			-- with mason-tool-installer below.
 			ensure_installed = {
 				"lua_ls",
 				"rust_analyzer",
@@ -19,10 +22,16 @@ return {
 				"ruby_lsp",
 				"rubocop",
 				"ts_ls",
-				-- Formatters like this don't seem to be available even if Mason knows about them???
-				-- "stylua",
-				-- "prettierd",
-				-- "standardrb",
+			},
+		},
+	},
+	-- Helps installing other tools, like linters and formatters, that aren't available in nvim-lspconfig.
+	{
+		"WhoIsSethDaniel/mason-tool-installer.nvim",
+		opts = {
+			ensure_installed = {
+				"stylua",
+				"prettierd",
 			},
 		},
 	},
