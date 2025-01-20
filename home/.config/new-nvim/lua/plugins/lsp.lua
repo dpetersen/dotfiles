@@ -44,6 +44,7 @@ return {
 			local lspconfig = require("lspconfig")
 			lspconfig.lua_ls.setup({ capabilities = capabilities })
 			lspconfig.ruby_lsp.setup({ capabilities = capabilities })
+			lspconfig.gopls.setup({ capabilities = capabilities })
 		end,
 	},
 	-- lazydev.nvim is a plugin that properly configures LuaLS for editing
