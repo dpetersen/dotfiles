@@ -191,6 +191,13 @@ end
 
 export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
 
+switch (uname)
+    case Darwin
+            # This is the default path on non-OSX, but on OSX it's stored
+            # somewhere weird by default and I need it consistent for
+            # homeshick.
+            export JJ_CONFIG=~/.config/jj/config.toml
+end
 jj util completion fish | source
 
 # Some environments I'm using are setting PAGER to something dumb, like `less`

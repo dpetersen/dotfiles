@@ -1,0 +1,8 @@
+"$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
+
+[user]
+email = "don@donpetersen.net"
+name = "Don Petersen"
+
+[ui]
+default-command = "log"
