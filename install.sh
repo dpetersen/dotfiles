@@ -89,6 +89,7 @@ rm -rf jj-dl
 
 jj config set --user user.name "Don Petersen"
 jj config set --user user.email "don@initialcapacity.io"
+jj config set --user ui.default-command log
 
 # Installs fish support that will auto-change Ruby versions with RVM
 curl -L --create-dirs -o ~/.config/fish/functions/rvm.fish https://raw.github.com/lunks/fish-nuggets/master/functions/rvm.fish
