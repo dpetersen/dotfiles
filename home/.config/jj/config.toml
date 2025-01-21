@@ -1,4 +1,10 @@
-"$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
+"$schema" = "https://raw.githubusercontent.com/jj-vcs/jj/refs/heads/main/cli/src/config-schema.json"
+
+# According to this addition to the docs website:
+# https://github.com/jj-vcs/jj/commit/9ed1fde364cbd1c8ad332332180fa9f6444f5599
+# I should be able to do the next line, but it's a 404. Not clear if this is
+# live yet? It does show up on the current website.
+# "$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
 
 [user]
 email = "don@donpetersen.net"

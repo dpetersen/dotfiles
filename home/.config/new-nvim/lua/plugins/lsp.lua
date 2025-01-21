@@ -22,6 +22,7 @@ return {
 				"ruby_lsp",
 				"rubocop",
 				"ts_ls",
+				"taplo", -- for TOML (where the TOML follows a JSON schema)
 			},
 		},
 	},
@@ -45,6 +46,7 @@ return {
 			lspconfig.lua_ls.setup({ capabilities = capabilities })
 			lspconfig.ruby_lsp.setup({ capabilities = capabilities })
 			lspconfig.gopls.setup({ capabilities = capabilities })
+			lspconfig.taplo.setup({ capabilities = capabilities })
 		end,
 	},
 	-- lazydev.nvim is a plugin that properly configures LuaLS for editing
