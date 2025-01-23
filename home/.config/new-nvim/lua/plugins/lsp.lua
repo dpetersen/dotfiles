@@ -47,6 +47,42 @@ return {
 			lspconfig.ruby_lsp.setup({ capabilities = capabilities })
 			lspconfig.gopls.setup({ capabilities = capabilities })
 			lspconfig.taplo.setup({ capabilities = capabilities })
+
+			-- If you're ever curious about what an LSP supports, you can do:
+			--
+			-- :lua =vim.lsp.get_clients()[2].server_capabilities
+			--
+			-- Where the index is the LSP server you're interested in.
+			vim.api.nvim_create_autocmd("LspAttach", {
+				callback = function(ev)
+					-- K is already remapped by default, so that functionality is
+					-- available with no configuration.
+
+					local bufferOpts = { buffer = ev.buf }
+					vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufferOpts)
+					vim.keymap.set("n", "<c-]>", vim.lsp.buf.definition, bufferOpts)
+
+					vim.keymap.set("n", "grt", function()
+						vim.lsp.buf.type_definition()
+					end, { desc = "vim.lsp.buf.type_definition()" })
+					vim.keymap.set("n", "gri", function()
+						vim.lsp.buf.implementation()
+					end, { desc = "vim.lsp.buf.implementation()" })
+
+					-- These remaps are going to be part of the default configuration
+					-- in Neovim 0.11. I'm going to start using them now.
+					vim.keymap.set("n", "grn", function()
+						vim.lsp.buf.rename()
+					end, { desc = "vim.lsp.buf.rename()" })
+					vim.keymap.set({ "n", "x" }, "gra", function()
+						vim.lsp.buf.code_action()
+					end, { desc = "vim.lsp.buf.code_action()" })
+					vim.keymap.set("n", "grr", function()
+						vim.lsp.buf.references()
+					end, { desc = "vim.lsp.buf.references()" })
+					-- End of 0.11 remaps
+				end,
+			})
 		end,
 	},
 	-- lazydev.nvim is a plugin that properly configures LuaLS for editing
