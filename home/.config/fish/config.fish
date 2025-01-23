@@ -133,8 +133,11 @@ alias vim="nvim"
 alias vi="nvim"
 alias n="nvim"
 
-# alias pbcopy='xclip -selection clipboard'
-# alias pbpaste='xclip -selection clipboard -o'
+switch (uname)
+    case Linux
+        alias pbcopy='xclip -selection clipboard'
+        alias pbpaste='xclip -selection clipboard -o'
+end
 
 direnv hook fish | source
 
