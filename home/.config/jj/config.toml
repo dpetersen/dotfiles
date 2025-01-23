@@ -12,3 +12,7 @@ name = "Don Petersen"
 
 [ui]
 default-command = "log"
+diff.tool = "delta"
+
+[revset-aliases]
+mylocal = "visible_heads() & mine()"
