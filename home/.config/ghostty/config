@@ -1,3 +1,6 @@
 # As discussed here:
 # https://github.com/ghostty-org/ghostty/discussions/3158
 window-decoration = false
+
+# ghostty + list-themes to view them
+theme = catppuccin-macchiato
