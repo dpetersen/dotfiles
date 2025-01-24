@@ -96,23 +96,31 @@ return {
 	{
 		"saghen/blink.cmp",
 		dependencies = {
-			{ "giuxtaposition/blink-cmp-copilot" },
+			{ "fang2hou/blink-copilot" },
 		},
 		version = "*",
 		---@module 'blink.cmp'
 		---@type blink.cmp.Config
 		opts = {
+			completion = {
+				documentation = {
+					auto_show = true,
+				},
+			},
 			keymap = { preset = "default" },
 			appearance = {
 				use_nvim_cmp_as_default = true,
 				nerd_font_variant = "mono",
+				kind_icons = {
+					Copilot = "",
+				},
 			},
 			sources = {
 				default = { "lsp", "path", "snippets", "buffer", "copilot" },
 				providers = {
 					copilot = {
 						name = "copilot",
-						module = "blink-cmp-copilot",
+						module = "blink-copilot",
 						score_offset = 100,
 						async = true,
 					},
@@ -124,15 +132,13 @@ return {
 	},
 	-- Provides link between blink and copilot.lua
 	{
-		"giuxtaposition/blink-cmp-copilot",
-		dependencies = {
-			"zbirenbaum/copilot.lua",
-			-- Don't have copilot.lua visualize anything
-			opts = {
-				suggestion = { enabled = false },
-				panel = { enabled = false },
-			},
-		},
+		"fang2hou/blink-copilot",
+		-- This is still providing the copilot completions, and you need to do:
+		--
+		-- :Copilot auth
+		--
+		-- To authenticate with Github and enable these completions.
+		dependencies = { "zbirenbaum/copilot.lua", opts = {} },
 	},
 	-- LSP-aware formatting with easily configurable format-on-save
 	{
