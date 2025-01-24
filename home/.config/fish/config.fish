@@ -3,26 +3,8 @@ switch (uname)
         eval "$(/opt/homebrew/bin/brew shellenv)"
 end
 
-# Install fundle if it doesn't exist:
-# https://github.com/danhper/fundle
-if not functions -q fundle; eval (curl -sfL https://git.io/fundle-install); end
 
-# Lets you source bash scripts and have them work
-fundle plugin 'edc/bass'
-# gcloud + gsutil completion. Google has path script support for fish, but not
-# completion
-fundle plugin 'aliz-ai/google-cloud-sdk-fish-completion'
-# I started using 'danhper/fish-kubectl', which was pretty rough. This needs to
-# be addressed in cobra and then kubectl, but it's not
-fundle plugin 'evanlucas/fish-kubectl-completions'
-
-fundle plugin 'rbenv/fish-rbenv'
-
-# Note: THIS ISN'T NVM! It's a from-scratch-in-fish version that seems to work
-# similarly. I'm not sure if it's better or worse, but it's not NVM.
-fundle plugin 'jorgebucaran/nvm.fish'
-
-fundle init
+fish_config theme choose "Catppuccin Macchiato"
 
 # I install this in environments where RVM is used, so if it exists this
 # triggers the autoloading of the function that will make rvm auto-switching
