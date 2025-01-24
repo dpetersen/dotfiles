@@ -12,6 +12,7 @@ return {
 
 			-- Adapters I use
 			"olimorris/neotest-rspec",
+			"nvim-neotest/neotest-go",
 		},
 		-- Can't be ops because the adapters block tries to evaluate before the dependencies are installed
 		config = function()
@@ -27,6 +28,7 @@ return {
 							return { "bundle", "exec", "spring", "rspec" }
 						end,
 					}),
+					require("neotest-go"),
 				},
 			})
 
