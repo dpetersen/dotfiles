@@ -95,6 +95,9 @@ return {
 	-- Autocompletion fanciness
 	{
 		"saghen/blink.cmp",
+		dependencies = {
+			{ "giuxtaposition/blink-cmp-copilot" },
+		},
 		version = "*",
 		---@module 'blink.cmp'
 		---@type blink.cmp.Config
@@ -105,11 +108,31 @@ return {
 				nerd_font_variant = "mono",
 			},
 			sources = {
-				default = { "lsp", "path", "snippets", "buffer" },
+				default = { "lsp", "path", "snippets", "buffer", "copilot" },
+				providers = {
+					copilot = {
+						name = "copilot",
+						module = "blink-cmp-copilot",
+						score_offset = 100,
+						async = true,
+					},
+				},
 			},
 			signature = { enabled = true },
 		},
 		opts_extend = { "sources.default" },
+	},
+	-- Provides link between blink and copilot.lua
+	{
+		"giuxtaposition/blink-cmp-copilot",
+		dependencies = {
+			"zbirenbaum/copilot.lua",
+			-- Don't have copilot.lua visualize anything
+			opts = {
+				suggestion = { enabled = false },
+				panel = { enabled = false },
+			},
+		},
 	},
 	-- LSP-aware formatting with easily configurable format-on-save
 	{
