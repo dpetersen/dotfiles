@@ -21,7 +21,7 @@ return {
 				"gopls",
 				"ruby_lsp",
 				"rubocop",
-				"ts_ls",
+				"ts_ls", -- for Typescript
 				"taplo", -- for TOML (where the TOML follows a JSON schema)
 			},
 		},
