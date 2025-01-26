@@ -107,6 +107,15 @@ return {
 					auto_show = true,
 				},
 			},
+			-- These are described here:
+			--
+			-- https://cmp.saghen.dev/configuration/keymap.html#default
+			--
+			-- Most are defaults, but a few helpful ones:
+			--
+			-- Ctrl-b/f scroll documentation
+			-- Ctrl-space force show completion window (useful for kicking copilot off)
+			-- Ctrl-e hide completion window
 			keymap = { preset = "default" },
 			appearance = {
 				use_nvim_cmp_as_default = true,
