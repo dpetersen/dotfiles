@@ -1,4 +1,13 @@
-My dotfiles, in a format suitable for Homeshick.
+My dotfiles, in a format suitable for Chezmoi.
+
+## Initializing
+
+I'm generally usuing jj instead of git, but that isn't particularly well-supported in Chezmoi. To get started, run:
+
+```bash
+jj git clone --colocate https://github.com/dpetersen/dotfiles ~/.local/share/chezmoi
+chezmoi init
+```
 
 ## Generating Arch Package List
 

@@ -1,0 +1,17 @@
+# I can't find a schema for this file, but you can run:
+#
+# chezmoi dump-config
+#
+# to see all valid values. 
+
+# Not using git is discussed here, but the safest thing is to run your jj
+# commands directly:
+# https://www.chezmoi.io/user-guide/advanced/customize-your-source-directory/#use-a-different-version-control-system-to-git
+useBuiltinGit = false
+
+[git]
+# This probably doesn't work much, but keeps it from trying to run git
+command = "jj"
+
+[merge]
+command = "nvim -d"
