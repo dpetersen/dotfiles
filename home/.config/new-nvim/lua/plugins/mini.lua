@@ -8,16 +8,17 @@ return {
 	-- New operators to act on text objects, like:
 	--
 	--   g= evaluate
-	--   gx exchange
-	--   gm multiply
 	--   gR replace with register
+	--   gm multiply
 	--   gs sort
+	--   gx exchange
 	{
 		"echasnovski/mini.operators",
+		keys = { "g=", "gR", "gm", "gs", "gx" },
 		opts = {
 			replace = {
-				-- gr is this plugin's default, but that's being used by native LSP stuff now
-				-- and I don't want to fight it
+				-- gr is this plugin's default, but that's being used by native
+				-- LSP stuff now and I don't want conflicts
 				prefix = "gR",
 			},
 		},
