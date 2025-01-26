@@ -23,4 +23,9 @@ return {
 			},
 		},
 	},
+	{
+		-- Used by several plugins
+		"echasnovski/mini.icons",
+		opts = {},
+	},
 }
