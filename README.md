@@ -11,8 +11,12 @@ chezmoi init
 
 ## Generating Arch Package List
 
-For backup purposes, the file `pkglist.txt` has all the Arch packages I have installed, as [described here](https://wiki.archlinux.org/index.php/Pacman/Tips_and_tricks#List_of_installed_packages). Periodically regenerate that with:
+For backup purposes, there are two manifest files:
+  - `pkglist-explicit.txt`: all the Arch packages I have installed
+  - `pkglist.txt`  as [described here](https://wiki.archlinux.org/index.php/Pacman/Tips_and_tricks#List_of_installed_packages), which is every explicit and dependent package
+
+Periodically regenerate that with:
 
 ```
-pacman -Qqe > pkglist.txt
+./make-pkglists.sh
 ```
