@@ -7,7 +7,11 @@
 # "$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
 
 [user]
+{{- if eq .chezmoi.hostname "work-laptop" }}
+email = "don@initialcapacity.io"
+{{- else }}
 email = "don@donpetersen.net"
+{{- end }}
 name = "Don Petersen"
 
 [ui]
