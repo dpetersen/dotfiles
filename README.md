@@ -9,6 +9,8 @@ jj git clone --colocate https://github.com/dpetersen/dotfiles ~/.local/share/che
 chezmoi init
 ```
 
+For a headless install, look at all the promptable items in `home/.chezmoi.toml.tmpl` and pass values for them.
+
 ## Generating Arch Package List
 
 For backup purposes, there are two manifest files:

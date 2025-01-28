@@ -1,10 +1,6 @@
 [user]
         name = Don Petersen
-        {{- if eq .chezmoi.hostname "work-laptop" }}
-        email = don@initialcapacity.io
-        {{- else }}
-        email = don@donpetersen.net
-        {{- end }}
+        email = {{ .email }}
 [core]
 	excludesfile = ~/.gitignore_global
 	pager = delta --syntax-theme=zenburn
