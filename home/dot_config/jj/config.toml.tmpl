@@ -17,3 +17,17 @@ diff-editor = ["nvim", "-c", "DiffEditor $left $right $output"]
 
 [revset-aliases]
 mylocal = "visible_heads() & mine()"
+
+[merge-tools.diffconflicts]
+program = "nvim"
+merge-args = [
+        "-c",
+        "let g:jj_diffconflicts_marker_length=$marker_length",
+        "-c",
+        "JJDiffConflicts!",
+        "$output",
+        "$base",
+        "$left",
+        "$right",
+]
+merge-tool-edits-conflict-markers = true
