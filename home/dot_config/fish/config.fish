@@ -181,7 +181,7 @@ switch (uname)
             # This is the default path on non-OSX, but on OSX it's stored
             # somewhere weird by default and I need it consistent for
             # homeshick.
-            export JJ_CONFIG=~/.config/jj/config.toml
+            export JJ_CONFIG=$HOME/.config/jj/config.toml
 end
 jj util completion fish | source
 
