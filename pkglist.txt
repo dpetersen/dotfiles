@@ -15,6 +15,7 @@ blueman
 bluez
 bluez-utils
 bspwm
+chezmoi
 chrony
 copyq
 ctags
@@ -29,9 +30,11 @@ dust
 efibootmgr
 evtest
 exo
+expressvpn
 eza
 fd
 fish
+fisher
 fzf
 garcon
 ghostty
@@ -40,9 +43,13 @@ git-absorb
 git-delta
 git-trim
 github-cli
+go
 google-chrome
 grub
-helm
+hypridle
+hyprland
+hyprlock
+hyprshot
 intel-ucode
 inter-font
 jid-bin
@@ -56,6 +63,7 @@ linux
 linux-firmware
 man-db
 minikube
+neofetch
 neovim
 nitrogen
 noto-fonts-emoji
@@ -90,7 +98,9 @@ siji-git
 slack-desktop
 slock
 starship
+stremio
 sudo
+swaync
 sxhkd
 tailscale
 thunar
@@ -98,6 +108,7 @@ thunar-volman
 tilt-bin
 tmux
 topgrade
+tree
 ttf-dejavu
 ttf-fira-code
 ttf-inconsolata
@@ -106,10 +117,12 @@ tumbler
 unzip
 visual-studio-code-bin
 vlc
+waybar
 wget
 which
 whois
 wmname
+wofi
 xbindkeys
 xclip
 xdg-desktop-portal-gtk
@@ -133,5 +146,6 @@ xorg-xwininfo
 xterm
 yarn
 yay
+zen-browser-bin
 zoom
 zsa-keymapp-bin
