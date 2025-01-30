@@ -9,15 +9,14 @@ echo "deb http://deb.debian.org/debian bookworm-backports main" | sudo tee /etc/
 sudo apt-get update
 sudo apt-get install -t bookworm-backports -y tmux
 
-# Get all my dotfiles installed and linked
-git clone https://github.com/andsens/homeshick.git $HOME/.homesick/repos/homeshick
-source "$HOME/.homesick/repos/homeshick/homeshick.sh"
-homeshick clone dpetersen/dotfiles --batch
-homeshick cd dotfiles
-git checkout -t origin/ic-work
-homeshick link dotfiles --force
-
 cd ~
+
+sh -c "$(curl -fsLS get.chezmoi.io)"
+mv ~/bin/chezmoi /usr/local/bin
+rmdir bin
+
+jj git clone --colocate https://github.com/dpetersen/dotfiles ~/.local/share/chezmoi
+chezmoi init --apply
 
 # neovim in apt (at this time) is ancient. Because locally this is running on
 # ARM64 (on modern Macs, anyway) and there are (currently) no free options for
