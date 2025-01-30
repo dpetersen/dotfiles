@@ -33,8 +33,6 @@ end
 # 2020 Update: still not very good. Breaks Ctrl-e and all kinds of stuff.
 # fish_vi_key_bindings
 
-source $HOME/.homesick/repos/homeshick/homeshick.fish
-
 switch (uname)
     case Darwin
         source $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.fish
@@ -42,8 +40,6 @@ switch (uname)
         [ -f /usr/local/share/autojump/autojump.fish ]; and source /usr/local/share/autojump/autojump.fish
         [ -f $HOMEBREW_PREFIX/opt/autojump/share/autojump/autojump.fish ]; and source $HOMEBREW_PREFIX/opt/autojump/share/autojump/autojump.fish
     case '*'
-        [ -f /home/dpetersen/.homesick/repos/homeshick/homeshick.fish ]; and source /home/dpetersen/.homesick/repos/homeshick/homeshick.fish
-        [ -f /home/dpetersen/.homesick/repos/homeshick/completions/homeshick.fish ]; and source /home/dpetersen/.homesick/repos/homeshick/completions/homeshick.fish
         [ -f /usr/share/autojump/autojump.fish ]; and source /usr/share/autojump/autojump.fish
         [ -f /opt/asdf-vm/asdf.fish ]; and source /opt/asdf-vm/asdf.fish
         # Ctrl-j for autojump into fzf
