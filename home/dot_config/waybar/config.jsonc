@@ -19,17 +19,23 @@
             "cpu",
             "memory",
             "temperature",
-            "clock",
+            "custom/clock",
             "tray",
     ],
     "tray": {
         // "icon-size": 21,
         "spacing": 10
     },
+    // Having issues with locales in this clock. Kill waybar and rerun in a
+    // terminal to see errors.
     "clock": {
         // "timezone": "America/New_York",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "format-alt": "{:%Y-%m-%d}"
+    },
+    "custom/clock": {
+            "exec": "date +'%b %d %I:%M%p'",
+            "interval": 10
     },
     "cpu": {
             "format": "{usage}% ",
