@@ -6,7 +6,7 @@ I'm generally usuing jj instead of git, but that isn't particularly well-support
 
 ```bash
 jj git clone --colocate https://github.com/dpetersen/dotfiles ~/.local/share/chezmoi
-chezmoi init
+chezmoi init --apply
 ```
 
 For a headless install, look at all the promptable items in `home/.chezmoi.toml.tmpl` and pass values for them.
