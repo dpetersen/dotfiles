@@ -21,10 +21,16 @@
             "temperature",
             "clock",
             "tray",
+            "custom/power",
     ],
     "tray": {
         // "icon-size": 21,
         "spacing": 10
+    },
+    "custom/power": {
+            "format": " ⏻  ",
+            "tooltip": false,
+            "on-click": "wlogout --protocol layer-shell"
     },
     "clock": {
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
