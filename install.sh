@@ -15,6 +15,15 @@ sh -c "$(curl -fsLS get.chezmoi.io)"
 mv ~/bin/chezmoi /usr/local/bin
 rmdir bin
 
+wget "https://github.com/jj-vcs/jj/releases/download/v0.26.0/jj-v0.26.0-aarch64-unknown-linux-musl.tar.gz"
+mkdir jj-dl
+mv jj-v0.26.0-aarch64-unknown-linux-musl.tar.gz jj-dl
+cd jj-dl
+tar -zxvf jj-v0.26.0-aarch64-unknown-linux-musl.tar.gz
+sudo mv jj /usr/local/bin
+cd ../
+rm -rf jj-dl
+
 jj git clone --colocate https://github.com/dpetersen/dotfiles ~/.local/share/chezmoi
 chezmoi init --apply
 
@@ -76,15 +85,6 @@ sudo mv fd-v10.2.0-aarch64-unknown-linux-gnu/fd /usr/local/bin
 rm -rf fd-v10.2.0-aarch64-unknown-linux-gnu*
 
 npm install --global git-trim
-
-wget "https://github.com/jj-vcs/jj/releases/download/v0.25.0/jj-v0.25.0-aarch64-unknown-linux-musl.tar.gz"
-mkdir jj-dl
-mv jj-v0.25.0-aarch64-unknown-linux-musl.tar.gz jj-dl
-cd jj-dl
-tar -zxvf jj-v0.25.0-aarch64-unknown-linux-musl.tar.gz
-sudo mv jj /usr/local/bin
-cd ../
-rm -rf jj-dl
 
 # Installs fish support that will auto-change Ruby versions with RVM
 curl -L --create-dirs -o ~/.config/fish/functions/rvm.fish https://raw.github.com/lunks/fish-nuggets/master/functions/rvm.fish
