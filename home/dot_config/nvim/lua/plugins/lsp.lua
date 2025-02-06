@@ -47,6 +47,7 @@ return {
 			lspconfig.ruby_lsp.setup({ capabilities = capabilities })
 			lspconfig.gopls.setup({ capabilities = capabilities })
 			lspconfig.taplo.setup({ capabilities = capabilities })
+			lspconfig.ts_ls.setup({ capabilities = capabilities })
 
 			-- If you're ever curious about what an LSP supports, you can do:
 			--
