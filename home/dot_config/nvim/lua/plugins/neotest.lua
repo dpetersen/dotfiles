@@ -13,6 +13,7 @@ return {
 			-- Adapters I use
 			"olimorris/neotest-rspec",
 			"nvim-neotest/neotest-go",
+			"nvim-neotest/neotest-jest",
 		},
 		-- Can't be ops because the adapters block tries to evaluate before the dependencies are installed
 		config = function()
@@ -29,6 +30,14 @@ return {
 						end,
 					}),
 					require("neotest-go"),
+					require("neotest-jest")({
+						jestCommand = "npm test --",
+						jestConfigFile = "custom.jest.config.ts",
+						env = { CI = true },
+						cwd = function()
+							return vim.fn.getcwd()
+						end,
+					}),
 				},
 			})
 

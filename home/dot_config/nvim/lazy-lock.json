@@ -22,6 +22,7 @@
   "mini.operators": { "branch": "main", "commit": "81e5059268154f5a8b594c95748968febdd539e3" },
   "neotest": { "branch": "master", "commit": "d66cf4e05a116957f0d3a7755a24291c7d1e1f72" },
   "neotest-go": { "branch": "main", "commit": "92950ad7be2ca02a41abca5c6600ff6ffaf5b5d6" },
+  "neotest-jest": { "branch": "main", "commit": "514fd4eae7da15fd409133086bb8e029b65ac43f" },
   "neotest-rspec": { "branch": "main", "commit": "f8c91edc5dd87ca467a624652f365ac217d7cc1c" },
   "nui.nvim": { "branch": "main", "commit": "53e907ffe5eedebdca1cd503b00aa8692068ca46" },
   "nvim-lspconfig": { "branch": "master", "commit": "66bc018936c6ff76beb75f89d986af6442db4001" },
