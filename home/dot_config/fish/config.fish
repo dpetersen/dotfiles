@@ -107,9 +107,8 @@ end
 
 export EDITOR="nvim"
 export VISUAL="nvim"
-alias vim="nvim"
-alias vi="nvim"
-alias n="nvim"
+abbr -a vim 'nvim'
+abbr -a n 'nvim'
 
 switch (uname)
     case Linux
