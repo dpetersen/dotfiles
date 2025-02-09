@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Obsidian
+Exec=env OBSIDIAN_USE_WAYLAND=1 /usr/bin/obsidian -enable-features=UseOzonePlatform -ozone-platform=wayland %U
+Terminal=false
+Type=Application
+Icon=obsidian
+StartupWMClass=obsidian
+Comment=Obsidian
+MimeType=x-scheme-handler/obsidian;
+Categories=Office;
