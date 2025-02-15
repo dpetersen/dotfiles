@@ -41,24 +41,19 @@ return {
 				},
 			})
 
-			local nrs = { noremap = true, silent = true }
+			local function nrs(opts)
+				return vim.tbl_deep_extend("force", { noremap = true, silent = true }, opts)
+			end
 
-			-- Toggle summary sidebar
-			vim.keymap.set("n", "<leader>ts", neotest.summary.toggle, nrs)
-			-- Toggle output panel
+			vim.keymap.set("n", "<leader>ts", neotest.summary.toggle, nrs({ desc = "Toggle test summary" }))
 			-- TODO: decide if you want the floating output thing or maybe diagnostics? Do you need to install the neotest rspec adapter?
-			vim.keymap.set("n", "<leader>to", neotest.output_panel.toggle, nrs)
-
-			-- Test Neartest to cursor
-			vim.keymap.set("n", "<leader>tn", neotest.run.run, nrs)
-			-- Re-run last test
-			vim.keymap.set("n", "<leader>tt", neotest.run.run_last, nrs)
-			-- Run whole file
+			vim.keymap.set("n", "<leader>to", neotest.output_panel.toggle, nrs({ desc = "Toggle test output panel" }))
+			vim.keymap.set("n", "<leader>tn", neotest.run.run, nrs({ desc = "Run nearest test" }))
+			vim.keymap.set("n", "<leader>tt", neotest.run.run_last, nrs({ desc = "Re-run last test" }))
 			vim.keymap.set("n", "<leader>tf", function()
 				neotest.run.run(vim.fn.expand("%"))
-			end, nrs)
-			-- Stop running
-			vim.keymap.set("n", "<leader>tS", neotest.run.stop, nrs)
+			end, nrs({ desc = "Run tests in file" }))
+			vim.keymap.set("n", "<leader>tS", neotest.run.stop, nrs({ desc = "Stop running tests" }))
 		end,
 	},
 }

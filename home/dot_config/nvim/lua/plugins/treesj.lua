@@ -11,7 +11,7 @@ return {
 	config = function()
 		local treesj = require("treesj")
 		-- Mimicking what I learned from splitjoin
-		vim.keymap.set("n", "gS", treesj.split, { noremap = true })
-		vim.keymap.set("n", "gJ", treesj.join, { noremap = true })
+		vim.keymap.set("n", "gS", treesj.split, { noremap = true, desc = "Smart Split" })
+		vim.keymap.set("n", "gJ", treesj.join, { noremap = true, desc = "Smart Join" })
 	end,
 }
