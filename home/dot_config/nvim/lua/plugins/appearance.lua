@@ -22,6 +22,15 @@ return {
 			vim.cmd.colorscheme("catppuccin-macchiato")
 		end,
 		opts = {
+			custom_highlights = function(colors)
+				return {
+					-- Diff colors are way too subtle for me, so this sticks to theme colors but
+					-- makes them much louder.
+					DiffChange = { bg = colors.surface1 },
+					-- TODO: I want this to take effect for JJDiffSplit but not other diffs
+					DiffText = { bg = colors.red },
+				}
+			end,
 			-- There are more integrations than this, but many are enabled by default.
 			-- You can find out what's on by default in the source:
 			-- https://github.com/catppuccin/nvim/blob/main/lua/catppuccin/init.lua
