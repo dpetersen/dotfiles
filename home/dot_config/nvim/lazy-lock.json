@@ -1,6 +1,5 @@
 {
   "FixCursorHold.nvim": { "branch": "master", "commit": "1900f89dc17c603eec29960f57c00bd9ae696495" },
-  "Zenburn": { "branch": "master", "commit": "8df765342b2a33c728ce147d6c8e66359378f9d5" },
   "avante.nvim": { "branch": "main", "commit": "b20b2caf220cd988b026d5981475bf8928afa27e" },
   "blink-copilot": { "branch": "main", "commit": "bcd003b946e4bdce2c9da34f0704d3cca94dd13f" },
   "blink.cmp": { "branch": "main", "commit": "18b352d12b35bca148427b607098df14b75a218f" },
@@ -52,7 +51,6 @@
   "vim-repeat": { "branch": "master", "commit": "65846025c15494983dafe5e3b46c8f88ab2e9635" },
   "vim-rhubarb": { "branch": "master", "commit": "386daa2e9d98e23e27ad089afcbe5c5a903e488d" },
   "vim-ruby": { "branch": "master", "commit": "9139741a9d786144aae66755df030f8e5fab36df" },
-  "vim-sneak": { "branch": "master", "commit": "c13d0497139b8796ff9c44ddb9bc0dc9770ad2dd" },
   "vim-surround": { "branch": "master", "commit": "3d188ed2113431cf8dac77be61b842acb64433d9" },
   "vim-unimpaired": { "branch": "master", "commit": "6d44a6dc2ec34607c41ec78acf81657248580bf1" },
   "which-key.nvim": { "branch": "main", "commit": "5bf7a73fe851896d5ac26d313db849bf00f45b78" }
