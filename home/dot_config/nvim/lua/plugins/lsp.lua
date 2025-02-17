@@ -48,6 +48,7 @@ return {
 			lspconfig.gopls.setup({ capabilities = capabilities })
 			lspconfig.taplo.setup({ capabilities = capabilities })
 			lspconfig.ts_ls.setup({ capabilities = capabilities })
+			lspconfig.rust_analyzer.setup({ capabilities = capabilities })
 
 			-- If you're ever curious about what an LSP supports, you can do:
 			--
@@ -163,6 +164,7 @@ return {
 				ruby = { "standardrb", timeout_ms = 5000 },
 				typescript = { "prettierd" },
 				typescriptreact = { "prettierd" },
+				rust = { "clippy" },
 			},
 			format_on_save = {
 				lsp_format = "fallback",
