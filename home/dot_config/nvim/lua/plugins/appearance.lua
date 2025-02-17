@@ -1,18 +1,5 @@
 return {
 	{
-		"jnurmine/Zenburn",
-		-- Lazy suggests ensuring your main colorscheme loads immediately
-		lazy = false,
-		-- TODO: decide if I'm moving to catppuccin or staying on Zenburn
-		enabled = false,
-		priority = 1000,
-		init = function()
-			-- It's not *that* high contrast, just a darker background
-			vim.g.zenburn_high_Contrast = 1
-			vim.cmd("colorscheme zenburn")
-		end,
-	},
-	{
 		"catppuccin/nvim",
 		name = "catppuccin",
 		-- Lazy suggests ensuring your main colorscheme loads immediately
