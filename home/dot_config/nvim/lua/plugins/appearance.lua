@@ -39,6 +39,11 @@ return {
 				blink_cmp = true,
 				mason = true,
 				neotest = true,
+				-- These two are disabled because, while they are supported by cattpuccin.nvim
+				-- via integrations, it's not configured quite right when both plugins are present,
+				-- as far as I can tell.
+				rainbow_delimiters = false,
+				indent_blankline = { enabled = false },
 			},
 		},
 	},
