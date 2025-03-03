@@ -1,5 +1,14 @@
 "$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
 
+[git]
+# This is apparently going to be the default in the future, and setting this
+# now puts me ahead of the curve and also helps get me the:
+#
+#   core.checkStat minimal
+#
+# setting I need in Git on Docker Desktop on OSX.
+subprocess = true
+
 [user]
 name = "Don Petersen"
 email = {{ .email | quote }}
