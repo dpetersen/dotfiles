@@ -25,3 +25,9 @@ merge-args = [
         "$right",
 ]
 merge-tool-edits-conflict-markers = true
+
+# This does have a bug where it will format schema.rb. I'm not sure there's an
+# easy way to fix this with JJ's current capabilities.
+[fix.tools.standardrb]
+command = ["bin/standardrb", "--fix", "--stdin", "$path", "--stderr"]
+patterns = ["glob:'**/*.rb'", "glob:'**/*.rake'"]
