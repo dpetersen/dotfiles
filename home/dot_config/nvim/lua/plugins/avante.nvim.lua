@@ -13,5 +13,8 @@ return {
 	opts = {
 		---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | string
 		provider = "claude",
+		claude = {
+			disable_tools = true,
+		},
 	},
 }
