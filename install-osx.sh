@@ -20,4 +20,7 @@ brew install \
         delta \
         ripgrep \
         fd \
-        bat
+        bat \
+        jq \
+        wget \
+        watch
