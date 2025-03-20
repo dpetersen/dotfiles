@@ -16,7 +16,8 @@ skip_notify = true
 # want it to auto-update my dotfiles, since I'm often tinkering with them
 # locally.
 # vim - I will decide when to update plugins
-disable = ["cargo", "asdf", "containers", "chezmoi", "vim"]
+# gem/ruby_gem - It's not helpful, since it's either installing new versions of something that will be locked in Bundler, or upgrading super outdated Mac system Ruby. Unsure of the difference between these two, also.
+disable = ["cargo", "asdf", "containers", "chezmoi", "vim", "gem", "ruby_gems"]
 
 # Run specific steps - same options as the command line flag
 #only = ["system", "emacs"]
