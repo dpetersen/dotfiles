@@ -1,9 +1,3 @@
-switch (uname)
-    case Darwin
-        eval "$(/opt/homebrew/bin/brew shellenv)"
-end
-
-
 fish_config theme choose "Catppuccin Macchiato"
 
 # I install this in environments where RVM is used, so if it exists this
