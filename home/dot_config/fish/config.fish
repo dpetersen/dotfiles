@@ -90,6 +90,15 @@ abbr -a gcv 'git commit -v'
 abbr -a gfp 'git fetch origin; and git pull'
 abbr -a gfpt 'git fetch origin; and git pull; and git trim'
 
+# Jump to the root of the Git repo you're currently in, if any. Stolen from:
+# https://www.reddit.com/r/fishshell/comments/6ofhob/comment/dks946i/
+function gcd
+  set -lx TOPLEVEL (git rev-parse --show-toplevel 2>/dev/null)
+    if test $status -eq 0
+      cd $TOPLEVEL
+  end
+end
+
 abbr -a be 'bundle exec'
 abbr -a ber 'bundle exec rspec'
 abbr -a bes 'bundle exec spring'
