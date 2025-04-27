@@ -14,6 +14,7 @@ return {
 			"olimorris/neotest-rspec",
 			"nvim-neotest/neotest-go",
 			"nvim-neotest/neotest-jest",
+			"nvim-neotest/neotest-python",
 		},
 		-- Can't be ops because the adapters block tries to evaluate before the dependencies are installed
 		config = function()
@@ -38,6 +39,7 @@ return {
 							return vim.fn.getcwd()
 						end,
 					}),
+					require("neotest-python"),
 				},
 			})
 

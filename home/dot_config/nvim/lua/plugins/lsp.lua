@@ -23,6 +23,8 @@ return {
 				"rubocop",
 				"ts_ls", -- for Typescript
 				"taplo", -- for TOML (where the TOML follows a JSON schema)
+				"ruff",
+				"pyright",
 			},
 		},
 	},
@@ -49,6 +51,23 @@ return {
 			lspconfig.taplo.setup({ capabilities = capabilities })
 			lspconfig.ts_ls.setup({ capabilities = capabilities })
 			lspconfig.rust_analyzer.setup({ capabilities = capabilities })
+			lspconfig.ruff.setup({ capabilities = capabilities })
+			-- Many of these settings to play nice with Ruff come from:
+			-- https://docs.astral.sh/ruff/editors/setup/#neovim
+			lspconfig.pyright.setup({
+				settings = {
+					pyright = {
+						-- Using Ruff's import organizer
+						disableOrganizeImports = true,
+					},
+					-- python = {
+					-- 	analysis = {
+					-- 		-- Ignore all files for analysis to exclusively use Ruff for linting
+					-- 		ignore = { "*" },
+					-- 	},
+					-- },
+				},
+			})
 
 			-- If you're ever curious about what an LSP supports, you can do:
 			--
@@ -91,7 +110,9 @@ return {
 	{
 		"folke/lazydev.nvim",
 		ft = "lua",
-		opts = {},
+		opts = {
+			library = { "nvim-dap-ui" },
+		},
 	},
 	-- Autocompletion fanciness
 	{
