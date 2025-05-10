@@ -12,8 +12,12 @@ return {
 	opts = {
 		---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | string
 		provider = "claude",
-		claude = {
-			disable_tools = true,
+		behavior = {
+			use_cwd_as_project_root = true,
+			-- 	enable_cursor_planning_mode = true,
 		},
+		-- claude = {
+		-- 	disable_tools = true,
+		-- },
 	},
 }
