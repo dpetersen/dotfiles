@@ -12,12 +12,13 @@ return {
 	opts = {
 		---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | string
 		provider = "claude",
-		behavior = {
-			use_cwd_as_project_root = true,
-			-- 	enable_cursor_planning_mode = true,
+		providers = {
+			claude = {
+				model = "claude-sonnet-4-20250514",
+			},
 		},
-		-- claude = {
-		-- 	disable_tools = true,
-		-- },
+		behaviour = {
+			use_cwd_as_project_root = true,
+		},
 	},
 }
