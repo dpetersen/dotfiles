@@ -77,7 +77,7 @@ bind \ck "kubectx; commandline --function repaint"
 bind \cn "kubens; commandline --function repaint"
 
 set PATH $PATH /home/dpetersen/.krew/bin
-abbr -a sterne "stern -Eistio\|pgbouncer -eokcomputer"
+abbr -a sterne "stern -Eistio -eokcomputer"
 abbr -a gs "git status"
 abbr -a gc "git checkout"
 abbr -a gcv 'git commit -v'
@@ -160,8 +160,6 @@ set -U SXHKD_SHELL /usr/bin/bash
 
 set fish_greeting
 
-eval (gh completion fish)
-
 if status --is-interactive
   atuin init fish | source
 end
@@ -176,21 +174,24 @@ end
 
 export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
 
-switch (uname)
-    case Darwin
-            # This is the default path on non-OSX, but on OSX it's stored
-            # somewhere weird by default and I need it consistent for
-            # homeshick.
-            export JJ_CONFIG=$HOME/.config/jj/config.toml
-end
-jj util completion fish | source
-
 # Some environments I'm using are setting PAGER to something dumb, like `less`
 # with no arguments so it's launching less for things that are 2 lines long.
 if set -q PAGER
   set -e PAGER
 end
 
+# FIXME: Obviously this is a big no... but for now:
+export JAVA_HOME="/opt/homebrew/Cellar/openjdk@17/17.0.14/libexec/openjdk.jdk/Contents/Home"
 
 set PATH $PATH /home/dpetersen/Downloads/idea-IU-231.9161.38/bin/
 set PATH $PATH /Users/dpetersen/.docker/cli-plugins/
+
+# FIXME: this is not working as far as I can tell. I can find lots of people
+# using this variable online but no documentation of it with fd itself?
+#
+# Tell fd to search in hidden directories, too
+export FD_OPTIONS="--hidden"
+
+set -gx VOLTA_HOME "$HOME/.volta"
+set -gx PATH "$VOLTA_HOME/bin" $PATH
+alias claude="/Users/donald.petersen/.claude/local/claude"
