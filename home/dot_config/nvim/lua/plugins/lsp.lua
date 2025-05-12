@@ -79,29 +79,10 @@ return {
 				callback = function(ev)
 					-- K is already remapped by default, so that functionality is
 					-- available with no configuration.
+					-- A bunch of helpful mappings are available with: help grr
 
 					vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = ev.buf, desc = "Go to definition" })
 					vim.keymap.set("n", "<c-]>", vim.lsp.buf.definition, { buffer = ev.buf, desc = "Go to definition" })
-
-					vim.keymap.set("n", "grt", function()
-						vim.lsp.buf.type_definition()
-					end, { desc = "Go to type definition" })
-					vim.keymap.set("n", "gri", function()
-						vim.lsp.buf.implementation()
-					end, { desc = "Go to implementation" })
-
-					-- These remaps are going to be part of the default configuration
-					-- in Neovim 0.11. I'm going to start using them now.
-					vim.keymap.set("n", "grn", function()
-						vim.lsp.buf.rename()
-					end, { desc = "Rename symbol" })
-					vim.keymap.set({ "n", "x" }, "gra", function()
-						vim.lsp.buf.code_action()
-					end, { desc = "Show code actions" })
-					vim.keymap.set("n", "grr", function()
-						vim.lsp.buf.references()
-					end, { desc = "Find references" })
-					-- End of 0.11 remaps
 				end,
 			})
 		end,
