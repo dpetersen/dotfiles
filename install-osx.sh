@@ -23,4 +23,5 @@ brew install \
         bat \
         jq \
         wget \
-        watch
+        watch \
+        zellij
