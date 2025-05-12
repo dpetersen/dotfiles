@@ -6,3 +6,4 @@ runit.sh
 NOCOMMIT*
 # that sweet, sweet Rust debugger
 .vscode
+.idea
