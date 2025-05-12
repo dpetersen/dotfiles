@@ -19,8 +19,8 @@ return {
 				"lua_ls",
 				"rust_analyzer",
 				"gopls",
-				"ruby_lsp",
-				"rubocop",
+				-- "ruby_lsp",
+				-- "rubocop",
 				"ts_ls", -- for Typescript
 				"taplo", -- for TOML (where the TOML follows a JSON schema)
 				"ruff",
