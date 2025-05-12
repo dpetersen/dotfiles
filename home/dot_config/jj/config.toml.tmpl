@@ -6,10 +6,11 @@ email = {{ .email | quote }}
 
 [ui]
 default-command = "log"
-diff.tool = "delta"
+diff-formatter = "delta"
 diff-editor = ["nvim", "-c", "DiffEditor $left $right $output"]
 
 [revset-aliases]
+mylocalbookmarks = "bookmarks() & mine()"
 mylocal = "visible_heads() & mine()"
 
 [merge-tools.diffconflicts]
@@ -31,3 +32,26 @@ merge-tool-edits-conflict-markers = true
 [fix.tools.standardrb]
 command = ["bin/standardrb", "--fix", "--stdin", "$path", "--stderr"]
 patterns = ["glob:'**/*.rb'", "glob:'**/*.rake'"]
+
+# Source: https://www.aazuspan.dev/blog/til-configuring-jj-fix-with-ruff/
+[fix.tools.1-ruff-lint]
+command = [
+        "uv",
+        "run",
+        "ruff",
+        "check",
+        "--fix",
+        "--preview",
+        "--quiet",
+        "--stdin-filename=$path",
+        "-",
+]
+patterns = ["glob:'**/*.py'"]
+
+# Source: https://www.aazuspan.dev/blog/til-configuring-jj-fix-with-ruff/
+[fix.tools.2-ruff-format]
+command = ["uv", "run", "ruff", "format", "--stdin-filename=$path", "-"]
+patterns = ["glob:'**/*.py'"]
+
+[git]
+colocate = true
