@@ -25,6 +25,7 @@ return {
 				"taplo", -- for TOML (where the TOML follows a JSON schema)
 				"ruff",
 				"pyright",
+				"jdtls",
 			},
 		},
 	},
