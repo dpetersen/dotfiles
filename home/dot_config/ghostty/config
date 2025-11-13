@@ -3,4 +3,5 @@
 window-decoration = false
 
 # ghostty + list-themes to view them
+# Downloaded from: https://github.com/catppuccin/ghostty
 theme = catppuccin-macchiato
