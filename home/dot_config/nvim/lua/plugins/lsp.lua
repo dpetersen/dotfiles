@@ -153,7 +153,8 @@ return {
 				ruby = { "standardrb", timeout_ms = 5000 },
 				typescript = { "prettierd" },
 				typescriptreact = { "prettierd" },
-				rust = { "clippy" },
+				rust = { "rustfmt" },
+				python = { "ruff_fix", "ruff_format" },
 			},
 			format_on_save = {
 				lsp_format = "fallback",
