@@ -1,6 +1,7 @@
 {
   "permissions": {
     "allow": [
+      "Bash(jj log:*)",
       "Bash(jj status:*)",
       "Bash(jj diff:*)",
       "Bash(chezmoi diff:*)"
