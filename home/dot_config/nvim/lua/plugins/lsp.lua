@@ -85,22 +85,17 @@ return {
 		opts = {
 			completion = {
 				documentation = {
+					-- Show docs automatically when selecting a completion item
 					auto_show = true,
 				},
 			},
-			-- These are described here:
-			--
-			-- https://cmp.saghen.dev/configuration/keymap.html#default
-			--
-			-- Most are defaults, but a few helpful ones:
-			--
-			-- Ctrl-b/f scroll documentation
-			-- Ctrl-space force show completion window (useful for kicking copilot off)
-			-- Ctrl-e hide completion window
-			keymap = { preset = "default" },
+			-- Default keymap reference: https://cmp.saghen.dev/configuration/keymap.html
+			-- Ctrl-b/f: scroll documentation
+			-- Ctrl-space: force show completion window
+			-- Ctrl-e: hide completion window
 			appearance = {
+				-- Use nvim-cmp highlight groups for easier theme compatibility
 				use_nvim_cmp_as_default = true,
-				nerd_font_variant = "mono",
 				kind_icons = {
 					Copilot = "",
 				},
@@ -111,13 +106,16 @@ return {
 					copilot = {
 						name = "copilot",
 						module = "blink-copilot",
+						-- Prioritize copilot suggestions in the completion list
 						score_offset = 100,
 						async = true,
 					},
 				},
 			},
+			-- Show function signature help while typing arguments
 			signature = { enabled = true },
 		},
+		-- Allow other plugin specs to extend sources.default
 		opts_extend = { "sources.default" },
 	},
 	-- Provides link between blink and copilot.lua
