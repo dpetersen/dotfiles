@@ -5,7 +5,7 @@ name = "Don Petersen"
 email = {{ .email | quote }}
 
 [ui]
-default-command = "log"
+default-command = ["log", "--no-pager"]
 diff-formatter = "delta"
 diff-editor = ["nvim", "-c", "DiffEditor $left $right $output"]
 
