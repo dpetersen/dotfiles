@@ -27,6 +27,10 @@ fzf --fish | source
 # mode on conflicts with vim mode in weird ways, so the answer is to disable
 # vim mode altogether. Just get used to Alt-v.
 # 2020 Update: still not very good. Breaks Ctrl-e and all kinds of stuff.
+# 2025: We're trying it again! Or at least we would but it's failing with:
+#
+#     There is no fish_key_bindings function called: 'fish_vi_key_bindings'
+#
 # fish_vi_key_bindings
 
 switch (uname)
@@ -48,17 +52,17 @@ switch (uname)
     case Darwin
             [ -f /usr/local/Cellar/fish/2.7.1/share/fish/completions/cargo.fish ]; and source /usr/local/Cellar/fish/2.7.1/share/fish/completions/cargo.fish
     case '*'
-        set PATH $PATH /home/dpetersen/.cargo/bin
+        set PATH $PATH $HOME/.cargo/bin
 end
 
-set PATH $PATH /home/dpetersen/go/bin
+set PATH $PATH $HOME/go/bin
 # https://arslan.io/2019/08/02/why-you-should-use-a-go-module-proxy/
 export GOPROXY="https://proxy.golang.org"
 
 # The next line updates PATH for the Google Cloud SDK.
-[ -f '/home/dpetersen/google-cloud-sdk/path.fish.inc' ]; and source '/home/dpetersen/google-cloud-sdk/path.fish.inc'
+[ -f "$HOME/google-cloud-sdk/path.fish.inc" ]; and source "$HOME/google-cloud-sdk/path.fish.inc"
 ## The next line enables shell command completion for gcloud.
-#[ -f '/home/dpetersen/google-cloud-sdk/completion.fish.inc' ]; and source '/home/dpetersen/google-cloud-sdk/completion.fish.inc'
+#[ -f "$HOME/google-cloud-sdk/completion.fish.inc" ]; and source "$HOME/google-cloud-sdk/completion.fish.inc"
 
 alias startx="ssh-agent startx"
 
@@ -76,7 +80,7 @@ abbr -a g "gcloud"
 bind \ck "kubectx; commandline --function repaint"
 bind \cn "kubens; commandline --function repaint"
 
-set PATH $PATH /home/dpetersen/.krew/bin
+set PATH $PATH $HOME/.krew/bin
 abbr -a sterne "stern -Eistio -eokcomputer"
 abbr -a gs "git status"
 abbr -a gc "git checkout"
@@ -189,8 +193,8 @@ end
 # FIXME: Obviously this is a big no... but for now:
 export JAVA_HOME="/opt/homebrew/Cellar/openjdk@17/17.0.14/libexec/openjdk.jdk/Contents/Home"
 
-set PATH $PATH /home/dpetersen/Downloads/idea-IU-231.9161.38/bin/
-set PATH $PATH /Users/dpetersen/.docker/cli-plugins/
+set PATH $PATH $HOME/Downloads/idea-IU-231.9161.38/bin/
+set PATH $PATH $HOME/.docker/cli-plugins/
 
 # FIXME: this is not working as far as I can tell. I can find lots of people
 # using this variable online but no documentation of it with fd itself?
