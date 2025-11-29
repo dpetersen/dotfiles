@@ -1,6 +1,11 @@
 Sync dotfiles between Chezmoi and the destination.
 
-Run these commands to assess the current state:
+First, fetch and rebase onto the latest remote changes:
+
+1. `jj git fetch` - fetch latest from origin
+2. `jj rebase -d master@origin` - rebase local work onto remote master
+
+Then assess the current state:
 
 1. `jj status` and `jj diff` - uncommitted changes in Chezmoi
 2. `chezmoi diff` - differences between Chezmoi source and destination
