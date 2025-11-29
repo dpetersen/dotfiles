@@ -17,6 +17,7 @@ skip_notify = true
 # locally.
 # vim - I will decide when to update plugins
 # gem/ruby_gem - It's not helpful, since it's either installing new versions of something that will be locked in Bundler, or upgrading super outdated Mac system Ruby. Unsure of the difference between these two, also.
+# uv - I've installed it via a package manager and will upgrade it that way
 # pnpm - Don't know what this is but apparently I have it.
 # helm - It fails when you have no repositories, which I don't these days.
 disable = [
@@ -27,6 +28,7 @@ disable = [
         "vim",
         "gem",
         "ruby_gems",
+        "uv",
         "pnpm",
         "helm",
 ]
