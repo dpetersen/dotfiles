@@ -1,7 +1,17 @@
 return {
-	-- Super simple plugin that looks for poetry.lock files in your root
-	-- and sets the VIRTUAL_ENV appropriately. Makes it so I don't have
-	-- to `poetry run nvim` all the time.
-	"karloskar/poetry-nvim",
-	opts = {},
+	-- Detects and activates Python virtual environments from poetry, uv, pyenv, etc.
+	-- Remembers selection per directory and auto-activates on return.
+	-- Automatically updates pyright when you switch environments.
+	{
+		"linux-cultist/venv-selector.nvim",
+		dependencies = {
+			"neovim/nvim-lspconfig",
+			"nvim-telescope/telescope.nvim",
+		},
+		ft = "python",
+		keys = {
+			{ "<leader>fv", "<cmd>VenvSelect<cr>", desc = "Select Python virtualenv" },
+		},
+		opts = {},
+	},
 }
