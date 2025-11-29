@@ -1,5 +1,51 @@
 # Files that should never be managed by Chezmoi
 
+# macOS noise
+.DS_Store
+.Trash
+.CFUserTextEncoding
+
+# Shell history and state
+.bash_history
+.zsh_history
+.zsh_sessions
+.python_history
+.lesshst
+.wget-hsts
+.viminfo
+
+# Caches and generated files
+.cache
+
+# Credentials and secrets (never track these)
+.aws
+.ssh
+.gnupg
+.kube
+.docker
+.pgpass
+
+# Application state directories
+.local
+.npm
+.gem
+.cargo
+.rustup
+.volta
+.m2
+.vim
+.cursor
+.terraform.d
+.matplotlib
+.swiftpm
+.yarn
+
+# Claude - machine-specific state
+.claude.json
+.claude.json.*
+.claude/.DS_Store
+.claude/settings.json
+
 # Claude agents that are symlinks or project-specific
 .claude/agents/nojira-subagent.md
 
@@ -16,3 +62,37 @@
 .claude/shell-snapshots
 .claude/statsig
 .claude/todos
+
+# Chezmoi state (managed by chezmoi itself)
+.config/chezmoi
+
+# Tmux plugin git state (submodule noise)
+.tmux/plugins/*/.git
+.tmux/plugins/tpm/lib
+
+# Project-specific directories
+.nojira
+
+# Misc app state
+.krew
+.profile
+.yarnrc
+.envrc
+.zshrc
+
+# macOS system directories
+Applications
+Desktop
+Documents
+Downloads
+Library
+Movies
+Music
+Pictures
+Public
+
+# Dev/project directories
+claude
+dev
+go
+mcp
