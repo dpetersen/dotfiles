@@ -22,7 +22,6 @@ skip_notify = true
 # helm - It fails when you have no repositories, which I don't these days.
 disable = [
         "cargo",
-        "asdf",
         "containers",
         "chezmoi",
         "vim",

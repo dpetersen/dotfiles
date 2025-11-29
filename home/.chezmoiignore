@@ -101,3 +101,12 @@ mcp
 
 # Fish universal variables - auto-generated state that drifts constantly
 .config/fish/fish_variables
+
+# Fish plugins managed by fisher (see fish_plugins for the list)
+# These are installed to ~/.config/fish/ by `fisher update`
+
+# catppuccin/fish - Color theme files
+.config/fish/themes/Catppuccin Frappe.theme
+.config/fish/themes/Catppuccin Latte.theme
+.config/fish/themes/Catppuccin Macchiato.theme
+.config/fish/themes/Catppuccin Mocha.theme
