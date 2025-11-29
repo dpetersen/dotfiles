@@ -42,33 +42,10 @@ return {
 	-- Official plugin with prebuilt configurations for languages
 	{
 		"neovim/nvim-lspconfig",
-		dependencies = { "saghen/blink.cmp" },
 		config = function()
-			local capabilities = require("blink.cmp").get_lsp_capabilities()
-			local lspconfig = require("lspconfig")
-			lspconfig.lua_ls.setup({ capabilities = capabilities })
-			lspconfig.ruby_lsp.setup({ capabilities = capabilities })
-			lspconfig.gopls.setup({ capabilities = capabilities })
-			lspconfig.taplo.setup({ capabilities = capabilities })
-			lspconfig.ts_ls.setup({ capabilities = capabilities })
-			lspconfig.rust_analyzer.setup({ capabilities = capabilities })
-			lspconfig.ruff.setup({ capabilities = capabilities })
-			-- Many of these settings to play nice with Ruff come from:
-			-- https://docs.astral.sh/ruff/editors/setup/#neovim
-			lspconfig.pyright.setup({
-				settings = {
-					pyright = {
-						-- Using Ruff's import organizer
-						disableOrganizeImports = true,
-					},
-					-- python = {
-					-- 	analysis = {
-					-- 		-- Ignore all files for analysis to exclusively use Ruff for linting
-					-- 		ignore = { "*" },
-					-- 	},
-					-- },
-				},
-			})
+			-- Enable ruby_lsp manually since it's not in mason's ensure_installed
+			-- (managed by the Ruby ecosystem instead)
+			vim.lsp.enable("ruby_lsp")
 
 			-- If you're ever curious about what an LSP supports, you can do:
 			--
