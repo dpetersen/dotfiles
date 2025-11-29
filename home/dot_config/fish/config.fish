@@ -1,5 +1,14 @@
 fish_config theme choose "Catppuccin Macchiato"
 
+# FZF Catppuccin Macchiato theme
+# https://github.com/catppuccin/fzf/blob/main/themes/catppuccin-fzf-macchiato.fish
+set -Ux FZF_DEFAULT_OPTS "\
+--color=bg+:#363a4f,bg:#24273a,spinner:#f4dbd6,hl:#ed8796 \
+--color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6 \
+--color=marker:#b7bdf8,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796 \
+--color=selected-bg:#494d64 \
+--multi"
+
 # I install this in environments where RVM is used, so if it exists this
 # triggers the autoloading of the function that will make rvm auto-switching
 # work properly when I move around in directories. The inner test here is
@@ -176,11 +185,11 @@ end
 
 eval (starship init fish)
 
-if status --is-interactive
-and not set -q TMUX
-and set -q DISPLAY
-  exec tmux
-end
+# if status --is-interactive
+# and not set -q TMUX
+# and set -q DISPLAY
+#   exec tmux
+# end
 
 export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
 

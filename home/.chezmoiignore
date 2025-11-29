@@ -98,3 +98,6 @@ claude
 dev
 go
 mcp
+
+# Fish universal variables - auto-generated state that drifts constantly
+.config/fish/fish_variables
