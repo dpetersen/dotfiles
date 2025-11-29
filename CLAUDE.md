@@ -21,7 +21,8 @@ Chezmoi uses naming prefixes in the source directory:
 
 - `dot_` becomes `.` (e.g., `dot_config` → `.config`)
 - `private_` sets restrictive permissions
-- `.tmpl` suffix indicates a Go template
+- `.tmpl` suffix indicates a Go template (these cannot be re-added with
+  `chezmoi re-add`; edit the source file directly instead)
 
 ## Sync Workflow
 
@@ -48,10 +49,11 @@ jj diff
 chezmoi diff <specific-file>
 ```
 
-The diff output shows what `chezmoi apply` would do. A line prefixed with
-`-` exists in destination but not in Chezmoi source (would be deleted).
-A line prefixed with `+` exists in Chezmoi source but not destination
-(would be added).
+The diff output shows what `chezmoi apply` would do:
+- Lines prefixed with `-` exist in **destination** (would be removed by apply)
+- Lines prefixed with `+` exist in **Chezmoi source** (would be added by apply)
+
+In other words: `-` is current state, `+` is what Chezmoi wants to write.
 
 ### Priority Order
 
