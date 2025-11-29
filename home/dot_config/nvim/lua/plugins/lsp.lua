@@ -128,7 +128,16 @@ return {
 		-- :Copilot auth
 		--
 		-- To authenticate with Github and enable these completions.
-		dependencies = { "zbirenbaum/copilot.lua", opts = {} },
+		dependencies = {
+			{
+				"zbirenbaum/copilot.lua",
+				opts = {
+					-- Disable native suggestion/panel to use blink-copilot instead
+					suggestion = { enabled = false },
+					panel = { enabled = false },
+				},
+			},
+		},
 	},
 	-- LSP-aware formatting with easily configurable format-on-save
 	{
