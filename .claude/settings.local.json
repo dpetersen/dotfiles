@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(jj status:*)",
+      "Bash(jj diff:*)",
+      "Bash(chezmoi diff:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
