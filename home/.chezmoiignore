@@ -1,0 +1,18 @@
+# Files that should never be managed by Chezmoi
+
+# Claude agents that are symlinks or project-specific
+.claude/agents/nojira-subagent.md
+
+# Claude runtime/state directories
+.claude/debug
+.claude/file-history
+.claude/history.jsonl
+.claude/ide
+.claude/local
+.claude/plans
+.claude/plugins
+.claude/projects
+.claude/session-env
+.claude/shell-snapshots
+.claude/statsig
+.claude/todos
