@@ -74,6 +74,8 @@
 .nojira
 
 # Misc app state
+.config/pgcli/history
+.config/pgcli/log
 .krew
 .profile
 .yarnrc
