@@ -24,14 +24,18 @@
 .kube
 .docker
 .pgpass
+.claude/.credentials.json
+.config/gh/hosts.yml
 
 # Application state directories (but not .local/bin which has user scripts)
+.local/bin/claude
 .local/share
 .local/state
 .npm
 .gem
 .cargo
 .rustup
+.rbenv
 .volta
 .m2
 .vim
