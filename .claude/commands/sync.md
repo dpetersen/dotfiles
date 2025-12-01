@@ -22,10 +22,10 @@ stage - the goal is to have `chezmoi diff` clean before pulling.
 ## Step 3: Fetch and rebase if needed
 
 1. `jj git fetch` - fetch latest from origin
-2. Check if rebase is needed by comparing local to `master@origin`:
-   - If working copy is empty and already on master, skip rebase
-   - If there are local non-empty commits not in master, run
-     `jj rebase -d master@origin`
+2. Check if rebase is needed by comparing local to `main@origin`:
+   - If working copy is empty and already on main, skip rebase
+   - If there are local non-empty commits not in main, run
+     `jj rebase -d main@origin`
 
 ## Step 4: Prepare for new work
 
