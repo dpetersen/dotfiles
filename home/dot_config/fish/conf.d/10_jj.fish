@@ -1,10 +1,3 @@
-# This is the default path on non-OSX, but on OSX it's stored
-# somewhere weird by default and I need it consistent for
-# Chezmoi.
-if is_macos
-    set -gx JJ_CONFIG $HOME/.config/jj/config.toml
-end
-
 if status is-interactive
     jj util completion fish | source
 
