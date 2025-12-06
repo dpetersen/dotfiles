@@ -8,13 +8,17 @@ Sync dotfiles between Chezmoi and the destination.
 
 ## Step 2: Get local clean
 
-Resolve any chezmoi differences before fetching remote changes:
+Resolve any chezmoi differences before fetching remote changes.
 
-- **Apply Chezmoi to destination**: `chezmoi apply [file]` for specific files
-  or directories where Chezmoi should win
-- **Re-add from destination**: `chezmoi re-add [file]` for files where the
-  destination version should be pulled into Chezmoi
-- **Mixed**: Some files may need apply, others re-add
+**CRITICAL: Before running `chezmoi apply` or `chezmoi re-add`, you MUST:**
+1. Show the user the `chezmoi diff` output for each file
+2. Explain what's in source vs destination for each file
+3. Ask the user which direction to sync each file
+4. Wait for explicit confirmation before proceeding
+
+Sync options (can mix per-file):
+- **Apply Chezmoi to destination**: `chezmoi apply [file]` - source wins
+- **Re-add from destination**: `chezmoi re-add [file]` - destination wins
 
 Help organize changes into logical commits. Even WIP commits are fine at this
 stage - the goal is to have `chezmoi diff` clean before pulling.

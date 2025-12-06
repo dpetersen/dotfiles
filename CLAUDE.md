@@ -55,6 +55,30 @@ The diff output shows what `chezmoi apply` would do:
 
 In other words: `-` is current state, `+` is what Chezmoi wants to write.
 
+### CRITICAL: Choosing Between Apply and Re-add
+
+**NEVER run `chezmoi re-add` or `chezmoi apply` without explicitly confirming
+with the user which direction the sync should go.** Getting this wrong
+overwrites data in one direction or the other, potentially losing work.
+
+Before syncing, always:
+1. Show the user the `chezmoi diff` output for each file with differences
+2. Explain which versions are in source vs destination
+3. Ask: "Should I apply (source → destination) or re-add (destination → source)?"
+4. Wait for explicit confirmation before proceeding
+
+Both commands accept specific file paths, allowing selective syncing:
+- `chezmoi apply ~/.config/app/foo.json` - apply only this file
+- `chezmoi re-add ~/.config/app/bar.json` - re-add only this file
+
+This allows different files to sync in different directions based on where
+the authoritative version lives.
+
+When remote changes exist (after `jj git fetch`), be especially careful:
+- Remote may have newer versions that should be applied to destination
+- Or destination may have local changes that should be preserved
+- **Always ask before deciding the sync direction for each file**
+
 ### Priority Order
 
 1. First, check for uncommitted Chezmoi changes via `jj status`/`jj diff`
