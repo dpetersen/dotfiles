@@ -14,7 +14,7 @@ if status is-interactive
     bind \cj __zoxide_zi_widget
     bind -M insert \cj __zoxide_zi_widget
 
-    # Ctrl-k: like Ctrl-j but scoped to directories under cwd.
+    # Ctrl-o: like Ctrl-j but scoped to directories under cwd.
     # You'd think this was built into zoxide, but its queries aren't very fuzzy.
     function __zoxide_zi_local_widget
         set -l buf (commandline)
@@ -27,6 +27,6 @@ if status is-interactive
         commandline -f repaint
     end
 
-    bind \ck __zoxide_zi_local_widget
-    bind -M insert \ck __zoxide_zi_local_widget
+    bind \co __zoxide_zi_local_widget
+    bind -M insert \co __zoxide_zi_local_widget
 end
