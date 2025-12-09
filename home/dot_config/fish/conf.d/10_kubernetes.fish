@@ -11,5 +11,7 @@ if status is-interactive
 
     # Hotkeys for switching context and namespace
     bind \ck "kubectx; commandline --function repaint"
+    bind -M insert \ck "kubectx; commandline --function repaint"
     bind \cn "kubens; commandline --function repaint"
+    bind -M insert \cn "kubens; commandline --function repaint"
 end
