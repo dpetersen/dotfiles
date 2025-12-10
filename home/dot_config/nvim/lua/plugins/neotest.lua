@@ -40,6 +40,8 @@ return {
 						end,
 					}),
 					require("neotest-python"),
+					-- This plugin is not in the deps because it providers more than just a neotest adapter
+					require("rustaceanvim.neotest"),
 				},
 			})
 
