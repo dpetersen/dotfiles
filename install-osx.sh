@@ -25,4 +25,6 @@ brew install \
         wget \
         watch \
         zellij \
-        hl
+        hl \
+        dust \
+        btop
