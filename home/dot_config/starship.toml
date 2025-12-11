@@ -1,6 +1,8 @@
 # Get editor completions based on the config schema
 "$schema" = 'https://starship.rs/config-schema.json'
 
+format = '${custom.jj}$all'
+
 # Don't print a new line at the start of the prompt
 add_newline = false
 
@@ -36,9 +38,6 @@ threshold = 50
 success_symbol = "[[󰄛](green) ❯](peach)"
 error_symbol = "[[󰄛](red) ❯](peach)"
 vimcmd_symbol = "[󰄛 ❮](subtext1)"        # For use with zsh-vi-mode
-
-[git_branch]
-style = "bold mauve"
 
 # Palette definitions from:
 # https://github.com/catppuccin/starship
@@ -153,3 +152,48 @@ surface0 = "#313244"
 base = "#1e1e2e"
 mantle = "#181825"
 crust = "#11111b"
+
+# This comes from JJ's own page on Starship:
+# https://github.com/starship/starship/issues/6076
+#
+# The starship-jj way seems more efficient but I could not get it to compile on
+# my work machine (with zscaler, which might be the culprit...). This method
+# requires no additional tools, which is nice.
+[custom.jj]
+description = "The current jj status"
+when = "jj --ignore-working-copy root"
+shell = ["sh", "--norc", "--noprofile"]
+symbol = "🥋 "
+command = '''
+jj log --revisions @ --no-graph --ignore-working-copy --color always --limit 1 --template '
+  separate(" ",
+    change_id.shortest(4),
+    bookmarks,
+    "|",
+    concat(
+      if(conflict, "💥"),
+      if(divergent, "🚧"),
+      if(hidden, "👻"),
+      if(immutable, "🔒"),
+    ),
+    raw_escape_sequence("\x1b[1;32m") ++ if(empty, "(empty)"),
+    raw_escape_sequence("\x1b[1;32m") ++ coalesce(
+      truncate_end(29, description.first_line(), "…"),
+      "(no description set)",
+    ) ++ raw_escape_sequence("\x1b[0m"),
+  )
+'
+'''
+
+# The JJ Starship page above offers an automatic fallback for git, but I found
+# it to be extremely slow (500ms!). I just don't work in Git repos anymore, so
+# I'm not losing anything. If I have a git repo, I'm probably not using it in a
+# way that a prompt is particularly needed.
+[git_status]
+disabled = true
+[git_commit]
+disabled = true
+[git_metrics]
+disabled = true
+[git_branch]
+disabled = true
