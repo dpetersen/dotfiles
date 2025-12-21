@@ -9,7 +9,21 @@ jj git clone --colocate https://github.com/dpetersen/dotfiles ~/.local/share/che
 chezmoi init --apply
 ```
 
-For a headless install, look at all the promptable items in `home/.chezmoi.toml.tmpl` and pass values for them.
+For a headless install, look at all the promptable items in `home/.chezmoi.toml.tmpl` and pass values for them. You can pass these on the command line:
+
+```bash
+chezmoi init --promptString email=you@example.com
+```
+
+## macOS Setup
+
+Install dependencies from `install-osx.sh` (review and run the brew install commands).
+
+After `chezmoi apply`, install fish plugins:
+
+```bash
+fish -c "fisher install < ~/.config/fish/fish_plugins"
+```
 
 ## Generating Arch Package List
 

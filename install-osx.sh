@@ -27,4 +27,6 @@ brew install \
         zellij \
         hl \
         dust \
-        btop
+        btop \
+	zoxide \
+	fisher
