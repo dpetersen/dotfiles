@@ -10,6 +10,8 @@
 .zsh_history
 .zsh_sessions
 .python_history
+.psql_history
+.irb_history
 .lesshst
 .wget-hsts
 .viminfo
@@ -85,6 +87,15 @@
 .profile
 .yarnrc
 .envrc
+
+# Non-Fish shell configuration
+.bash_profile
+.bashrc
+.fzf.bash
+.fzf.zsh
+.zcompdump
+.zprofile
+.zshenv
 .zshrc
 
 # macOS system directories
