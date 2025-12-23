@@ -5,4 +5,8 @@ if status is-interactive
         helm registry login \
         --username AWS \
         --password-stdin 283241578630.dkr.ecr.us-east-1.amazonaws.com'
+
+
+    # So secure
+    export NODE_EXTRA_CA_CERTS=$HOME/.config/certs/zscaler-ca.pem
 end
