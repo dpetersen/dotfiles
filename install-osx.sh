@@ -17,16 +17,23 @@ brew install \
         go \
         rust \
         topgrade \
-        delta \
+        git-delta \
         ripgrep \
         fd \
         bat \
-        jq \
         wget \
         watch \
         zellij \
         hl \
         dust \
         btop \
-	zoxide \
-	fisher
+        chezmoi \
+        fisher \
+        gh \
+        grep \
+        lynx \
+        mise \
+        pgcli \
+        tree-sitter \
+        yq \
+        zoxide
