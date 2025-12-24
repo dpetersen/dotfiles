@@ -53,6 +53,7 @@
 .claude/.DS_Store
 .claude/stats-cache.json
 .claude/telemetry
+.claude/tmux-sessions
 
 # Claude agents that are symlinks or project-specific
 .claude/agents/nojira-subagent.md

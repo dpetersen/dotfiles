@@ -1,0 +1,29 @@
+#!/bin/bash
+# Fork current pane's Claude session into a new split/window
+# Usage: claude-fork-session [-h|-v|-w]
+#   -h  horizontal split (default)
+#   -v  vertical split
+#   -w  new window
+
+SPLIT_CMD="split-window -h"  # default: horizontal
+
+while getopts "hvw" opt; do
+  case $opt in
+    h) SPLIT_CMD="split-window -h" ;;
+    v) SPLIT_CMD="split-window -v" ;;
+    w) SPLIT_CMD="new-window" ;;
+  esac
+done
+
+MAPPING_DIR="$HOME/.claude/tmux-sessions"
+CURRENT_PANE=$(tmux display-message -p '#{pane_id}')
+SESSION_FILE="$MAPPING_DIR/$CURRENT_PANE"
+
+if [ ! -f "$SESSION_FILE" ]; then
+  tmux display-message "No Claude session in current pane"
+  exit 1
+fi
+
+SESSION_ID=$(jq -r '.session_id' "$SESSION_FILE")
+CWD=$(jq -r '.cwd' "$SESSION_FILE")
+tmux $SPLIT_CMD "cd '$CWD' && claude --resume '$SESSION_ID' --fork-session"
