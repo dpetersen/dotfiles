@@ -27,6 +27,12 @@ merge-args = [
 ]
 merge-tool-edits-conflict-markers = true
 
+# Delta exits with code 1 when differences exist (standard diff behavior).
+# Without this, jj shows a warning after every diff command.
+# https://github.com/jj-vcs/jj/issues/5250
+[merge-tools.delta]
+diff-expected-exit-codes = [0, 1]
+
 # This does have a bug where it will format schema.rb. I'm not sure there's an
 # easy way to fix this with JJ's current capabilities.
 [fix.tools.standardrb]
