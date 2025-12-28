@@ -1,3 +1,4 @@
+{{- if hasSuffix "@datavant.com" .email }}
 if status is-interactive
     abbr -a dvawslogin "aws sso login --sso-session onedatavant"
     abbr -a dvawshelmlogin \
@@ -10,3 +11,4 @@ if status is-interactive
     # So secure
     export NODE_EXTRA_CA_CERTS=$HOME/.config/certs/zscaler-ca.pem
 end
+{{- end }}
