@@ -4,7 +4,6 @@
     "gopls-lsp@claude-plugins-official": true,
     "jdtls-lsp@claude-plugins-official": true
   },
-  "skipWebFetchPreflight": true,
   "feedbackSurveyState": {
     "lastShownTime": 1754067880487
   },
