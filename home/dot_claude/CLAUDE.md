@@ -54,6 +54,62 @@ I ensure my code conforms to the Ruff linter, and has no warnings in PyRight.
 
 I don't use PyDoc on implementation code, unless working on a codebase that already uses it.
 
+## Scripting
+
+For one-off scripts, prefer Rust using cargo script (nightly). Rust's expressiveness (iterators, `Option`/`Result` combinators, pattern matching) makes it well-suited for concise yet strongly-typed scripts, even when third-party libraries are involved.
+
+### Rust Scripts (Preferred)
+
+Use cargo script with the `---cargo` frontmatter for dependencies:
+
+```rust
+#!/usr/bin/env -S cargo +nightly -Zscript
+---cargo
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+---
+
+use serde_json::Value;
+
+fn main() {
+    // ...
+}
+```
+
+Make executable with `chmod +x script.rs`, then run with `./script.rs`.
+
+### Go Scripts (Alternative)
+
+Use Go when you want stable tooling or prefer its simplicity. Use the "fake shebang" technique:
+
+```go
+/*/ 2>/dev/null; go run "$0" "$@"; exit; */
+package main
+```
+
+This works because:
+- The shell tries to execute `/*/` (fails silently with stderr redirected)
+- Then runs `go run "$0" "$@"` using `go` from PATH
+- `exit` prevents shell from parsing the rest as shell script
+- The line is a valid Go block comment, so `go build` and `gopls` are happy
+
+Make executable with `chmod +x script.go`, then run with `./script.go`.
+
+### Python Scripts
+
+Use Python with `uv` when you need Python-specific libraries or ecosystems:
+
+```python
+#!/usr/bin/env -S uv run
+# /// script
+# dependencies = ["requests", "rich"]
+# ///
+
+import requests
+from rich import print
+```
+
 # Kubernetes
 
 I may periodically ask you to run commands in Kubernetes. You are allowlisted for safe commands in this ecosystem like the `kubectl` subcommands: get, describe, rollout status, logs. Similarly for `helm template`. You can also, with my permission, run more dangerous commands like `kubectl exec` and `helm upgrade`.
