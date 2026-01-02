@@ -40,6 +40,7 @@ brew "ast-grep"
 
 cask "1password"
 cask "arc"
+cask "font-fira-code"
 cask "ghostty"
 cask "google-chrome"
 cask "obsidian"
