@@ -37,6 +37,7 @@ brew "tree-sitter"
 brew "yq"
 brew "zoxide"
 brew "ast-grep"
+brew "uv"
 
 cask "1password"
 cask "arc"
