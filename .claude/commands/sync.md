@@ -38,3 +38,16 @@ Ensure we end on an empty commit ready for new work:
 - If the current commit has changes and a proper description, run `jj new`
 - Exception: if the latest commit is clearly WIP, leave it as-is so the user
   can continue working on it
+
+## Step 5: Push completed work
+
+If there are local commits ahead of `main@origin` that aren't WIP:
+1. Move the main bookmark: `jj bookmark move main --to @-` (or appropriate commit)
+2. Push to remote: `jj git push`
+
+Skip this step if:
+- The only local commits are WIP (no description, or description contains "WIP")
+- The user explicitly said not to push
+- There are no new commits to push
+
+This step happens automatically - most syncs should end with local changes pushed.
