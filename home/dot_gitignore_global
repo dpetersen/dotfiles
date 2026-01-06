@@ -7,3 +7,4 @@ NOCOMMIT*
 # that sweet, sweet Rust debugger
 .vscode
 .idea
+**/.claude/settings.local.json
