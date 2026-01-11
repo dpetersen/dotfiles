@@ -61,6 +61,13 @@ In other words: `-` is current state, `+` is what Chezmoi wants to write.
 with the user which direction the sync should go.** Getting this wrong
 overwrites data in one direction or the other, potentially losing work.
 
+**NEVER use `--force` unless you know it's required.** Try without it first.
+Chezmoi only prompts for confirmation when the destination file has changed
+since it last wrote it. If a command fails because one file needs `--force`,
+ask the user for confirmation before retrying with `--force`, and break the
+command into multiple invocations to only force the specific file(s) that
+require it.
+
 Before syncing, always:
 1. Show the user the `chezmoi diff` output for each file with differences
 2. Explain which versions are in source vs destination
