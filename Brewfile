@@ -38,6 +38,7 @@ brew "yq"
 brew "zoxide"
 brew "ast-grep"
 brew "uv"
+brew "mas"
 
 cask "1password"
 cask "arc"
@@ -46,7 +47,7 @@ cask "ghostty"
 cask "google-chrome"
 cask "obsidian"
 cask "raycast"
-cask "session"
+mas "Session - Pomodoro Focus Timer", id: 1521432881
 cask "shortcat"
 cask "tidal"
 
