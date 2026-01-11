@@ -1,5 +1,7 @@
-def datavant?
-  `scutil --get ComputerName`.strip.start_with?("DV-")
+# vim: set ft=ruby :
+
+def launch_darkly?
+  `scutil --get ComputerName`.strip == "Don’s MacBook Pro"
 end
 
 brew "node"  # Nvim copilot.lua needs this
@@ -27,6 +29,7 @@ brew "hl"
 brew "dust"
 brew "btop"
 brew "chezmoi"
+brew "fish"
 brew "fisher"
 brew "gh"
 brew "grep"
@@ -38,25 +41,26 @@ brew "yq"
 brew "zoxide"
 brew "ast-grep"
 brew "uv"
-brew "mas"
 
-cask "1password"
 cask "arc"
 cask "font-fira-code"
 cask "ghostty"
-cask "google-chrome"
 cask "obsidian"
 cask "raycast"
-mas "Session - Pomodoro Focus Timer", id: 1521432881
 cask "shortcat"
 cask "tidal"
+cask "superwhisper"
 
-cask "superwhisper" unless datavant?  # Blocked by Zscaler
+brew "mas"
+mas "Session - Pomodoro Focus Timer", id: 1521432881
 
-if datavant?
-  cask "cursor"
-  cask "docker-desktop"
-  cask "intellij-idea"
+if !launch_darkly?
+
+  # These already come installed
+  cask "1password"
+  cask "google-chrome"
+end
+
+if launch_darkly?
   cask "loom"
-  cask "microsoft-outlook"
 end

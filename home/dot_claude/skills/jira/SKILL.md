@@ -1,6 +1,6 @@
 ---
 name: jira
-description: MANDATORY skill for ANY acli jira command. YOU MUST use this skill for ALL Jira queries - both initial searches AND follow-up queries. NEVER run acli jira commands directly outside this skill. This includes viewing tickets, comments, attachments, sprints, boards, searches, and ANY other acli jira operation. Examples requiring this skill - "show my tickets", "what's in HEAL-123?", "show comments", "list sprint items". CRITICAL - commands are allowlisted in this skill but NOT outside it, so running them directly will require permission prompts.
+description: MANDATORY skill for ANY acli jira command. YOU MUST use this skill for ALL Jira queries - both initial searches AND follow-up queries. NEVER run acli jira commands directly outside this skill. This includes viewing tickets, comments, attachments, sprints, boards, searches, and ANY other acli jira operation. Examples requiring this skill - "show my tickets", "what's in EXPL-123?", "show comments", "list sprint items". CRITICAL - commands are allowlisted in this skill but NOT outside it, so running them directly will require permission prompts.
 allowed-tools: Bash(acli jira auth status:*), Bash(acli jira workitem search:*), Bash(acli jira workitem view:*), Bash(acli jira workitem comment list:*), Bash(acli jira workitem attachment list:*), Bash(acli jira board search:*), Bash(acli jira board list-sprints:*), Bash(acli jira sprint list-workitems:*)
 ---
 
@@ -17,12 +17,12 @@ Query and read Jira issues using the Atlassian CLI (ACLI).
 
 **When to use this skill:**
 - Initial queries: "Show my assigned tickets"
-- Follow-up queries: "What's in HEAL-123?"
+- Follow-up queries: "What's in EXPL-123?"
 - Viewing details: "Show me the description"
 - Reading comments: "What are the comments?"
 - Listing attachments: "Are there attachments?"
 - Sprint queries: "What's in the current sprint?"
-- Board searches: "Find the HEAL board"
+- Board searches: "Find the EXPL board"
 - ANY other acli jira operation
 
 **This skill remains active for the entire Jira conversation** - once you start using it, continue using it for all subsequent Jira queries in the same conversation.
@@ -61,10 +61,10 @@ acli jira workitem search --jql "assignee = currentUser()" --fields "key,summary
 acli jira workitem search --jql "assignee = currentUser() AND status = 'In Progress'"
 
 # Assigned to me in a specific project
-acli jira workitem search --jql "assignee = currentUser() AND project = HEAL"
+acli jira workitem search --jql "assignee = currentUser() AND project = EXPL"
 
 # Unassigned stories in a project
-acli jira workitem search --jql "assignee is EMPTY AND project = HEAL AND issuetype = Story"
+acli jira workitem search --jql "assignee is EMPTY AND project = EXPL AND issuetype = Story"
 
 # High priority issues assigned to me
 acli jira workitem search --jql "assignee = currentUser() AND priority = High"
@@ -86,42 +86,42 @@ acli jira workitem search --jql "assignee = currentUser() AND priority = High"
 
 ```bash
 # View with default fields (key, issuetype, summary, status, assignee, description)
-acli jira workitem view HEAL-123
+acli jira workitem view EXPL-123
 
 # View specific fields
-acli jira workitem view HEAL-123 --fields "summary,description,status,assignee"
+acli jira workitem view EXPL-123 --fields "summary,description,status,assignee"
 
 # View all fields in JSON
-acli jira workitem view HEAL-123 --fields '*all' --json
+acli jira workitem view EXPL-123 --fields '*all' --json
 
 # View all except comments
-acli jira workitem view HEAL-123 --fields '*all,-comment'
+acli jira workitem view EXPL-123 --fields '*all,-comment'
 
 # Open in web browser
-acli jira workitem view HEAL-123 --web
+acli jira workitem view EXPL-123 --web
 ```
 
 ### List Comments
 
 ```bash
 # List all comments on an issue
-acli jira workitem comment list --key HEAL-123 --paginate
+acli jira workitem comment list --key EXPL-123 --paginate
 
 # List recent 10 comments in JSON
-acli jira workitem comment list --key HEAL-123 --limit 10 --json
+acli jira workitem comment list --key EXPL-123 --limit 10 --json
 
 # Order by most recent first
-acli jira workitem comment list --key HEAL-123 --order "-created" --paginate
+acli jira workitem comment list --key EXPL-123 --order "-created" --paginate
 ```
 
 ### List Attachments
 
 ```bash
 # List attachments on an issue
-acli jira workitem attachment list --key HEAL-123
+acli jira workitem attachment list --key EXPL-123
 
 # List attachments in JSON
-acli jira workitem attachment list --key HEAL-123 --json
+acli jira workitem attachment list --key EXPL-123 --json
 ```
 
 Note: To view or download attachments/images, you'll need to use the issue's web view (`--web` flag) or access them through the Atlassian UI.
@@ -137,7 +137,7 @@ Sprint queries require both a board ID and sprint ID. **Check the project's CLAU
 acli jira board search --paginate
 
 # Search boards by project
-acli jira board search --project HEAL
+acli jira board search --project EXPL
 
 # Search scrum boards
 acli jira board search --type scrum --json
@@ -211,7 +211,7 @@ priority IN (High, Highest)
 ```jql
 status = 'To Do' AND assignee is EMPTY
 status = 'In Progress' AND assignee = currentUser()
-project = HEAL AND issuetype = Story AND status IN ('To Do', 'Ready for Dev')
+project = EXPL AND issuetype = Story AND status IN ('To Do', 'Ready for Dev')
 ```
 
 ## Output Formats
@@ -224,7 +224,7 @@ Example:
 ```
 Type  Key       Assignee                   Priority  Status  Summary
 ────────────────────────────────────────────────────────────────────
-Bug   HEAL-411  donald.petersen@datavant…  Medium    Done    Fix duplicate records
+Bug   EXPL-411  user@example.com           Medium    Done    Fix duplicate records
 ```
 
 ### JSON Format
@@ -235,7 +235,7 @@ Example:
 ```json
 [
   {
-    "key": "HEAL-411",
+    "key": "EXPL-411",
     "fields": {
       "issuetype": {"name": "Bug"},
       "assignee": {"displayName": "Donald Petersen"},
@@ -254,7 +254,7 @@ Spreadsheet-compatible format. Use `--csv` flag (available on most commands).
 ## Project-Specific Configuration
 
 **IMPORTANT**: Always check the project's `CLAUDE.md` file for:
-- Relevant Jira project keys (e.g., HEAL, ROIP, ROIO)
+- Relevant Jira project keys (e.g., EXPL, TEST2, TEST1)
 - Board IDs for sprint queries
 - Project-specific conventions and status names
 
@@ -268,12 +268,12 @@ The board ID is required for sprint queries and should be documented in each pro
 acli jira workitem search --jql "assignee = currentUser() AND issuetype = Story" --paginate
 ```
 
-### "What's in HEAL-123?"
+### "What's in EXPL-123?"
 
 ```bash
-acli jira workitem view HEAL-123
-acli jira workitem comment list --key HEAL-123 --paginate
-acli jira workitem attachment list --key HEAL-123
+acli jira workitem view EXPL-123
+acli jira workitem comment list --key EXPL-123 --paginate
+acli jira workitem attachment list --key EXPL-123
 ```
 
 ### "List unassigned stories in the current sprint"
@@ -286,8 +286,8 @@ acli jira board list-sprints --id BOARD_ID --state active
 acli jira sprint list-workitems --board BOARD_ID --sprint SPRINT_ID --jql "assignee is EMPTY AND issuetype = Story"
 ```
 
-### "Show me all high-priority bugs in HEAL"
+### "Show me all high-priority bugs in EXPL"
 
 ```bash
-acli jira workitem search --jql "project = HEAL AND issuetype = Bug AND priority = High" --paginate
+acli jira workitem search --jql "project = EXPL AND issuetype = Bug AND priority = High" --paginate
 ```
