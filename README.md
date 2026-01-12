@@ -5,6 +5,7 @@ My dotfiles, in a format suitable for Chezmoi.
 I'm generally usuing jj instead of git, but that isn't particularly well-supported in Chezmoi. To get started, run:
 
 ```bash
+brew install jj chezmoi
 jj git clone --colocate https://github.com/dpetersen/dotfiles ~/.local/share/chezmoi
 chezmoi init --apply
 ```
