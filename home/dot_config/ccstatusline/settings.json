@@ -17,6 +17,15 @@
         "color": "brightBlack"
       },
       {
+        "id": "b113c451-71e6-4af6-891d-fba3436683d4",
+        "type": "separator",
+        "character": "-"
+      },
+      {
+        "id": "61d1523a-91c0-41df-b01b-490f35b4fcae",
+        "type": "session-cost"
+      },
+      {
         "id": "4",
         "type": "separator"
       },
